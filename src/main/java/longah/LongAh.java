@@ -11,6 +11,7 @@ import longah.node.Group;
 import longah.exception.ExceptionMessage;
 import longah.exception.LongAhException;
 import longah.handler.InputHandler;
+import longah.handler.UI;
 import longah.commands.Command;
 
 /**
@@ -44,8 +45,8 @@ public class LongAh {
         }
 
         LongAhLogger.log(Level.INFO, "Starting Pre-program preparations.");
-        System.out.println("Welcome to LongAh!");
         LongAh app = new LongAh();
+        UI.showWelcomeMessage();
         try {
             LongAhLogger.log(Level.INFO, "Loading previous member and transaction info.");
             group = new Group("group"); // Give a temporary name for now
