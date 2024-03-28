@@ -94,7 +94,7 @@ Given below is an example usage scenario and how this mechanism behaves at every
 
 The Class diagram for Calories delete feature is shown below:
 
-![CaloriesDeleteClassDiagram](docs/caloriesDeleteUML.jpg)
+![CaloriesDeleteClassDiagram]([docs/caloriesDeleteUML.jpg](https://github.com/a-wild-chocolate/tp/blob/master/docs/caloriesDeleteUML.jpg))
 
 ## Product scope
 ### Target user profile
