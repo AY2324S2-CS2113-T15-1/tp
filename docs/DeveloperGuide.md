@@ -20,7 +20,7 @@ the string is sent to `CalorieList#addEntry(String)`, which calls `ParserCalorie
 
 - Step 3: The created `InputEntry` instance is added into the `ArrayList<Entry>` attribute of the `CalorieList`.
 
-### Calculating calorie requirements based on a user's goals
+### Calculating calorie requirements based on a user`s goals
 
 #### Implementation
 
@@ -33,11 +33,11 @@ Given below is an example usage scenario and how this mechanism behaves at every
 - Step 1: When the user inputs the command `user progress` in the terminal,
   the string is sent to `User#getHealthInfo()`, which calls `UserGoals#getHealthInfo(User)`.
 
-- Step 2: The method retrieves the user's information such as his height, weight, age, gender, exercise levels and intended goal.
+- Step 2: The method retrieves the user`s information such as his height, weight, age, gender, exercise levels and intended goal.
 
 - Step 3: Using these information, the method creates a `requestBody` `String`. 
 
-- Step 4: The created `requestBody` is used to send a `HttpRequest` to RapidAPI's Fitness API, and the response is parsed to determine the number of calories a user needs to consume according to their personal goals.
+- Step 4: The created `requestBody` is used to send a `HttpRequest` to RapidAPI`s Fitness API, and the response is parsed to determine the number of calories a user needs to consume according to their personal goals.
 
 - Step 5: This value is set to `User.caloriesRequired` by `User#setCaloriesRequired(int)`.
 
@@ -75,6 +75,26 @@ The `printCalorieList()` function iterates through the `calorieArrayList` and pr
 The Class diagram for Calories list feature is shown below. Unrelated attributes and Classes were excluded.
 
 ![CaloriesListClassDiagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/rexyyong/tp/DevGuideRex/docs/CaloriesListClassDiagram.puml)
+
+### Calories delete feature
+
+The `calories delete` feature can delete the calories record at specific index of calorie list. This functionality is facilitated by `CaloriesList`. It implements one operation, namely:
+- `deleteEntry(String line)`
+
+Given below is an example usage scenario and how this mechanism behaves at every step:
+- Step 1: When the user inputs the command `calories delete INDEX` in the terminal, the string is sent to `Ui#handleUserInput()`, which will call `Ui#handleCaloriesInput()`.
+
+- Step 2: After the `Ui#handleCaloriesInput()` matching `delete calories` key word, the string will be passed into deleteEntry(String line) to execute delete process.
+
+- Step 3: The string will be divided to two substrings according to the command syntax. Index will be tried to get from the second substring by `Integer.parseInt()`.
+
+- Step 4: The calories record (`Entry`) stored in the `ArrayList<Entry> caloriesList` will be deleted by calling `calorieArrayList.remove((index-1));` and a successful deleting message will be shown in terminal by calling `CalorieListUi#successfulDeletedMessage(toDelete)`
+
+- Step 5: The latest calories list will be updated to saving file by calling `CalorieList#updateFile()`.
+
+The Class diagram for Calories delete feature is shown below:
+
+![CaloriesDeleteClassDiagram](https://github.com/a-wild-chocolate/tp/blob/master/docs/caloriesDeleteUML.jpg)
 
 ## Product scope
 ### Target user profile
