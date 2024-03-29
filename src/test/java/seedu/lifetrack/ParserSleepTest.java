@@ -15,8 +15,7 @@ public class ParserSleepTest {
         try {
             parseSleepInput(invalidInput);
         } catch (InvalidInputException e) {
-            assertEquals("Please ensure that you have keyed in the correct format: " +
-                    "sleep add <duration> d/<date>", e.getMessage());
+            assertEquals("Invalid date format", e.getMessage());
         }
     }
     @Test
@@ -28,7 +27,7 @@ public class ParserSleepTest {
             parseSleepInput(invalidInput);
         } catch (InvalidInputException e) {
             assertEquals("Please ensure that you have keyed in the correct format: " +
-                    "sleep add <duration> d/<date>", e.getMessage());
+                    "sleep add <duration> d/<strDate>", e.getMessage());
         }
     }
     @Test
@@ -40,7 +39,7 @@ public class ParserSleepTest {
             parseSleepInput(invalidInput);
         } catch (InvalidInputException e) {
             assertEquals("Please ensure that you have keyed in the correct format: " +
-                    "sleep add <duration> d/<date>", e.getMessage());
+                    "sleep add <duration> d/<strDate>", e.getMessage());
         }
     }
 
@@ -64,7 +63,7 @@ public class ParserSleepTest {
             parseSleepInput("sleep add");
         } catch (InvalidInputException e) {
             assertEquals("Please ensure that you have keyed in the correct format: " +
-                    "sleep add <duration> d/<date>", e.getMessage());
+                    "sleep add <duration> d/<strDate>", e.getMessage());
         }
     }
 }
