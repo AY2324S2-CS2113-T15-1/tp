@@ -163,7 +163,7 @@ public class Ui {
         System.out.println("\t - hydration delete <index>: Deletes the hydration entry at the specified index " +
                 "from the hydration list.");
         printLine();
-        System.out.println("\t - sleep add <duration> d/<date, format:DDMMYY>: " +
+        System.out.println("\t - sleep add <duration> d/<date, format:YYYY-MM-DD>: " +
                 "Adds a sleep entry into the sleep tracker.");
         System.out.println("\t - sleep list: Displays all entries currently stored in the sleep list.");
         System.out.println("\t - sleep delete <index>: Deletes the entry at the specified index " +

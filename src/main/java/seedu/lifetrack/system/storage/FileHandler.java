@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -85,7 +86,7 @@ public class FileHandler {
         while (s.hasNext()) {
             line = s.nextLine();
             String[] words = line.split(";");
-            String date = words[DATE_INDEX];
+            LocalDate date = LocalDate.parse(words[DATE_INDEX]);
             String description = words[DESCRIPTION_INDEX];
             int calories = Integer.parseInt(words[CALORIES_INDEX]);
             String entryType = words[ENTRY_TYPE_INDEX];
@@ -112,7 +113,7 @@ public class FileHandler {
         while (s.hasNext()) {
             line = s.nextLine();
             String[] words = line.split(";");
-            String date = words[DATE_INDEX];
+            LocalDate date = LocalDate.parse(words[DATE_INDEX]);
             String description = words[DESCRIPTION_INDEX];
             int volume = Integer.parseInt(words[VOLUME_INDEX]);
             entries.add(new HydrationEntry(description, volume, date));
@@ -128,7 +129,7 @@ public class FileHandler {
         while (s.hasNext()) {
             line = s.nextLine();
             String[] words = line.split(";");
-            String date = words[DATE_INDEX];
+            LocalDate date = LocalDate.parse(words[DATE_INDEX]);
             double duration = Double.parseDouble(words[DURATION_INDEX]);
             entries.add(new SleepEntry(duration, date));
         }

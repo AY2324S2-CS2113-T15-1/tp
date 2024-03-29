@@ -2,9 +2,11 @@ package seedu.lifetrack.sleep.sleeplist;
 
 import seedu.lifetrack.Entry;
 
+import java.time.LocalDate;
+
 public class SleepEntry extends Entry {
 
-    private String date;
+    private LocalDate date;
     private double duration;
 
     /***
@@ -13,13 +15,13 @@ public class SleepEntry extends Entry {
      * @param date
      * @param duration
      */
-    public SleepEntry (double duration, String date){
+    public SleepEntry (double duration, LocalDate date){
         super("SLEEP", date);
-        this.date = date.isEmpty() ? "N/A" : date;
+        this.date = date;
         this.duration = duration;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -28,8 +30,7 @@ public class SleepEntry extends Entry {
     }
 
     public String toString() {
-        // Show "N/A" if no date was provided
-        return "\t Date: " + (date == null || date.isEmpty() ? "N/A" : date) +
+        return "\t Date: " + date +
                 ", Duration: " + String.format("%.1f", duration) + " hours";
     }
 

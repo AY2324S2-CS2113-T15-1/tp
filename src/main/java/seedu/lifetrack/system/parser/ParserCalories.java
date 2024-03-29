@@ -16,6 +16,9 @@ import static seedu.lifetrack.system.exceptions.InvalidInputExceptionMessage.get
 
 import seedu.lifetrack.Entry;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class ParserCalories {
 
     private static final int CARBS_IDX = 0;
@@ -47,19 +50,27 @@ public class ParserCalories {
         assert dateIndex != -1 : "The d/ keyword should exist!";
 
         checkKeywordsCorrectlyOrdered(caloriesIndex, dateIndex, macrosIndex);
-        assert caloriesIndex < dateIndex : "The c/ keyword must appear before date/ in the input!";
+        assert caloriesIndex < dateIndex : "The c/ keyword must appear before strDate/ in the input!";
 
-        //extract command, description, calories, date from input
+        //extract command, description, calories, strDate from input
         String[] parts = input.split("c/|d/|m/");
         String command = parts[0].substring(0, CALORIES_OUT_PADDING).trim();
         String description = getDescriptionFromInput(input, command, caloriesIndex);
         String strCalories = parts[1].trim();
-        String date = parts[2].trim();
-        
-        checkInputsAreNonEmpty(description, strCalories, date);
+
+        // Try catch here is needed because if i input , calories in chicken c/1000 d/  , code fails
+        // code fails because index out of bounds occurs due to parts[2].trim()
+        String strDate = null;
+        try {
+            strDate = parts[2].trim();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidInputException(getWhitespaceInInputMessage());
+        }
+
+        checkInputsAreNonEmpty(description, strCalories, strDate);
         assert description != "" : "The description field should be a non-empty string!";
         assert strCalories != "" : "The calories field should be a non-empty string!";
-        assert date != "" : "The date field should be a non-empty string!";
+        assert strDate != "" : "The strDate field should be a non-empty string!";
 
         //extract macronutrients if user provided it in their input, otherwise initialise it as null
         int[] macros = null;
@@ -80,6 +91,16 @@ public class ParserCalories {
         checkCaloriesIsPositiveInteger(calories);
         assert calories > 0 : "Calories value must be a positive integer!";
 
+        //@@author rexyyong
+        // Convert strDate from type String to date of type LocalDate
+        LocalDate date = null;
+        try {
+            date = getLocalDateFromInput(strDate);
+        } catch (DateTimeParseException e) {
+            throw new InvalidInputException("Invalid date format");
+        }
+        //@@author
+
         if (command.equals("calories out")) {
             return makeNewOutputEntry(description, calories, date);
         } else if (macros == null) {
@@ -88,6 +109,13 @@ public class ParserCalories {
             return makeNewInputEntry(description, calories, date, macros);
         }
     }
+
+    //@@author rexyyong
+    public static LocalDate getLocalDateFromInput(String strDate) throws DateTimeParseException {
+        LocalDate date = LocalDate.parse(strDate);
+        return date;
+    }
+    //@@author
 
     private static int getIntegerCaloriesFromInput(String strCalories) {
         int calories = 0;
@@ -162,18 +190,18 @@ public class ParserCalories {
         }
     }
 
-    private static Entry makeNewOutputEntry(String description, int calories, String date) {
+    private static Entry makeNewOutputEntry(String description, int calories, LocalDate date) {
         Activity newActivity = new Activity();
 
         return new OutputEntry(description, calories, date, newActivity);
     }
 
-    private static Entry makeNewInputEntry(String description, int calories, String date) {
+    private static Entry makeNewInputEntry(String description, int calories, LocalDate date) {
 
         return new InputEntry(description, calories, date);
     }
 
-    private static Entry makeNewInputEntry(String description, int calories, String date, int[] foodMacros) {
+    private static Entry makeNewInputEntry(String description, int calories, LocalDate date, int[] foodMacros) {
 
         Food newFood = new Food(foodMacros[CARBS_IDX], foodMacros[PROTEINS_IDX], foodMacros[FATS_IDX]);
 

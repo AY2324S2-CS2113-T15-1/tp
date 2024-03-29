@@ -1,11 +1,13 @@
 package seedu.lifetrack;
 
+import java.time.LocalDate;
+
 public abstract class Entry {
 
     private String description;
-    private String date;
+    private LocalDate date;
 
-    public Entry(String description, String date){
+    public Entry(String description, LocalDate date){
         this.description = description;
         this.date = date;
     }
@@ -14,7 +16,7 @@ public abstract class Entry {
         return description;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
