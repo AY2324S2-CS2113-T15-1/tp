@@ -125,7 +125,7 @@ public class TransactionList {
         int index = 1;
         String outString = String.format("%s owns the following list of transactions.", borrowerName) + "\n";
         for (Transaction transaction : this.transactions) {
-            if (transaction.isBorrower(borrowerName)) {
+            if (transaction.checkIsBorrower(borrowerName)) {
                 outString = outString + String.format("%d.\n%s", index, transaction) + "\n";
                 index++;
             }
@@ -193,7 +193,7 @@ public class TransactionList {
                 , borrowerName) + "\n";
         int index = 1;
         for (Transaction transaction : this.transactions) {
-            if (transaction.isBorrower(borrowerName)) {
+            if (transaction.checkIsBorrower(borrowerName)) {
                 outString = outString + String.format("%d.\n%s", index, transaction) + "\n";
                 index++;
             }
