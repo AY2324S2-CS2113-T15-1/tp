@@ -43,7 +43,11 @@ public class StorageHandler {
     /**
      * Initializes a new StorageHandler instance.
      * Each instance handles the data storage requirements of each group of members.
-     * 
+     *
+     * @param members The MemberList object to store the members data
+     * @param transactions The TransactionList object to store the transactions data
+     * @param groupName The name of the group to store the data
+     *
      * @throws LongAhException If the data files are not created
      */
     public StorageHandler(MemberList members, TransactionList transactions, String groupName)
