@@ -29,9 +29,9 @@ public class LongAh {
 
         Logging.logInfo("Starting Pre-program preparations.");
         try {
+            new PINHandler();
             String groupName = UI.getGroupName();
             group = new Group(groupName);
-            new PINHandler();
         } catch (LongAhException e) {
             LongAhException.printException(e);
         }
