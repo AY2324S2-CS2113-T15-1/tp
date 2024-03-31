@@ -8,7 +8,8 @@ public class InvalidInputExceptionMessage {
     private static final String CALORIES_OUT_INPUT = "\t Example input: calories out DESCRIPTION " +
             "c/INTEGER_CALORIES d/DATE";
     private static final String MACROS_INPUT = "\t Example input: ....... m/CARBS_INT, PROTEIN_INT, FATS_INT";
-    private static final String HYDRATION_IN_INPUT = "\t Example input: hydration add Milo v/1000 d/221024" ;
+    private static final String HYDRATION_IN_INPUT = "\t Example input: hydration add Milo v/1000 d/221024";
+    private static final String USER_SETUP_INPUT = "\t Example input: user set up Tom h/170 w/80 a/25 s/male e/4 g/3";
 
     //calories list related methods
     public static String getCaloriesIncorrectOrderMessage() {
@@ -25,6 +26,7 @@ public class InvalidInputExceptionMessage {
         String message = "\t Please ensure that there is no whitespace in your input!\n";
         return HEADER + message + CALORIES_IN_INPUT;
     }
+
     public static String getIncompleteMacrosMessage() {
         String message = "\t Please ensure that all macronutrients fields are filled up!\n";
         return HEADER + message + MACROS_INPUT;
@@ -34,7 +36,7 @@ public class InvalidInputExceptionMessage {
         String message = "\t Please ensure that there is no whitespace in your macros input!\n";
         return HEADER + message + MACROS_INPUT;
     }
-    
+
     public static String getMacrosInCaloriesOutMessage() {
         String message = "\t Calorie output entry cannot have macros!\n";
         return HEADER + message + CALORIES_OUT_INPUT;
@@ -59,5 +61,20 @@ public class InvalidInputExceptionMessage {
     public static String getHydrationNegativeIntegerVolumeMessage() {
         String message = "\t Please ensure that positive integer value is keyed in for volume!\n";
         return HEADER + message + HYDRATION_IN_INPUT;
+    }
+
+    // User related Messages
+    public static String getOutOfGoalRangeMessage() {
+        return "\t Please key in a number between 1 and 7! 1 being reckless fatloss " +
+                "and 7 being aggressive bulking";
+    }
+
+    public static String getOutOfExerciseLevelsRangeMessage() {
+        return "\t Please key in a number between 1 and 5! 1 being little exercise done per week and 5 being" +
+                " very heavy levels of exercise.";
+    }
+
+    public static String getEmptyUserSetupInputMessage() {
+        return HEADER + "\t Please key in the relevant user fields!\n" + USER_SETUP_INPUT;
     }
 }
