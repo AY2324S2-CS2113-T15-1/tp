@@ -64,7 +64,9 @@ public enum ExceptionMessage {
     INVALID_EXIT_COMMAND ("Invalid command format." +
             " Use 'exit'", ExceptionType.INFO),
     INVALID_HELP_COMMAND ("Invalid command format." +
-            " Use 'help'", ExceptionType.INFO);
+            " Use 'help'", ExceptionType.INFO),
+    INVALID_SWITCH_GROUP_COMMAND ("Invalid command format." +
+            " Use 'switchgroup GROUP_NAME'", ExceptionType.INFO);
 
     private final String message;
     private final ExceptionType type;

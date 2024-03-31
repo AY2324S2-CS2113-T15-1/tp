@@ -1,11 +1,6 @@
 package longah.handler;
 
-import longah.commands.ClearCommand;
-import longah.commands.Command;
-import longah.commands.ExitCommand;
-import longah.commands.HelpCommand;
-import longah.commands.PINCommand;
-import longah.commands.SettleCommand;
+import longah.commands.*;
 import longah.commands.add.AddCommand;
 import longah.commands.delete.DeleteCommand;
 import longah.commands.edit.EditCommand;
@@ -63,6 +58,8 @@ public class InputHandler {
             // Fallthrough
         case "chart":
             throw new LongAhException(ExceptionMessage.COMMAND_NOT_IMPLEMENTED);
+        case "switchgroup":
+            return new SwitchCommand(commandString, taskExpression);
         default:
             throw new LongAhException(ExceptionMessage.INVALID_COMMAND);
         }

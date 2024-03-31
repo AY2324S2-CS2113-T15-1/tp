@@ -87,4 +87,8 @@ public class UI {
         System.out.println(SEPARATOR);
     }
 
+    public static String getGroupName() {
+        showMessage("Create a new group or enter the name of your group to manage: ");
+        return getUserInput();
+    }
 }

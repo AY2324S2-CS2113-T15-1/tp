@@ -29,7 +29,8 @@ public class LongAh {
 
         Logging.logInfo("Starting Pre-program preparations.");
         try {
-            group = new Group("group"); // Give a temporary name for now
+            String groupName = UI.getGroupName();
+            group = new Group(groupName);
             new PINHandler();
         } catch (LongAhException e) {
             LongAhException.printException(e);
@@ -46,6 +47,10 @@ public class LongAh {
                 Command c = InputHandler.parseInput(command);
                 c.execute(group);
 
+                if (c.isSwitch()) {
+                    group = new Group(c.getTaskExpression());
+                    UI.showMessage("Switched to group: " + group.getGroupName());
+                }
                 // Check will not be reached if exception is thrown
                 if (c.isExit()) {
                     System.exit(0);

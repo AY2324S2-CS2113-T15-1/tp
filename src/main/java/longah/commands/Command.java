@@ -35,6 +35,12 @@ public abstract class Command {
     }
 
     /**
+     * Returns whether the current command is a switch command or not.
+     */
+    public boolean isSwitch() {
+        return false;
+    }
+    /**
      * Returns the command string.
      * 
      * @return The command string.
