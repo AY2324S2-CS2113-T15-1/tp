@@ -88,7 +88,7 @@ public class UI {
     }
 
     public static String getGroupName() {
-        showMessage("Create a new group or enter the name of your group to manage: ");
+        showMessage("Create a new group or enter the name of your group to manage:");
         return getUserInput();
     }
 }
