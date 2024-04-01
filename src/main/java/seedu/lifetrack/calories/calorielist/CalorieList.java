@@ -110,4 +110,11 @@ public class CalorieList {
     public int getSize() {
         return calorieArrayList.size();
     }
+    public int getCaloriesConsumed() {
+        int totalCalories = 0;
+        for (Entry entry : calorieArrayList) {
+            totalCalories += InputEntry.getCalories();
+        }
+        return totalCalories;
+    }
 }

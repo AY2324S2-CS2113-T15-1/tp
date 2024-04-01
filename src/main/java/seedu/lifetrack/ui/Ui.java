@@ -116,6 +116,7 @@ public class Ui {
             user.setUp(line);
         } else if (line.contains("progress")) {
             user.getHealthInfo();
+            user.getProgressBar();
         }
     }
 
