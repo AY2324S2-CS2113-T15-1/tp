@@ -3,6 +3,8 @@ package seedu.lifetrack.calories.calorielist;
 import seedu.lifetrack.Entry;
 import seedu.lifetrack.calories.Activity;
 
+import java.time.LocalDate;
+
 public class OutputEntry extends Entry {
 
     private Activity activity;
@@ -10,12 +12,12 @@ public class OutputEntry extends Entry {
     private boolean doesActivityExist = false;
 
 
-    public OutputEntry(String description, int calories, String date) {
+    public OutputEntry(String description, int calories, LocalDate date) {
         super(description, date);
         this.calories = calories;
     }
 
-    public OutputEntry(String description, int calories, String date, Activity activity) {
+    public OutputEntry(String description, int calories, LocalDate date, Activity activity) {
         super(description, date);
         this.activity = activity;
         this.calories = calories;

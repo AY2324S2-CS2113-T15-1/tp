@@ -2,11 +2,13 @@ package seedu.lifetrack.hydration.hydrationlist;
 
 import seedu.lifetrack.Entry;
 
+import java.time.LocalDate;
+
 public class HydrationEntry extends Entry {
 
     private int volume;
 
-    public HydrationEntry(String description, int volume, String date){
+    public HydrationEntry(String description, int volume, LocalDate date){
         super(description, date);
         this.volume= volume;
     }

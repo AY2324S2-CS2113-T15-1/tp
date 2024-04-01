@@ -2,9 +2,11 @@ package seedu.lifetrack;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.time.LocalDate;
 
 import seedu.lifetrack.calories.calorielist.CalorieList;
 import seedu.lifetrack.calories.calorielist.InputEntry;
@@ -31,12 +33,14 @@ public class CalorieListTest {
         OutputEntry secondEntry = (OutputEntry)calorieList.getEntry(1);
 
         // Check calories intake entry
-        assertEquals("2024-03-14", firstEntry.getDate());
+        LocalDate dateIntake = LocalDate.parse("2024-03-14");
+        assertTrue(firstEntry.getDate().isEqual(dateIntake));
         assertEquals("Eat burger", firstEntry.getDescription());
         assertEquals(369, firstEntry.getCalories());
 
         // Check calories outflow entry
-        assertEquals("2024-03-15", secondEntry.getDate());
+        LocalDate dateOutflow = LocalDate.parse("2024-03-15");
+        assertTrue(secondEntry.getDate().isEqual(dateOutflow));
         assertEquals("run", secondEntry.getDescription());
         assertEquals(679, secondEntry.getCalories());
     }

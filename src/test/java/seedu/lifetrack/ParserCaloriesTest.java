@@ -46,7 +46,7 @@ class ParserCaloriesTest {
     @Test
     public void parseCaloriesInput_incorrectMacrosInput_exceptionThrown() {
         try {
-            parseCaloriesInput("calories in burger c/123 d/220324 m/abc");
+            parseCaloriesInput("calories in burger c/123 d/2024-03-22 m/abc");
         } catch (InvalidInputException e) {
             assertEquals(getIncorrectMacrosInputMessage(), e.getMessage());
         }

@@ -51,6 +51,6 @@ public class ErrorMessages {
     }
 
     public static String getIncorrectSleepDateInputMessage() {
-        return "\t Error: Date must be in DDMMYY format.!";
+        return "\t Error: Date must be in YYYY-MM-DD format.!";
     }
 }

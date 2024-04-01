@@ -4,6 +4,9 @@ import seedu.lifetrack.Entry;
 import seedu.lifetrack.hydration.hydrationlist.HydrationEntry;
 import seedu.lifetrack.system.exceptions.InvalidInputException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import static seedu.lifetrack.system.exceptions.ErrorMessages.getIncorrectVolumeInputMessage;
 import static seedu.lifetrack.system.exceptions.InvalidInputExceptionMessage.getHydrationEmptyDescriptionMessage;
 import static seedu.lifetrack.system.exceptions.InvalidInputExceptionMessage.getHydrationIncorrectOrderMessage;
@@ -42,24 +45,41 @@ public class ParserHydration {
         String[] parts = input.split("v/|d/");
         String description = getDescriptionFromInput(input, volumeIndex);
         String strVolume = parts[1].trim();
-        String date = parts[2].trim();
+        String strDate = parts[2].trim();
 
-        checkInputsAreNonEmpty(description, strVolume, date);
+        checkInputsAreNonEmpty(description, strVolume, strDate);
         assert description != "" : "The description field should be a non-empty string!";
         assert strVolume != "" : "The volume field should be a non-empty string!";
-        assert date != "" : "The date field should be a non-empty string!";
+        assert strDate != "" : "The date field should be a non-empty string!";
 
         int volume = getIntegerVolumeFromInput(strVolume);
         checkVolumeIsPositiveInteger(volume);
         assert volume > 0 : "Volume value must be a positive integer!";
 
+        //@@author rexyyong
+        // Convert strDate from type String to date of type LocalDate
+        LocalDate date = null;
+        try {
+            date = getLocalDateFromInput(strDate);
+        } catch (DateTimeParseException e) {
+            throw new InvalidInputException("Invalid date format");
+        }
+        //@@author
+
         return makeNewInputEntry(description, volume, date);
     }
 
-    private static HydrationEntry makeNewInputEntry(String description, int volume, String date) {
+    private static HydrationEntry makeNewInputEntry(String description, int volume, LocalDate date) {
 
         return new HydrationEntry(description, volume, date);
     }
+
+    //@@author rexyyong
+    public static LocalDate getLocalDateFromInput(String strDate) throws DateTimeParseException {
+        LocalDate date = LocalDate.parse(strDate);
+        return date;
+    }
+    //@@author
 
     private static int getIntegerVolumeFromInput(String strVolume) {
         int volume = 0;

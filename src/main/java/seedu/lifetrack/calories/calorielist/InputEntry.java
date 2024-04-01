@@ -3,18 +3,20 @@ package seedu.lifetrack.calories.calorielist;
 import seedu.lifetrack.Entry;
 import seedu.lifetrack.calories.Food;
 
+import java.time.LocalDate;
+
 public class InputEntry extends Entry {
     
     private Food food;
     private int calories;
     private boolean doesFoodExist = false;
 
-    public InputEntry(String description, int calories, String date) {
+    public InputEntry(String description, int calories, LocalDate date) {
         super(description, date);
         this.calories = calories;
     }
 
-    public InputEntry(String description, int calories, String date, Food food) {
+    public InputEntry(String description, int calories, LocalDate date, Food food) {
         super(description, date);
         this.food = food;
         this.calories = calories;
