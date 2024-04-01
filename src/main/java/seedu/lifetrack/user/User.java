@@ -150,4 +150,8 @@ public class User {
         return String.format(name + ";" + height + ";" + weight + ";" + age + ";" + sex + ";" +
                 exerciseLevels + ";" + goal + ";" + caloriesRequired);
     }
+
+    public void getProgressBar() {
+        UserGoals.getProgressBar(this);
+    }
 }
