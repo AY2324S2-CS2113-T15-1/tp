@@ -37,7 +37,7 @@ public class UserGoals {
             System.out.println("\t You should consume " + calories + " calories a day to hit your goals!");
             user.setCaloriesRequired(calories);
         } catch (IOException | InterruptedException e) {
-            System.out.println("OOPS");
+            System.out.println("You ");
         }
     }
 }
