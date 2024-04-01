@@ -129,7 +129,7 @@ public class ParserUser {
      * @param exerciseLevelsIndex Index of the input where user's exercise levels is specified in Integer form
      * @param goalIndex Index of the input where user's goal is specified in Integer form
      * @throws InvalidInputException if the order of the inputs is not correct. The input should be in this order:
-     * height, weight, age, gender, exercise levels and goal.
+     *      height, weight, age, gender, exercise levels and goal.
      */
     private static void checkSetUpInputsCorrectOrder(int heightIndex, int weightIndex, int ageIndex, int sexIndex,
                                                      int exerciseLevelsIndex, int goalIndex)
