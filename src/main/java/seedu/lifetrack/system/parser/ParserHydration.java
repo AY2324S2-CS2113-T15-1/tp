@@ -1,3 +1,4 @@
+//@@author shawnpong
 package seedu.lifetrack.system.parser;
 
 import seedu.lifetrack.Entry;
@@ -70,18 +71,37 @@ public class ParserHydration {
         return makeNewInputEntry(description, volume, date);
     }
 
+    /**
+     * Creates a new HydrationEntry object with the specified description, volume, and date.
+     *
+     * @param description the description of the hydration entry
+     * @param volume the volume of liquid intake
+     * @param date the date of the hydration entry
+     * @return a new HydrationEntry object with the specified attributes
+     */
     private static HydrationEntry makeNewInputEntry(String description, int volume, LocalDate date) {
-
         return new HydrationEntry(description, volume, date);
     }
 
+    /**
+     * Parses a string representation of a date and returns a LocalDate object.
+     *
+     * @param strDate the string representation of the date
+     * @return a LocalDate object representing the parsed date
+     * @throws DateTimeParseException if the input string cannot be parsed into a valid date
+     */
     //@@author rexyyong
     public static LocalDate getLocalDateFromInput(String strDate) throws DateTimeParseException {
         LocalDate date = LocalDate.parse(strDate);
         return date;
     }
     //@@author
-
+    /**
+     * Parses the volume from a string and returns the integer value.
+     *
+     * @param strVolume the string representation of the volume
+     * @return the integer value of the volume
+     */
     private static int getIntegerVolumeFromInput(String strVolume) {
         int volume = 0;
         try {
@@ -92,36 +112,70 @@ public class ParserHydration {
         return volume;
     }
 
+    /**
+     * Checks if the given volume is a positive integer.
+     *
+     * @param volume the volume value to be checked
+     * @throws InvalidInputException if the volume is not a positive integer
+     */
     private static void checkVolumeIsPositiveInteger(int volume) throws InvalidInputException {
         if (volume <= 0) {
             throw new InvalidInputException(getHydrationNegativeIntegerVolumeMessage());
         }
     }
 
+    /**
+     * Checks if the description, volume, and date fields are non-empty.
+     *
+     * @param description the description of the hydration entry
+     * @param strVolume the string representation of the volume
+     * @param date the string representation of the date
+     * @throws InvalidInputException if any of the fields are empty
+     */
     private static void checkInputsAreNonEmpty(String description, String strVolume, String date)
             throws InvalidInputException {
-        //check if the description, calories or date fields are empty
         if (description.isEmpty() || strVolume.isEmpty() || date.isEmpty()) {
             throw new InvalidInputException(getHydrationEmptyDescriptionMessage());
         }
     }
 
+    /**
+     * Extracts the description from the input string.
+     *
+     * @param inputString the input string containing description, volume, and date
+     * @param volumeIndex the index of the 'v/' delimiter
+     * @return the description extracted from the input string
+     */
     private static String getDescriptionFromInput(String inputString, int volumeIndex) {
         String description;
         description = inputString.substring(HYDRATION_ADD_PADDING, volumeIndex).trim();
         return description;
     }
 
-    private static void checkKeywordsCorrectlyOrdered( int dateIndex, int volumeIndex) throws InvalidInputException {
+    /**
+     * Checks if the 'v/' and 'd/' keywords are in the correct order in the input string.
+     *
+     * @param dateIndex the index of the 'd/' keyword
+     * @param volumeIndex the index of the 'v/' keyword
+     * @throws InvalidInputException if the keywords are in the incorrect order
+     */
+    private static void checkKeywordsCorrectlyOrdered(int dateIndex, int volumeIndex) throws InvalidInputException {
         if (volumeIndex >= dateIndex) {
             throw new InvalidInputException(getHydrationIncorrectOrderMessage());
         }
     }
 
+    /**
+     * Checks if the 'v/' and 'd/' keywords exist in the input string.
+     *
+     * @param dateIndex the index of the 'd/' keyword
+     * @param volumeIndex the index of the 'v/' keyword
+     * @throws InvalidInputException if any of the keywords are missing
+     */
     private static void checkKeywordsExist(int dateIndex, int volumeIndex) throws InvalidInputException {
-        //check that v/ and date/ keywords exist in the input, else throw exception
         if (dateIndex == -1 || volumeIndex == -1) {
             throw new InvalidInputException(getHydrationMissingKeywordMessage());
         }
     }
+
 }

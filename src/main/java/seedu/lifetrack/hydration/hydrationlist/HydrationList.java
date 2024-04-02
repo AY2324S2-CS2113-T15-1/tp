@@ -41,6 +41,9 @@ public class HydrationList {
         }
     }
 
+    /**
+     * Updates the file with the current list of hydration entries.
+     */
     private void updateFile() {
         if (fileHandler != null) {
             fileHandler.writeEntries(hydrationArrayList);
@@ -52,9 +55,9 @@ public class HydrationList {
      *
      * @param index the index of the liquid entry to retrieve
      * @return the liquid entry at the specified index
+     * @throws IndexOutOfBoundsException if the index is out of range
      */
     public Entry getEntry(int index) {
-        assert index >= 0 && index < hydrationArrayList.size() : "Index out of bounds";
         return hydrationArrayList.get(index);
     }
 
@@ -109,6 +112,12 @@ public class HydrationList {
             }
         }
     }
+
+    /**
+     * Retrieves the total amount of hydration consumed.
+     *
+     * @return the total amount of hydration consumed
+     */
     public int getHydrationConsumed() {
         int totalHydration = 0;
         for (int i = 0; i < hydrationArrayList.size(); i++) {
@@ -117,7 +126,6 @@ public class HydrationList {
         }
         return totalHydration;
     }
-
 
     /**
      * Retrieves the size of the liquid list.
