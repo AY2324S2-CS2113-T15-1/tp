@@ -21,6 +21,29 @@ Shows a help message listing the commands available in the application.
 **Format:** 
 `help`
 
+#### Expected Output
+
+         -----------------------------------------------------------------------------
+         LifeTrack Command List:
+         - help: Displays a list of available commands and their descriptions.
+         -----------------------------------------------------------------------------
+         - calories in <food> c/<calories> d/<date, format:YYYY-MM-DD> m/[carbohydrates, proteins, fats]: Adds a calorie gaining entry into the calories tracker.
+         - calories out <activity> c/<calories> d/<date, format:YYYY-MM-DD>: Adds a calorie burning entry into the calories tracker.
+         - calories list: Displays all entries currently stored in the calorie list.
+         - calories delete <index>: Deletes the entry at the specified index from the calorie list.
+         -----------------------------------------------------------------------------
+         - hydration in <type of beverage> v/<volume> d/<date, format:YYYY-MM-DD>: Adds a hydration entry into the hydration tracker.
+         - hydration list: Displays all entries currently stored in the hydration list.
+         - hydration delete <index>: Deletes the hydration entry at the specified index from the hydration list.     
+         -----------------------------------------------------------------------------
+         - sleep add <duration> d/<date, format:YYYY-MM-DD>: Adds a sleep entry into the sleep tracker.
+         - sleep list: Displays all entries currently stored in the sleep list.
+         - sleep delete <index>: Deletes the entry at the specified index from the sleep list.
+         -----------------------------------------------------------------------------
+         - user setup <name> h/<height> w/<weight> a/<age> s/<sex> e/<exercise_level> g/<body_goal>: Create a new user, or edit an existing one.
+         - user progress: Display calories and hydration progress towards the daily requirement.
+         -----------------------------------------------------------------------------
+
 ### Exiting the program: `bye`
 
 Exits the program.
