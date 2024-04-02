@@ -37,7 +37,7 @@ public class UserGoals {
             int indexOfCalories = response.body().indexOf("neededEnergy") + JSON_HEADING_SIZE;
             int calories = Integer.parseInt(response.body()
                     .substring(indexOfCalories, indexOfCalories + CALORIES_LENGTH));
-                System.out.println("\t You should consume " + calories + " calories a day to hit your goals!");
+            System.out.println("\t You should consume " + calories + " calories a day to hit your goals!");
             user.setCaloriesRequired(calories);
         } catch (IOException | InterruptedException e) {
             System.out.println("You ");
@@ -63,7 +63,8 @@ public class UserGoals {
         int percentage = (int) (progress * 100);
 
         System.out.printf("Calories:\n");
-        System.out.printf("You have consumed " + caloriesConsumed + " out of your goal of " + caloriesRequired + " so far.\n");
+        System.out.printf("You have consumed " + caloriesConsumed + " out of your goal of "
+                + caloriesRequired + " so far.\n");
         System.out.printf("%s %d%%\n", progressBar.toString(), percentage);
     }
 
@@ -86,7 +87,8 @@ public class UserGoals {
 
         int percentage = (int) (progress * 100);
         System.out.printf("Hydration:\n");
-        System.out.printf("You have consumed " + hydrationConsumed + " out of your goal of " + hydrationRequired + " so far.\n");
+        System.out.printf("You have consumed " + hydrationConsumed + " out of your goal of "
+                + hydrationRequired + " so far.\n");
         System.out.printf("%s %d%%\n", progressBar.toString(), percentage);
     }
 }
