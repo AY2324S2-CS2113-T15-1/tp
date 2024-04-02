@@ -96,6 +96,13 @@ Given below is an example usage scenario and how this mechanism behaves at every
 
 - Step 3: The created `HydrationEntry` instance is added into the `ArrayList<Entry>` attribute of the `HydrationList`.
 
+### Calculating hydration requirements for each user
+
+#### Design Considerations
+
+**General Health Guidelines:** The recommended daily intake of water for an average adult is around 8 glasses or approximately 2000 milliliters. This guideline is commonly recommended by health authorities and organizations such as HealthHub.
+
+**Ease of Implementation:** Setting a standard hydration requirement simplifies the tracking process for users. It provides a clear goal to strive for, making it easier for individuals to monitor and maintain their hydration levels consistently.
 ### Hydration list feature
 
 The `hydration list` feature lists out the record of all the Hydration data that the user has keyed in. The Hydration data are all stored into a `ArrayList<Entry> hydrationArrayList` attribute of the `HydrationList` Class. Hydration data are printed when the `printHydrationList()` function is called.
@@ -122,7 +129,8 @@ Given below is an example usage scenario and how this mechanism behaves at every
 
 - Step 5: The latest hydration list will be updated to saving file by calling `HydrationList#updateFile()`.
 
-The Class diagram for Hydration delete feature is shown below:
+The Sequence diagram for Hydration delete feature is shown below:
+![HydrationDeleteDiagram.png](HydrationDeleteDiagram.png)
 
 ## Product scope
 ### Target user profile
