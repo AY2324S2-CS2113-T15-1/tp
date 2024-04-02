@@ -51,6 +51,11 @@ Exits the program.
 **Format:** 
 `bye`
 
+#### Expected Output
+
+         -----------------------------------------------------------------------------
+         Bye! See you again soon ^^
+
 ## Calories Tracker
 
 ### Input calorie intake: `calories in`
