@@ -109,6 +109,15 @@ public class HydrationList {
             }
         }
     }
+    public int getHydrationConsumed() {
+        int totalHydration = 0;
+        for (int i = 0; i < hydrationArrayList.size(); i++) {
+            HydrationEntry tempEntry = (HydrationEntry) hydrationArrayList.get(i);
+            totalHydration += tempEntry.getHydration();
+        }
+        return totalHydration;
+    }
+
 
     /**
      * Retrieves the size of the liquid list.

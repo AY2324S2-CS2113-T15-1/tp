@@ -22,6 +22,8 @@ public class User {
     private String goal;
     private int caloriesRequired;
 
+    private int hydrationRequired = 2000;
+
     //user data constants
     private final int NAME_INDEX = 0;
     private final int HEIGHT_INDEX = 1;
@@ -146,12 +148,20 @@ public class User {
         return caloriesRequired;
     }
 
+    public int getHydrationRequired() {
+        return hydrationRequired;
+    }
+
     public String toFileFriendlyString() {
         return String.format(name + ";" + height + ";" + weight + ";" + age + ";" + sex + ";" +
                 exerciseLevels + ";" + goal + ";" + caloriesRequired);
     }
 
-    public void getProgressBar() {
-        UserGoals.getProgressBar(this);
+    public void getCaloriesProgressBar() {
+        UserGoals.getCaloriesProgressBar(this);
+    }
+
+    public void getHydrationProgressBar() {
+        UserGoals.getHydrationProgressBar(this);
     }
 }

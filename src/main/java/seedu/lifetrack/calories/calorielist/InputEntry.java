@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class InputEntry extends Entry {
     
     private Food food;
-    private static int calories;
+    private int calories;
     private boolean doesFoodExist = false;
 
     public InputEntry(String description, int calories, LocalDate date) {
@@ -27,8 +27,8 @@ public class InputEntry extends Entry {
         return food;
     }
 
-    public static int getCalories() {
-        return calories;
+    public int getCalories() {
+        return this.calories;
     }
 
     public String toString() {

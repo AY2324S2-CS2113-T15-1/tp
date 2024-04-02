@@ -78,19 +78,19 @@ Deletes the specified activity from the calories tracker.
 
 ## Hydration Tracker
 
-### Input hydration intake: `hydration add`
+### Input hydration intake: `hydration in`
 Adds a hydration record into the hydration tracker.
 
 **Format:**
-`hydration add DESCRIPTION v/VOLUME d/DATE`
+`hydration in DESCRIPTION v/VOLUME d/DATE`
 
 * The volume must be a positive integer 1, 2, 3, …, measured in milliliters.
 * The time indicated should follow the 24-hour system.
 * The date provided should be of the form YYYY-MM-DD.
 
 **Examples:**
-* `hydration add Milo v/1000 d/2022-03-25`
-* `hydration add Tea v/200 d/2022-02-05`
+* `hydration in Milo v/1000 d/2022-03-25`
+* `hydration in Tea v/200 d/2022-02-05`
 
 ### Listing hydration items: `hydration list`
 Show the list of all hydration records in the hydration tracker.

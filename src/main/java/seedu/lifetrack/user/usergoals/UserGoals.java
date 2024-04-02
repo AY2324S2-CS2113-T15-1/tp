@@ -9,6 +9,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 import static seedu.lifetrack.LifeTrack.calorieList;
+import static seedu.lifetrack.LifeTrack.hydrationList;
 
 public class UserGoals {
 
@@ -36,13 +37,13 @@ public class UserGoals {
             int indexOfCalories = response.body().indexOf("neededEnergy") + JSON_HEADING_SIZE;
             int calories = Integer.parseInt(response.body()
                     .substring(indexOfCalories, indexOfCalories + CALORIES_LENGTH));
-                System.out.println("\t You should consume " + calories + " calories a day to hit your goals!");
+            System.out.println("\t You should consume " + calories + " calories a day to hit your goals!");
             user.setCaloriesRequired(calories);
         } catch (IOException | InterruptedException e) {
             System.out.println("You ");
         }
     }
-    public static void getProgressBar(User user) {
+    public static void getCaloriesProgressBar(User user) {
         int caloriesRequired = user.getCaloriesRequired();
         int caloriesConsumed = calorieList.getCaloriesConsumed();
         double progress = (double) caloriesConsumed / caloriesRequired;
@@ -59,10 +60,35 @@ public class UserGoals {
         }
         progressBar.append("] ");
 
-        // Calculate percentage
         int percentage = (int) (progress * 100);
 
-        // Print progress bar and percentage
+        System.out.printf("Calories:\n");
+        System.out.printf("You have consumed " + caloriesConsumed + " out of your goal of "
+                + caloriesRequired + " so far.\n");
+        System.out.printf("%s %d%%\n", progressBar.toString(), percentage);
+    }
+
+    public static void getHydrationProgressBar(User user) {
+        int hydrationRequired = user.getHydrationRequired();
+        int hydrationConsumed = hydrationList.getHydrationConsumed();
+        double progress = (double) hydrationConsumed / hydrationRequired;
+        int width = 50;
+
+        int progressWidth = (int) (width * progress);
+        StringBuilder progressBar = new StringBuilder("[");
+        for (int i = 0; i < width; i++) {
+            if (i < progressWidth) {
+                progressBar.append("=");
+            } else {
+                progressBar.append(" ");
+            }
+        }
+        progressBar.append("] ");
+
+        int percentage = (int) (progress * 100);
+        System.out.printf("Hydration:\n");
+        System.out.printf("You have consumed " + hydrationConsumed + " out of your goal of "
+                + hydrationRequired + " so far.\n");
         System.out.printf("%s %d%%\n", progressBar.toString(), percentage);
     }
 }
