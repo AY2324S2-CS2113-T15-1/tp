@@ -5,20 +5,34 @@
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
 ## Design & implementation
-### Parsing user input for caloric entries
- 
-This functionality is facilitated by `ParserCalories`. It implements one operation, namely:
-- `ParserCalories#parseCaloriesInput(String)`
+### Adding calorie entries feature
 
-This operation is exposed in the `CalorieList` class as `CalorieList#addEntry(String)`.
+#### Implementation
+
+This functionality is facilitated by `UI`, `CalorieList`, `FileHandler` and `ParserCalories`. It implements one operation, namely:
+- `UI#handleCaloriesInput(String, CalorieList)`
+- `CalorieList#addEntry(String)`
+- `ParserCalories#parseCaloriesInput(String)`
+- `FileHandler#updateFile()`
+
+This feature is activated when the user inputs a `calories in` or `calories out` command in the terminal.
 
 Given below is an example usage scenario and how this mechanism behaves at every step:
-- Step 1: When the user inputs the command `calories in burger c/200 date/270324` in the terminal,
-the string is sent to `CalorieList#addEntry(String)`, which calls `ParserCalories#parseCaloriesInput(String)`.
 
-- Step 2: Using `String.split()`, the method extracts information such as the description, number of calories, and date of entry. The obtained information is sent to the private method `ParserCalories#makeNewInputEntry(String, int, String)` to create a new entry of class `InputEntry` that extends `Entry`.
+- Step 1: When the user inputs the command `calories in burger c/200 d/2024-02-02` in the terminal,
+the string is sent to `UI#handleCaloriesInput(String, CalorieList)`, which calls `CalorieList#addEntry(String)`.
 
-- Step 3: The created `InputEntry` instance is added into the `ArrayList<Entry>` attribute of the `CalorieList`.
+- Step 2: Inside `CalorieList#addEntry(String)`, the function `ParserCalories#parseCaloriesInput(String)` is then called to extract information such as the description, number of calories, and date of entry.
+
+- Step 3: The obtained information is sent to the private method `ParserCalories#makeNewInputEntry(String, int, String)` to create a new entry of class `InputEntry` that extends `Entry`. An `Entry` object is then returned to the caller, `CalorieList#addEntry(String)`.
+
+- Step 4: The returned `Entry` object is added into the `calorieArrayList` member of type `ArrayList<Entry>` in the `CalorieList`, via the `ArrayList.add()` method.
+
+- Step 5: `FileHandler#updateFile()` is then called to update the data file with the new entry in the `CalorieList`.
+
+The sequence diagram for this feature is shown below:
+
+![CaloriesAddEntrySeqDiagram](CaloriesAddEntrySeqDiagram.png)
 
 ### Calculating calorie requirements based on a user`s goals
 
