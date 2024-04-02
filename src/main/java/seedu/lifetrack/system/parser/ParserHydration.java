@@ -14,7 +14,6 @@ import static seedu.lifetrack.system.exceptions.InvalidInputExceptionMessage.get
 import static seedu.lifetrack.system.exceptions.InvalidInputExceptionMessage.getHydrationNegativeIntegerVolumeMessage;
 
 public class ParserHydration {
-    private static final int CARBS_IDX = 0;
     private static final int VOLUME_IDX = 1;
     private static final int DATE_IDX = 2;
     private static final int HYDRATION_ADD_PADDING = 13;
