@@ -36,7 +36,9 @@ public class UserGoals {
             int indexOfCalories = response.body().indexOf("neededEnergy") + JSON_HEADING_SIZE;
             int calories = Integer.parseInt(response.body()
                     .substring(indexOfCalories, indexOfCalories + CALORIES_LENGTH));
-            System.out.println("\t You should consume " + calories + " calories a day to hit your goals!\n");
+            System.out.println("\t You should consume " + calories + " calories a day to hit your goals!");
+            System.out.println("\t You should drink " + user.getHydrationRequired() + "ml of water a day " + 
+                    "to hit your goals!");
             user.setCaloriesRequired(calories);
         } catch (IOException | InterruptedException e) {
             System.out.println("You ");

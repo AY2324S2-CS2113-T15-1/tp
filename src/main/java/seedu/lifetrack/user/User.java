@@ -142,11 +142,9 @@ public class User {
 
     public void getCaloriesProgressBar() {
         UserGoals.getCaloriesProgressBar(this);
-        fileHandler.writeUserData(this);
     }
 
     public void getHydrationProgressBar() {
         UserGoals.getHydrationProgressBar(this);
-        fileHandler.writeUserData(this);
     }
 }
