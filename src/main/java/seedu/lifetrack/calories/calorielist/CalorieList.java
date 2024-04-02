@@ -46,6 +46,7 @@ public class CalorieList {
         return calorieArrayList.get(index);
     }
 
+
     /**
      * Index should be in an integer from 1 to size of the list.
      * @param line the string containing the index of calorie record user want to delete
@@ -112,8 +113,9 @@ public class CalorieList {
     }
     public int getCaloriesConsumed() {
         int totalCalories = 0;
-        for (Entry entry : calorieArrayList) {
-            totalCalories += InputEntry.getCalories();
+        for (int i = 0; i < calorieArrayList.size(); i++) {
+            InputEntry tempEntry = (InputEntry) calorieArrayList.get(i);
+            totalCalories += tempEntry.getCalories();
         }
         return totalCalories;
     }

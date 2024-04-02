@@ -13,6 +13,10 @@ public class HydrationEntry extends Entry {
         this.volume= volume;
     }
 
+    public  int getHydration() {
+        return volume;
+    }
+
     public int getVolume() {
         return volume;
     }

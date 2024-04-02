@@ -64,7 +64,7 @@ public class Ui {
 
     public static void handleHydrationInput(String line, HydrationList hydrationList) {
         assert !line.startsWith("bye") : "exit the app";
-        if (line.startsWith("hydration add")) {
+        if (line.startsWith("hydration in")) {
             hydrationList.addEntry(line);
         } else if (line.startsWith("hydration list")) {
             hydrationList.printHydrationList();
@@ -116,7 +116,8 @@ public class Ui {
             user.setUp(line);
         } else if (line.contains("progress")) {
             user.getHealthInfo();
-            user.getProgressBar();
+            user.getCaloriesProgressBar();
+            user.getHydrationProgressBar();
         }
     }
 
