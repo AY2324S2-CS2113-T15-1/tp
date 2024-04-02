@@ -151,15 +151,15 @@ public class Ui {
         System.out.println("\t LifeTrack Command List:");
         System.out.println("\t - help: Displays a list of available commands and their descriptions.");
         printLine();
-        System.out.println("\t - calories in <food> c/<calories> d/<date> " +
+        System.out.println("\t - calories in <food> c/<calories> d/<date, format:YYYY-MM-DD> " +
                 "m/[carbohydrates, proteins, fats]: Adds a calorie gaining entry into the calories tracker.");
-        System.out.println("\t - calories out <activity> c/<calories> d/<date>: " +
+        System.out.println("\t - calories out <activity> c/<calories> d/<date, format:YYYY-MM-DD>: " +
                 "Adds a calorie burning entry into the calories tracker.");
         System.out.println("\t - calories list: Displays all entries currently stored in the calorie list.");
         System.out.println("\t - calories delete <index>: Deletes the entry at the specified index" +
                 " from the calorie list.");
         printLine();
-        System.out.println("\t - hydration add <beverage> v/<volume> d/<date>: " +
+        System.out.println("\t - hydration in <type of beverage> v/<volume> d/<date, format:YYYY-MM-DD>: " +
                 "Adds a hydration entry into the hydration tracker.");
         System.out.println("\t - hydration list: Displays all entries currently stored in the hydration list.");
         System.out.println("\t - hydration delete <index>: Deletes the hydration entry at the specified index " +

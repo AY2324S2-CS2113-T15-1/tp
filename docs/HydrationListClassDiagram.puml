@@ -1,0 +1,33 @@
+@startuml
+
+class LifeTrack {
+    + main(args: String[]): void
+}
+
+package ui {
+    class Ui {
+        + readUserInput(calorieList: calories.CalorieList, hydrationList: hydration.HydrationList, user: user.User, sleepList: sleep.SleepList): void
+        + handleHydrationInput(line: String, hydrationList: hydration.HydrationList): void
+    }
+}
+
+package hydration {
+    package hydrationlist {
+        class HydrationList {
+            - ArrayList<Entry> hydrationArrayList
+            + printHydrationList(): void
+        }
+
+        class HydrationListUi {
+            + hydrationListHeader(): void
+            + emptyListMessage(): void
+        }
+    }
+}
+
+LifeTrack --> hydration.hydrationlist.HydrationList
+LifeTrack -[dotted]-> ui.Ui
+ui.Ui -[dotted]-> hydration.hydrationlist.HydrationList
+HydrationList -[dotted]-> HydrationListUi
+
+@enduml

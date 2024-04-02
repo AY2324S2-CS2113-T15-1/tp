@@ -134,4 +134,6 @@ public class CalorieListTest {
         assertEquals(expectedOutput.toString(), outputStream.toString());
         assertEquals(5, calorieList.getSize());
     }
+
+
 }
