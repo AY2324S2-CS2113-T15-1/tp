@@ -20,8 +20,8 @@ public class User {
     private String sex;
     private String exerciseLevels;
     private String goal;
-    private int caloriesRequired;
 
+    private int caloriesRequired;
     private int hydrationRequired = 2000;
 
     //user data constants
@@ -33,24 +33,6 @@ public class User {
     private final int EXERCISE_INDEX = 5;
     private final int GOAL_INDEX = 6;
     private final int REQ_CAL_INDEX = 7;
-
-    public User(String name, int height, int weight, int age, String sex, String exerciseLevels, String goal) {
-        this.name = name;
-        this.height = height;
-        this.weight = weight;
-        this.age = age;
-        this.sex = sex;
-        this.exerciseLevels = exerciseLevels;
-        this.goal = goal;
-    }
-
-    public User(String name, int height, int weight, int age, String sex) {
-        this.name = name;
-        this.height = height;
-        this.weight = weight;
-        this.age = age;
-        this.sex = sex;
-    }
 
     //constructor for JUnit tests
     public User() {
@@ -78,6 +60,7 @@ public class User {
     public void setUp(String line) {
         try {
             parseSetUp(line, this);
+            getHealthInfo();
             fileHandler.writeUserData(this);
         } catch (InvalidInputException e) {
             System.out.println(e.getMessage());
