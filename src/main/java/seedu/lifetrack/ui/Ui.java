@@ -36,7 +36,7 @@ public class Ui {
      * @param hydrationList list containing all entries pertinent to liquids
      */
     public static void readUserInput(CalorieList calorieList, HydrationList hydrationList,
-                                     User user, SleepList sleepList) {
+            User user, SleepList sleepList) {
         String line;
         do {
             line = new Scanner(System.in).nextLine();
@@ -88,7 +88,7 @@ public class Ui {
     }
 
     public static void handleUserInput(String line, CalorieList calorieList, HydrationList hydrationList,
-                                       User user ,SleepList sleepList) {
+            User user ,SleepList sleepList) {
         if (!line.startsWith("bye")) {
             printLine();
             line = line.trim().toLowerCase();
@@ -159,7 +159,7 @@ public class Ui {
         System.out.println("\t - calories delete <index>: Deletes the entry at the specified index" +
                 " from the calorie list.");
         printLine();
-        System.out.println("\t - hydration add <type of beverage> v/<volume> d/<date>: " +
+        System.out.println("\t - hydration add <beverage> v/<volume> d/<date>: " +
                 "Adds a hydration entry into the hydration tracker.");
         System.out.println("\t - hydration list: Displays all entries currently stored in the hydration list.");
         System.out.println("\t - hydration delete <index>: Deletes the hydration entry at the specified index " +
@@ -170,5 +170,10 @@ public class Ui {
         System.out.println("\t - sleep list: Displays all entries currently stored in the sleep list.");
         System.out.println("\t - sleep delete <index>: Deletes the entry at the specified index " +
                 "from the sleep list.");
+        printLine();
+        System.out.println("\t - user setup <name> h/<height> w/<weight> a/<age> s/<sex> e/<exercise_level> " +
+                "g/<body_goal>: Create a new user, or edit an existing one.");
+        System.out.println("\t - user progress: Display calories and hydration progress towards the daily " +
+                "requirement.");
     }
 }

@@ -132,8 +132,7 @@ public class ParserUser {
      *      height, weight, age, gender, exercise levels and goal.
      */
     private static void checkSetUpInputsCorrectOrder(int heightIndex, int weightIndex, int ageIndex, int sexIndex,
-                                                     int exerciseLevelsIndex, int goalIndex)
-            throws InvalidInputException {
+            int exerciseLevelsIndex, int goalIndex) throws InvalidInputException {
         if (!(heightIndex < weightIndex && weightIndex < ageIndex && sexIndex < exerciseLevelsIndex
                 && exerciseLevelsIndex < goalIndex)) {
             throw new InvalidInputException(getInvalidNumberOfSetUpInputs());

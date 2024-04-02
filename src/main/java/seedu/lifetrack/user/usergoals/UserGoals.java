@@ -13,7 +13,6 @@ import static seedu.lifetrack.LifeTrack.hydrationList;
 
 public class UserGoals {
 
-    private static HttpResponse<String> response;
     private static final int JSON_HEADING_SIZE = 67;
     private static final int CALORIES_LENGTH = 4;
 
@@ -37,12 +36,13 @@ public class UserGoals {
             int indexOfCalories = response.body().indexOf("neededEnergy") + JSON_HEADING_SIZE;
             int calories = Integer.parseInt(response.body()
                     .substring(indexOfCalories, indexOfCalories + CALORIES_LENGTH));
-            System.out.println("\t You should consume " + calories + " calories a day to hit your goals!");
+            System.out.println("\t You should consume " + calories + " calories a day to hit your goals!\n");
             user.setCaloriesRequired(calories);
         } catch (IOException | InterruptedException e) {
             System.out.println("You ");
         }
     }
+    
     public static void getCaloriesProgressBar(User user) {
         int caloriesRequired = user.getCaloriesRequired();
         int caloriesConsumed = calorieList.getCaloriesConsumed();
@@ -62,10 +62,10 @@ public class UserGoals {
 
         int percentage = (int) (progress * 100);
 
-        System.out.printf("Calories:\n");
-        System.out.printf("You have consumed " + caloriesConsumed + " out of your goal of "
+        System.out.printf("\t Calories:\n");
+        System.out.printf("\t You have consumed " + caloriesConsumed + " out of your goal of "
                 + caloriesRequired + " so far.\n");
-        System.out.printf("%s %d%%\n", progressBar.toString(), percentage);
+        System.out.printf("\t %s %d%%\n\n", progressBar.toString(), percentage);
     }
 
     public static void getHydrationProgressBar(User user) {
@@ -86,9 +86,9 @@ public class UserGoals {
         progressBar.append("] ");
 
         int percentage = (int) (progress * 100);
-        System.out.printf("Hydration:\n");
-        System.out.printf("You have consumed " + hydrationConsumed + " out of your goal of "
+        System.out.printf("\t Hydration:\n");
+        System.out.printf("\t You have consumed " + hydrationConsumed + " out of your goal of "
                 + hydrationRequired + " so far.\n");
-        System.out.printf("%s %d%%\n", progressBar.toString(), percentage);
+        System.out.printf("\t %s %d%%\n", progressBar.toString(), percentage);
     }
 }
