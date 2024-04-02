@@ -14,7 +14,9 @@ import static seedu.lifetrack.system.exceptions.InvalidInputExceptionMessage.get
 import static seedu.lifetrack.system.exceptions.InvalidInputExceptionMessage.getHydrationNegativeIntegerVolumeMessage;
 
 public class ParserHydration {
-    
+    private static final int CARBS_IDX = 0;
+    private static final int VOLUME_IDX = 1;
+    private static final int DATE_IDX = 2;
     private static final int HYDRATION_ADD_PADDING = 13;
 
     /**
@@ -44,8 +46,8 @@ public class ParserHydration {
 
         String[] parts = input.split("v/|d/");
         String description = getDescriptionFromInput(input, volumeIndex);
-        String strVolume = parts[1].trim();
-        String strDate = parts[2].trim();
+        String strVolume = parts[VOLUME_IDX].trim();
+        String strDate = parts[DATE_IDX].trim();
 
         checkInputsAreNonEmpty(description, strVolume, strDate);
         assert description != "" : "The description field should be a non-empty string!";
@@ -112,7 +114,7 @@ public class ParserHydration {
     }
 
     private static void checkKeywordsCorrectlyOrdered( int dateIndex, int volumeIndex) throws InvalidInputException {
-        if (!(volumeIndex < dateIndex)) {
+        if (volumeIndex >= dateIndex) {
             throw new InvalidInputException(getHydrationIncorrectOrderMessage());
         }
     }

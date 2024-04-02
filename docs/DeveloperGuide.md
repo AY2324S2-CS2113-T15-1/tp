@@ -51,21 +51,6 @@ Given below is an example usage scenario and how this mechanism behaves at every
   - Pros: Not dependent on external APIs
   - Cons: Need to come up with an algorithm to use
 
-### Parsing user input for hydration entries
-
-This functionality is facilitated by `ParserHydration`. It implements one operation, namely:
-- `ParserHydration#parseHydrationInput(String input)`
-
-This operation is exposed in the `HydrationList` class as `HydrationList#addEntry(String)`.
-
-Given below is an example usage scenario and how this mechanism behaves at every step:
-- Step 1: When the user inputs the command `calories in Milo v/100 date/270324` in the terminal,
-  the string is sent to `HydrationList#addEntry(String)`, which calls `ParserHydration#parseHydrationInput(String)`.
-
-- Step 2: Using `String.split()`, the method extracts information such as the description, volume of beverage, and date of entry. The obtained information is sent to the private method `ParserHydration#makeNewInputEntry(String, int, String)` to create a new entry of class `HydrationEntry` that extends `Entry`.
-
-- Step 3: The created `HydrationEntry` instance is added into the `ArrayList<Entry>` attribute of the `HydrationList`.
-
 ### Calories list feature
 
 The `calories list` feature lists out the record of all the Calories data that the user has keyed in. The Calories data are all stored into a `ArrayList<Entry> calorieArrayList` attribute of the `CalorieList` Class. Calories data are printed when the `printCalorieList()` function is called. 
@@ -95,6 +80,49 @@ Given below is an example usage scenario and how this mechanism behaves at every
 The Class diagram for Calories delete feature is shown below:
 
 ![CaloriesDeleteClassDiagram](https://github.com/a-wild-chocolate/tp/blob/master/docs/caloriesDeleteUML.jpg)
+
+### Parsing user input for hydration entries
+
+This functionality is facilitated by `ParserHydration`. It implements one operation, namely:
+- `ParserHydration#parseHydrationInput(String input)`
+
+This operation is exposed in the `HydrationList` class as `HydrationList#addEntry(String)`.
+
+Given below is an example usage scenario and how this mechanism behaves at every step:
+- Step 1: When the user inputs the command `hydration in Milo v/100 d/2022-01-02` in the terminal,
+  the string is sent to `HydrationList#addEntry(String)`, which calls `ParserHydration#parseHydrationInput(String)`.
+
+- Step 2: Using `String.split()`, the method extracts information such as the description, volume of beverage, and date of entry. The obtained information is sent to the private method `ParserHydration#makeNewInputEntry(String, int, String)` to create a new entry of class `HydrationEntry` that extends `Entry`.
+
+- Step 3: The created `HydrationEntry` instance is added into the `ArrayList<Entry>` attribute of the `HydrationList`.
+
+### Hydration list feature
+
+The `hydration list` feature lists out the record of all the Hydration data that the user has keyed in. The Hydration data are all stored into a `ArrayList<Entry> hydrationArrayList` attribute of the `HydrationList` Class. Hydration data are printed when the `printHydrationList()` function is called.
+
+The `printHydrationList()` function iterates through the `hydrationArrayList` and prints out the Entries according to its order in the Array List.
+
+The Class diagram for Hydration list feature is shown below. Unrelated attributes and Classes were excluded.
+
+![HydrationListClassDiagram.png](HydrationListClassDiagram.png)
+
+### Hydration delete feature
+
+The `hydration delete` feature can delete the hydration record at specific index of hydration list. This functionality is facilitated by `HydrationList`. It implements one operation, namely:
+- `deleteEntry(String line)`
+
+Given below is an example usage scenario and how this mechanism behaves at every step:
+- Step 1: When the user inputs the command `hydration delete INDEX` in the terminal, the string is sent to `Ui#handleUserInput()`, which will call `Ui#handleHydrationInput()`.
+
+- Step 2: After the `Ui#handleHydrationInput()` matching `delete hydration` key word, the string will be passed into deleteEntry(String line) to execute delete process.
+
+- Step 3: The string will be divided to two substrings according to the command syntax. Index will be tried to get from the second substring by `Integer.parseInt()`.
+
+- Step 4: The hydration record (`Entry`) stored in the `ArrayList<Entry> hydrationList` will be deleted by calling `hydrationArrayList.remove((index-1));` and a successful deleting message will be shown in terminal by calling `HydrationListUi#successfulDeletedMessage(toDelete)`
+
+- Step 5: The latest hydration list will be updated to saving file by calling `HydrationList#updateFile()`.
+
+The Class diagram for Hydration delete feature is shown below:
 
 ## Product scope
 ### Target user profile

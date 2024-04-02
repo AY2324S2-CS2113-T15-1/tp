@@ -70,7 +70,7 @@ public class CalorieListTest {
         assertEquals(initialSize, calorieList.getSize());
     }
 
-    //@@author shawnpong
+//    @@author shawnpong
     @Test
     public void testPrintCalorieListEmpty() {
         String lineSeparator = System.lineSeparator();
@@ -134,4 +134,6 @@ public class CalorieListTest {
         assertEquals(expectedOutput.toString(), outputStream.toString());
         assertEquals(5, calorieList.getSize());
     }
+
+
 }
