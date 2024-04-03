@@ -9,6 +9,7 @@ import seedu.lifetrack.sleep.sleeplist.SleepEntry;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+//@@author a-wild-chocloate
 public class ParserSleep {
 
     public static SleepEntry parseSleepInput(String input) throws InvalidInputException {
@@ -31,7 +32,7 @@ public class ParserSleep {
                 throw new InvalidInputException("Please ensure that you have keyed in the correct format: " +
                         "sleep add <duration> d/<strDate>");
             }
-
+            //@author
             //@@author rexyyong
             // Parse str date to date of type LocalDate
             try {

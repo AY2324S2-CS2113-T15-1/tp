@@ -56,7 +56,7 @@ public class SleepList {
     
     public void deleteSleep(String line) {
         try {
-            int index = Integer.parseInt(line.split(" ")[2]) ;
+            int index = Integer.parseInt(line.split(" ")[2]) ; //User input format: sleep delete INDEX, here get index
             Entry toDelete = sleepList.get(index-1);
             sleepList.remove(index - 1);
             updateFile();
