@@ -1,0 +1,27 @@
+@startuml
+actor Bob
+
+Bob -> UI: Input "calories list" command
+activate UI
+
+UI -> UI: handleUserInput(input, calorieList, .....)
+activate UI
+
+UI -> UI: handleCaloriesInput(input, calorieList, .....)
+activate UI
+
+UI -> CalorieList: printCalorieList()
+activate CalorieList
+
+loop calorieArrayList.size()
+CalorieList -> CalorieList : calorieArrayList.get(i)
+activate CalorieList
+end
+
+return
+return
+return
+return
+return
+
+@enduml
