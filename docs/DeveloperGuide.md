@@ -32,7 +32,7 @@ the string is sent to `UI#handleCaloriesInput(String, CalorieList)`, which calls
 
 The sequence diagram for this feature is shown below:
 
-![CaloriesAddEntrySeqDiagram](CaloriesAddEntrySeqDiagram.png)
+![CaloriesAddEntrySeqDiagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/rexyyong/tp/RexDG/docs/CaloriesAddEntrySeqDiagram.puml)
 
 ### Calculating calorie requirements based on a user`s goals
 
@@ -71,9 +71,10 @@ The `calories list` feature lists out the record of all the Calories data that t
 
 The `printCalorieList()` function iterates through the `calorieArrayList` and prints out the Entries according to its order in the Array List.
 
-The Class diagram for Calories list feature is shown below. Unrelated attributes and Classes were excluded.
+The Class diagram and sequence diagram for Calories list feature is shown below. Unrelated attributes and Classes were excluded.
 
 ![CaloriesListClassDiagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/rexyyong/tp/DevGuideRex/docs/CaloriesListClassDiagram.puml)
+![CaloriesListSequenceDiagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/rexyyong/tp/RexDG/docs/CaloriesListSequenceDiagram.puml)
 
 ### Calories delete feature
 
