@@ -74,7 +74,7 @@ The `printCalorieList()` function iterates through the `calorieArrayList` and pr
 The Class diagram and sequence diagram for Calories list feature is shown below. Unrelated attributes and Classes were excluded.
 
 ![CaloriesListClassDiagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/rexyyong/tp/DevGuideRex/docs/CaloriesListClassDiagram.puml)
-![CaloriesListSequenceDiagram]()
+![CaloriesListSequenceDiagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/rexyyong/tp/RexDG/docs/CaloriesListSequenceDiagram.puml)
 
 ### Calories delete feature
 
