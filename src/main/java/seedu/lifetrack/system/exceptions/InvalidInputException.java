@@ -9,12 +9,21 @@ public class InvalidInputException extends Exception {
     private static Logger logr = Logger.getLogger(CalorieList.class.getName());
     public final String heythere = "";
 
+    /**
+     * Constructs a new InvalidInputException with a default error message.
+     * The default message provides guidance on ensuring correct input format.
+     */
     public InvalidInputException(){
         super("\t Please ensure that you have keyed in the correct format!");
         logr.setLevel(Level.SEVERE);
         logr.log(Level.WARNING,"\t Please ensure that you have keyed in the correct format!");
     }
 
+    /**
+     * Constructs a new InvalidInputException with a custom error message.
+     *
+     * @param exception the custom error message describing the specific input error
+     */
     public InvalidInputException(String exception) {
         super(exception);
     }
