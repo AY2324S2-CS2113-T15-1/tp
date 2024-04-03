@@ -1,5 +1,8 @@
 package seedu.lifetrack.system.exceptions;
 
+/**
+ * Utility class for managing error messages related to the application.
+ */
 public class ErrorMessages {
 
     private static final String WHITESPACE = "         ";
