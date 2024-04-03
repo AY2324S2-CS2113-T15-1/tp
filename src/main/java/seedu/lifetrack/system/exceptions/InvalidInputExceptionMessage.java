@@ -1,5 +1,8 @@
 package seedu.lifetrack.system.exceptions;
 
+/**
+ * Utility class for managing error messages related to invalid input exceptions.
+ */
 public class InvalidInputExceptionMessage {
 
     private static final String HEADER = "\t Invalid input!\n";
