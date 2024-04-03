@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class CalorieList {
 
     private static Logger logr = Logger.getLogger(CalorieList.class.getName());
-    
+
     private final int SIZE_OF_DELETE = 16;
     private ArrayList<Entry> calorieArrayList;
     private FileHandler fileHandler;
@@ -25,7 +25,12 @@ public class CalorieList {
         calorieArrayList = new ArrayList<>();
     }
 
-    //constructor for usage in terminal
+    /**
+     * Constructs a new CalorieList object using a file path.
+     * This constructor is intended for usage in a terminal environment.
+     *
+     * @param filePath the path to the file containing calorie entries
+     */
     public CalorieList(String filePath) {
         try {
             fileHandler = new FileHandler(filePath);
@@ -36,6 +41,10 @@ public class CalorieList {
         }
     }
 
+    /**
+     * Updates the file with the current list of calorie entries.
+     * If the file handler is not initialized, no action is taken.
+     */
     private void updateFile() {
         if (fileHandler != null) {
             fileHandler.writeEntries(calorieArrayList);
@@ -48,7 +57,9 @@ public class CalorieList {
 
 
     /**
+     * Deletes a calorie entry from the list based on the provided index.
      * Index should be in an integer from 1 to size of the list.
+     *
      * @param line the string containing the index of calorie record user want to delete
      */
     public void deleteEntry(String line) {
@@ -108,9 +119,20 @@ public class CalorieList {
         }
     }
 
+    /**
+     * Returns the size of the list of calorie entries.
+     *
+     * @return the number of calorie entries in the list
+     */
     public int getSize() {
         return calorieArrayList.size();
     }
+
+    /**
+     * Calculates and returns the total number of calories consumed from all entries in the list.
+     *
+     * @return the total number of calories consumed
+     */
     public int getCaloriesConsumed() {
         int totalCalories = 0;
         for (int i = 0; i < calorieArrayList.size(); i++) {
