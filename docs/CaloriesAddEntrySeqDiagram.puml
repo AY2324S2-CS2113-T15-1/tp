@@ -1,5 +1,6 @@
 @startuml
-User -> UI: Input "calories in" or "calories out" command
+actor Bob
+Bob -> UI: Input "calories in" or "calories out" command
 activate UI
 
 UI -> UI: handleUserInput()
