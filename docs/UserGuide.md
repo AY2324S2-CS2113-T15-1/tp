@@ -4,6 +4,27 @@
 
 LifeTrack is a desktop app for students to track their health data, optimized for use via a Command Line Interface (CLI). It tracks calories, hydration and sleep data for the user, while also providing daily recommendations for calorie and hydration intake, based on the user's build and gender, as well as their body goals and activity levels.
 
+## Quick links
+- [Quick Start](#quick-start)
+- [General](#general)
+  - [help](#viewing-help-help)
+  - [bye](#exiting-the-program-bye)
+- [Calories Tracker](#calories-tracker)
+  - [Input calories Intake](#input-calorie-intake-calories-in)
+  - [Input calorie loss](#input-calorie-loss-calories-out)
+  - [Listing calorie items](#listing-calorie-items-calories-list)
+  - [Deleting a calorie item](#deleting-a-calorie-item-calories-delete)
+- [Hydration Tracker](#hydration-tracker)
+  - [Input hydration intake](#input-hydration-intake-hydration-in)
+  - [Listing hydration items](#listing-hydration-items-hydration-list)
+  - [Deleting a hydration item](#deleting-a-hydration-item-hydration-delete)
+- [Sleep Tracker](#sleep-tracker)
+  - [Input sleeping hours](#input-sleeping-hours-sleep-add)
+  - [Listing sleep records](#listing-sleep-records-sleep-list)
+  - [Deleting a sleep record](#deleting-a-sleep-record-sleep-delete)
+- [FAQ](#faq)
+- [Command Summary](#command-summary)
+
 ## Quick Start
 
 {Give steps to get started quickly}
@@ -60,39 +81,57 @@ Exits the program.
 
 ### Input calorie intake: `calories in`
 Adds a calorie gaining activity into the calories tracker.
+Macronutrients such as Carbohydrates, Proteins and Fats can be included if needed.
 
 **Format:** 
-`calories in DESCRIPTION c/CALORIES_IN d/DATE`
+`calories in DESCRIPTION c/CALORIES d/DATE [m/CARBOHYDRATES,PROTEIN,FATS]`
 
-* The calories must be a positive integer 1, 2, 3, …, measured in kcal. 
-* The time indicated should follow the 24-hour system. 
-* The date provided should be of the form YYYY-MM-DD.
+* The `DESCRIPTION` refers to the food that the person consumed.
+* The `CALORIES` must be a positive integer 1, 2, 3, …, measured in kcal. 
+* The `DATE` provided should be of the form YYYY-MM-DD, such as 2024-03-04.
+* Macronutrients field including `CARBOHYDRATES`, `PROTEINS` and `FATS` is optional. The macronutrients must be a positive integer 1, 2, 3, measured in grams.
 
 **Examples:** 
-* `calories in eat chicken rice c/678 d/2022-02-24`
-* `calories in drink liho milk tea c/430 d/1022-03-25`
+* `calories in chicken rice c/678 d/2022-02-24`
+* `calories in hamburger c/983 d/2024-04-03`
+* `calories in cai png c/543 d/2024-04-13 m/200, 150, 100`
+* `calories in drink liho milk tea c/200 d/2024-04-25 m/50, 20, 10`
 
 
 ### Input calorie loss: `calories out`
 Adds a calorie burning activity into the calories tracker.
 
 **Format:** 
-`calories out DESCRIPTION c/CALORIES_OUT d/DATE`
+`calories out DESCRIPTION c/CALORIES d/DATE`
 
-* The calories must be a positive integer 1, 2, 3, …, measured in kcal. 
-* The time indicated should follow the 24-hour system.
-* The date provided should be of the form YYYY-MM-DD.
+* The `DESCRIPTION` refers to any activity that resulted in loss of calories.
+* The `CALORIES` must be a positive integer 1, 2, 3, …, measured in kcal. 
+* The `DATE` provided should be of the form YYYY-MM-DD such as 2024-04-03.
 
 **Examples:**
 
 * `calories out Run around NUS c/678 d/2022-02-24` 
 * `calories out Walk to i3 building c/67 d/2022-03-25`
+* `calories out go gym c/300 d/2024-04-03`
 
 ### Listing calorie items: `calories list`
-Shows a list of all activities in the calories tracker.
+Shows a list of all activities in the calories tracker. Includes both calories in and out.
 
 **Format:**
 `calories list`
+
+#### Sample output
+         -----------------------------------------------------------------------------
+	 Your Caloric List:
+	 1. 	 Date: 2024-06-15, Description: chicken, Calories: 1000
+	 2. 	 Date: 2024-06-15, Description: chicken, Calories: 1000
+	 3. 	 Date: 2024-05-15, Description: chicken, Calories: 1000
+	 4. 	 Date: 2023-03-01, Description: taco, Calories: 1
+	 5. 	 Date: 2024-04-03, Description: burger, Calories: 100
+	 6. 	 Date: 2024-04-03, Description: cai png, Calories: 1000
+	 7. 	 Date: 2024-04-03, Description: cai png, Calories: 500
+	 8. 	 Date: 2024-04-13, Description: liho milk tea, Calories: 200
+         -----------------------------------------------------------------------------
 
 ### Deleting a calorie item: `calories delete`
 Deletes the specified activity from the calories tracker.
@@ -196,6 +235,17 @@ Example of usage:
 
 ## Command Summary
 
-{Give a 'cheat sheet' of commands here}
-
+| Action                 | Format, Examples                                                           |
+|------------------------|----------------------------------------------------------------------------|
+| Help                   | `help`                                                                     |
+| Add calories intake    | `calories in DESCRIPTION c/CALORIES d/DATE [m/CARBOHYDRATES,PROTEIN,FATS]` |
+| Add calories outflow   | `calories out DESCRIPTION c/CALORIES d/DATE`                               |
+| List calories          | `calories list`                                                            |
+| Delete calories entry  | `calories delete INDEX`                                                    |
+| Add hydration intake   | `hydration in DESCRIPTION v/VOLUME d/DATE`                                 |
+| List hydration         | `hydration list`                                                           |
+| Delete hydration entry | `hydration delete INDEX`                                                   |
+| Add sleep              | `sleep add DURATION d/DATE`                                                |
+| List sleep             | `sleep list`                                                               |
+| Delete sleep entry     | `sleep delete INDEX`                                                       |
 * Add todo `todo n/TODO_NAME d/DEADLINE`
