@@ -32,7 +32,7 @@ the string is sent to `UI#handleCaloriesInput(String, CalorieList)`, which calls
 
 The sequence diagram for this feature is shown below:
 
-![CaloriesAddEntrySeqDiagram](CaloriesAddEntrySeqDiagram.png)
+![CaloriesAddEntrySeqDiagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/rexyyong/tp/RexDG/docs/CaloriesAddEntrySeqDiagram.puml)
 
 ### Calculating calorie requirements based on a user`s goals
 
