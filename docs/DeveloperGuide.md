@@ -148,6 +148,34 @@ Given below is an example usage scenario and how this mechanism behaves at every
 The Sequence diagram for Hydration delete feature is shown below:
 ![HydrationDeleteDiagram.png](HydrationDeleteDiagram.png)
 
+### Adding sleep entries feature
+
+#### Implementation
+
+This functionality is facilitated by `UI`, `SleepList`, `FileHandler` and `ParserSleep`. It implements one operation, namely:
+- `UI#handleSleepInput(String,SleepList)`
+- `SleepList#addEntry(String)`
+- `ParserSleep#parseSleepInput(String)`
+- `FileHandler#updateFile()`
+
+This feature is activated when the user inputs a `sleep add` command in the terminal.
+
+Given below is an example usage scenario and how this mechanism behaves at every step:
+
+- Step 1: When the user inputs the command `sleep add 7.5 d/2022-01-02` in the terminal,
+  the string is sent to `UI#handleSleepInput(String, SleepList)`, which calls `SleepList#addSleep(String)`.
+
+- Step 2: Inside `SleepList#addSleep(String)`, the function `ParserSleep#parseSleepInput(String)` is then called to extract information such as the duration and date of entry.
+
+- Step 3: It will create a new entry of class `SleepEntry` that extends `Entry`based on the information.
+
+- Step 4: The created `SleepEntry` instance is added into the `ArrayList<Entry> sleepList` attribute of the `SleepList`.
+
+- Step 5: `FileHandler#updateFile()` is then called to update the data file with the new entry in the `SleepList`.
+
+The sequence diagram for this feature is shown below:
+
+
 ### Parsing user input for sleep entries
 
 This functionality is facilitated by `ParserSleep`. It implements one operation, namely:
