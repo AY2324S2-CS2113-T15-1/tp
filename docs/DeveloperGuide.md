@@ -174,7 +174,7 @@ Given below is an example usage scenario and how this mechanism behaves at every
 - Step 5: `FileHandler#updateFile()` is then called to update the data file with the new entry in the `SleepList`.
 
 The sequence diagram for this feature is shown below:
-
+![SleepAddSeqDiagram](https://github.com/a-wild-chocolate/tp/blob/f9a94746e763ddf54a4309583b71e0fdbabdb141/docs/SleepAddSeqDiagram.jpg)
 
 ### Parsing user input for sleep entries
 
@@ -193,8 +193,6 @@ Given below is an example usage scenario and how this mechanism behaves at every
 
 - Step 4: The created `SleepEntry` instance is added into the `ArrayList<Entry> sleepList` attribute of the `SleepList`.
 
-The sequence diagram for ParserSleep feature is shown below. Unrelated attributes and Classes were excluded.
-
 
 ### Sleep list feature
 
@@ -203,6 +201,8 @@ The `sleep list` feature lists out the record of all the sleep data that the use
 The `printSleepList()` function iterates through the `sleepList` and each entry will call `SleepEntry#toString()` to return its information string to be printed.
 
 The Sequence diagram for Sleep list feature is shown below. Unrelated attributes and Classes were excluded.
+![SleepListSeqDiagram](https://github.com/a-wild-chocolate/tp/blob/f9a94746e763ddf54a4309583b71e0fdbabdb141/docs/SleepListSeqDiagram.jpg)
+
 
 ### Sleep delete feature
 
@@ -221,6 +221,7 @@ Given below is an example usage scenario and how this mechanism behaves at every
 - Step 5: The latest sleep list will be updated to saving file by calling `SleepList#updateFile()`.
 
 The Sequence diagram for Sleep delete feature is shown below:
+![SleepDeleteDiagram.jpg](https://github.com/a-wild-chocolate/tp/blob/f9a94746e763ddf54a4309583b71e0fdbabdb141/docs/SleepDeleteSeqDiagram.jpg)
 
 ### Calculating sleep requirements for each user (Planning)
 
