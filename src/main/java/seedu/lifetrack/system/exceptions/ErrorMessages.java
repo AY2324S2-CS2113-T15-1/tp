@@ -34,7 +34,7 @@ public class ErrorMessages {
     }
 
     public static String getInvalidGoalNumberMessage() {
-        return "\t Invalid input for goal number. Please enter a number between 1 and 7.";
+        return "\t Invalid input for goal number. Please enter a number between 1 and 5.";
     }
 
     public static String getInvalidExerciseLevelsNumberMessage() {

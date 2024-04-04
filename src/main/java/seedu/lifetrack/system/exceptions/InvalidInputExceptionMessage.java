@@ -68,13 +68,13 @@ public class InvalidInputExceptionMessage {
 
     // User related Messages
     public static String getOutOfGoalRangeMessage() {
-        return "\t Please key in a number between 1 and 7! 1 being reckless fatloss " +
-                "and 7 being aggressive bulking";
+        return "\t Please key in a number between 1 and 5! 1 being quick fat loss " +
+                "and 5 being quick bulking";
     }
 
     public static String getOutOfExerciseLevelsRangeMessage() {
         return "\t Please key in a number between 1 and 5! 1 being little exercise done per week and 5 being" +
-                " very heavy levels of exercise.";
+                " very heavy levels of exercise done per week.";
     }
 
     public static String getEmptyUserSetupInputMessage() {

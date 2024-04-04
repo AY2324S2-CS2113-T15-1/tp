@@ -5,10 +5,10 @@ import seedu.lifetrack.system.exceptions.InvalidInputException;
 import seedu.lifetrack.system.storage.FileHandler;
 import seedu.lifetrack.user.usergoals.UserGoals;
 
-import static seedu.lifetrack.system.parser.ParserUser.parseSetUp;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+
+import static seedu.lifetrack.system.parser.ParserUser.parseSetUp;
 
 public class User {
 
@@ -18,8 +18,8 @@ public class User {
     private int weight;
     private int age;
     private String sex;
-    private String exerciseLevels;
-    private String goal;
+    private int exerciseLevels;
+    private int goal;
 
     private int caloriesRequired;
     private int hydrationRequired = 2000;
@@ -49,8 +49,8 @@ public class User {
             weight = Integer.parseInt(data.get(WEIGHT_INDEX));
             age = Integer.parseInt(data.get(AGE_INDEX));
             sex = data.get(SEX_INDEX);
-            exerciseLevels = data.get(EXERCISE_INDEX);
-            goal = data.get(GOAL_INDEX);
+            exerciseLevels = Integer.parseInt(data.get(EXERCISE_INDEX));
+            goal = Integer.parseInt(data.get(GOAL_INDEX));
             caloriesRequired = Integer.parseInt(data.get(REQ_CAL_INDEX));
         } catch (FileNotFoundException e) {
             System.out.println(ErrorMessages.getFileNotFoundMessage());
@@ -87,14 +87,17 @@ public class User {
         this.sex = sex;
     }
 
-    public void setExerciseLevels(String exerciseLevels) {
+    public void setExerciseLevels(int exerciseLevels) {
         this.exerciseLevels = exerciseLevels;
     }
 
-    public void setGoal(String goal) {
+    public void setGoal(int goal) {
         this.goal = goal;
     }
 
+    public String getName() {
+        return name;
+    }
     public int getHeight() {
         return height;
     }
@@ -111,11 +114,11 @@ public class User {
         return sex;
     }
 
-    public String getExerciseLevels() {
+    public int getExerciseLevels() {
         return exerciseLevels;
     }
 
-    public String getGoal() {
+    public int getGoal() {
         return goal;
     }
 
