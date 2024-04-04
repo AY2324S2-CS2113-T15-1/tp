@@ -45,18 +45,21 @@ Shows a help message listing the commands available in the application.
 **Format:** 
 `help`
 
-#### Expected Output
+#### Expected output
 
          -----------------------------------------------------------------------------
          LifeTrack Command List:
          - help: Displays a list of available commands and their descriptions.
          -----------------------------------------------------------------------------
-         - calories in <food> c/<calories> d/<date, format:YYYY-MM-DD> m/[carbohydrates, proteins, fats]: Adds a calorie gaining entry into the calories tracker.
-         - calories out <activity> c/<calories> d/<date, format:YYYY-MM-DD>: Adds a calorie burning entry into the calories tracker.
+         - calories in <food> c/<calories> d/<date, format:YYYY-MM-DD> m/[carbohydrates, proteins, fats]
+         : Adds a calorie gaining entry into the calories tracker.
+         - calories out <activity> c/<calories> d/<date, format:YYYY-MM-DD>: Adds a calorie burning 
+         entry into the calories tracker.
          - calories list: Displays all entries currently stored in the calorie list.
          - calories delete <index>: Deletes the entry at the specified index from the calorie list.
          -----------------------------------------------------------------------------
-         - hydration in <type of beverage> v/<volume> d/<date, format:YYYY-MM-DD>: Adds a hydration entry into the hydration tracker.
+         - hydration in <type of beverage> v/<volume> d/<date, format:YYYY-MM-DD>: Adds a hydration 
+         entry into the hydration tracker.
          - hydration list: Displays all entries currently stored in the hydration list.
          - hydration delete <index>: Deletes the hydration entry at the specified index from the hydration list.     
          -----------------------------------------------------------------------------
@@ -64,7 +67,8 @@ Shows a help message listing the commands available in the application.
          - sleep list: Displays all entries currently stored in the sleep list.
          - sleep delete <index>: Deletes the entry at the specified index from the sleep list.
          -----------------------------------------------------------------------------
-         - user setup <name> h/<height> w/<weight> a/<age> s/<sex> e/<exercise_level> g/<body_goal>: Create a new user, or edit an existing one.
+         - user setup <name> h/<height> w/<weight> a/<age> s/<sex> e/<exercise_level> g/<body_goal>: 
+         Create a new user, or edit an existing one.
          - user progress: Display calories and hydration progress towards the daily requirement.
          -----------------------------------------------------------------------------
 
@@ -75,7 +79,7 @@ Exits the program.
 **Format:** 
 `bye`
 
-#### Expected Output
+#### Expected output
 
          -----------------------------------------------------------------------------
          Bye! See you again soon ^^
@@ -123,7 +127,7 @@ Shows a list of all activities in the calories tracker. Includes both calories i
 **Format:**
 `calories list`
 
-#### Sample output
+#### Expected output
          -----------------------------------------------------------------------------
 	 Your Caloric List:
 	 1. 	 Date: 2024-06-15, Description: chicken, Calories: 1000
@@ -261,7 +265,7 @@ Displays a progress bar to show the percentage of calories and hydration you hav
 **Notes about the command:**
 If you have not set your user up beforehand, this command will prompt you to do so instead.
 
-#### Sample Output
+#### Expected output
 
         -----------------------------------------------------------------------------
 	 Calories:
@@ -279,6 +283,24 @@ If you have not set your user up beforehand, this command will prompt you to do 
 **Q**: How do I transfer my data to another computer? 
 
 **A**: {your answer here}
+
+## Coming soon
+
+### Calorie lists to show calorie intakes and outflow separately
+
+When the user inputs `calorie list` into the terminal, they should be able to see the calorie lists for their calorie intakes and outflow separately.
+
+This upcoming feature will be implemented by allowing the `CalorieList` class to have two `ArrayList` members that store the calorie inflows and outflows separately.
+
+### Calorie and hydration progress to be calculated based on date
+
+The current implementation of the calorie and hydration progress calculates the calories/hydration consumed based on the total number of entries in the list, irregardless of the date.
+
+We want to be able to provide accurate representations of users meeting their daily calorie and hydration needs, so this feature will be updated very soon to accommodate that.
+
+### Edit user details
+
+The user should be able to quickly edit their details without having to run the `user setup` command again, as they may only need to change a few details for their account.
 
 ## Command Summary
 
