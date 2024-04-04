@@ -58,6 +58,9 @@ Given below is an example usage scenario and how this mechanism behaves at every
 
 - Step 6: This value is set to `User.caloriesRequired` by `User#setCaloriesRequired(int)`.
 
+The Sequence Diagram for the above-mentioned process is as follows:
+![Sequence Diagram](UserCalculateCaloriesSeqDiagram.png)
+
 
 #### Design considerations
 

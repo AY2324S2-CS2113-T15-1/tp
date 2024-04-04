@@ -60,7 +60,6 @@ public class User {
     public void setUp(String line) {
         try {
             parseSetUp(line, this);
-            getHealthInfo();
             fileHandler.writeUserData(this);
         } catch (InvalidInputException e) {
             System.out.println(e.getMessage());
