@@ -22,6 +22,9 @@ LifeTrack is a desktop app for students to track their health data, optimized fo
   - [Input sleeping hours](#input-sleeping-hours-sleep-add)
   - [Listing sleep records](#listing-sleep-records-sleep-list)
   - [Deleting a sleep record](#deleting-a-sleep-record-sleep-delete)
+- [User Profile](#user-profile)
+  - [Set Up User Profile](#set-up-user-profile-user-setup)
+  - [Check User's daily calories and hydration consumption](#check-your-daily-calories-and-hydration-consumption-user-progress)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
 
@@ -30,7 +33,7 @@ LifeTrack is a desktop app for students to track their health data, optimized fo
 {Give steps to get started quickly}
 
 1. Ensure that you have Java 11 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
+2. Download the latest version of `LifeTrack` from [here](http://link.to/duke).
 
 [//]: # (## Features )
 
@@ -212,20 +215,64 @@ Deletes the sleep record according to the index.
 **Examples:**
 * `list` followed by `sleep delete 2` deletes the 2nd sleep record from the sleep tracker.
 
+## User Profile
 
-### Adding a todo: `todo`
-Adds a new item to the list of todo items.
+### Set up user profile: `user setup`
+Creates/edits an existing user profile.
 
-Format: `todo n/TODO_NAME d/DEADLINE`
+**Format:**
+`user setup NAME h/HEIGHT w/WEIGHT a/AGE s/GENDER e/EXERCISE LEVELS g/BODY GOAL`
+* The height provided must be an integer between 90 and 225 cms.
+* The weight provided must be an integer between 30 and 200 kgs.
+* The age provided must be an integer between 13 and 110 years old.
+* The gender provided must be either `male` or `female`.
+* The exercise levels provided must be an integer between 1 and 5.
+* The body goal provided must be an integer between 1 and 5.
 
-* The `DEADLINE` can be in a natural language format.
-* The `TODO_NAME` cannot contain punctuation.  
+**Notes about the command format:**
 
-Example of usage: 
+| Exercise Level Input | Corresponding Exercise Levels |
+|:--------------------:|:-----------------------------:|
+|          1           |           Sedentary           |
+|          2           |        Lightly Active         |
+|          3           |       Moderately Active       |
+|          4           |          Very Active          |
+|          5           |       Extremely Active        |
 
-`todo n/Write the rest of the User Guide d/next week`
+| Body Goal Input |  Corresponding Goal  |
+|:---------------:|:--------------------:|
+|        1        |  Quick Weight Loss   |
+|        2        | Moderate Weight Loss |
+|        3        |   Maintain Weight    |
+|        4        | Moderate Weight Gain |
+|        5        |  Quick Weight Gain   |
 
-`todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
+
+**Examples:**
+* `user setup Tom h/180 w/80 a/25 s/male e/3 g/2`
+* `user setup Jane h/163 w/54 a/23 s/female e/2 g/3`
+
+### Check your daily calories and hydration consumption: `user progress`
+Displays a progress bar to show the percentage of calories and hydration you have consumed.
+
+**Format:**
+`user progress`
+
+**Notes about the command:**
+If you have not set your user up beforehand, this command will prompt you to do so instead.
+
+#### Sample Output
+
+        -----------------------------------------------------------------------------
+	 Calories:
+	 You have consumed 350 calories out of your goal of 2140 calories so far.
+	 [========                                          ]  16%
+
+	 Hydration:
+	 You have consumed 200ml out of your goal of 2000ml so far.
+	 [=====                                             ]  10%
+         -----------------------------------------------------------------------------
+
 
 ## FAQ
 
@@ -235,17 +282,19 @@ Example of usage:
 
 ## Command Summary
 
-| Action                 | Format, Examples                                                           |
-|------------------------|----------------------------------------------------------------------------|
-| Help                   | `help`                                                                     |
-| Add calories intake    | `calories in DESCRIPTION c/CALORIES d/DATE [m/CARBOHYDRATES,PROTEIN,FATS]` |
-| Add calories outflow   | `calories out DESCRIPTION c/CALORIES d/DATE`                               |
-| List calories          | `calories list`                                                            |
-| Delete calories entry  | `calories delete INDEX`                                                    |
-| Add hydration intake   | `hydration in DESCRIPTION v/VOLUME d/DATE`                                 |
-| List hydration         | `hydration list`                                                           |
-| Delete hydration entry | `hydration delete INDEX`                                                   |
-| Add sleep              | `sleep add DURATION d/DATE`                                                |
-| List sleep             | `sleep list`                                                               |
-| Delete sleep entry     | `sleep delete INDEX`                                                       |
-* Add todo `todo n/TODO_NAME d/DEADLINE`
+| Action                 | Format, Examples                                                                 |
+|------------------------|----------------------------------------------------------------------------------|
+| Help                   | `help`                                                                           |
+| Add calories intake    | `calories in DESCRIPTION c/CALORIES d/DATE [m/CARBOHYDRATES,PROTEIN,FATS]`       |
+| Add calories outflow   | `calories out DESCRIPTION c/CALORIES d/DATE`                                     |
+| List calories          | `calories list`                                                                  |
+| Delete calories entry  | `calories delete INDEX`                                                          |
+| Add hydration intake   | `hydration in DESCRIPTION v/VOLUME d/DATE`                                       |
+| List hydration         | `hydration list`                                                                 |
+| Delete hydration entry | `hydration delete INDEX`                                                         |
+| Add sleep              | `sleep add DURATION d/DATE`                                                      |
+| List sleep             | `sleep list`                                                                     |
+| Delete sleep entry     | `sleep delete INDEX`                                                             |
+| Set Up User Profile    | `user setup NAME h/HEIGHT w/WEIGHT a/AGE s/GENDER e/EXERCISE LEVELS g/BODY GOAL` |
+| Check User Progress    | `user progress`                                                                  |
+
