@@ -3,9 +3,16 @@ package seedu.lifetrack.system.parser;
 import seedu.lifetrack.system.exceptions.InvalidInputException;
 import seedu.lifetrack.user.User;
 
+import static seedu.lifetrack.system.exceptions.ErrorMessages.getAgeOutOfRangeMessage;
+import static seedu.lifetrack.system.exceptions.ErrorMessages.getHeightOutOfRangeMessage;
+import static seedu.lifetrack.system.exceptions.ErrorMessages.getInvalidAgeNumberMessage;
 import static seedu.lifetrack.system.exceptions.ErrorMessages.getInvalidExerciseLevelsNumberMessage;
 import static seedu.lifetrack.system.exceptions.ErrorMessages.getInvalidGoalNumberMessage;
+import static seedu.lifetrack.system.exceptions.ErrorMessages.getInvalidHeightNumberMessage;
 import static seedu.lifetrack.system.exceptions.ErrorMessages.getInvalidNumberOfSetUpInputs;
+import static seedu.lifetrack.system.exceptions.ErrorMessages.getInvalidWeightNumberMessage;
+import static seedu.lifetrack.system.exceptions.ErrorMessages.getUnderAgeMessage;
+import static seedu.lifetrack.system.exceptions.ErrorMessages.getWeightOutOfRangeMessage;
 import static seedu.lifetrack.system.exceptions.InvalidInputExceptionMessage.getEmptyUserSetupInputMessage;
 import static seedu.lifetrack.system.exceptions.InvalidInputExceptionMessage.getOutOfExerciseLevelsRangeMessage;
 import static seedu.lifetrack.system.exceptions.InvalidInputExceptionMessage.getOutOfGoalRangeMessage;
@@ -46,9 +53,9 @@ public class ParserUser {
             throw new InvalidInputException(getInvalidNumberOfSetUpInputs());
         }
         String name = parts[0].substring(LENGTH_OF_SETUP_COMMAND).trim();
-        int height = Integer.parseInt(parts[1].trim());
-        int weight = Integer.parseInt(parts[2].trim());
-        int age = Integer.parseInt(parts[3].trim());
+        int height = parseHeightIndex(parts[1].trim());
+        int weight = parseWeightIndex(parts[2].trim());
+        int age = parseAgeIndex(parts[3].trim());
         String sex = parts[4].trim().toLowerCase();
         int exerciseLevels = parseExerciseLevels(parts[5].trim());
         int goal = parseGoalIndex(parts[6].trim());
@@ -60,7 +67,72 @@ public class ParserUser {
         user.setSex(sex);
         user.setExerciseLevels(exerciseLevels);
         user.setGoal(goal);
-        printUserSetUpComplete(user.getName());
+        user.getHealthInfo();
+        int caloriesRequired = user.getCaloriesRequired();
+        printUserSetUpComplete(user.getName(), caloriesRequired);
+    }
+
+    /**
+     * Parses the user's height input for an Integer
+     *
+     * @param input user's height input
+     * @return user's height as an integer
+     * @throws InvalidInputException if the height input is not an integer or if the user's height is not between
+     * 90 and 225 cm
+     */
+    private static int parseHeightIndex(String input) throws InvalidInputException {
+        try {
+            int height = Integer.parseInt(input);
+            if (height < 90 || height > 225){
+                throw new InvalidInputException(getHeightOutOfRangeMessage());
+            }
+            return height;
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException(getInvalidHeightNumberMessage());
+        }
+    }
+
+    /**
+     * Parses the user's weight input for an Integer
+     *
+     * @param input user's weight input
+     * @return user's weight as an integer
+     * @throws InvalidInputException if the weight input is not an integer or if the user's weight is not between
+     * 30 and 200 kg
+     */
+    private static int parseWeightIndex(String input) throws InvalidInputException {
+        try {
+            int weight = Integer.parseInt(input);
+            if (weight<30 || weight > 200){
+                throw new InvalidInputException(getWeightOutOfRangeMessage());
+            }
+            return weight;
+        } catch (NumberFormatException e){
+            throw new InvalidInputException(getInvalidWeightNumberMessage());
+        }
+    }
+
+    /**
+     * Parses the user's age input for an Integer
+     *
+     * @param input user's age input
+     * @return user's age as an integer
+     * @throws InvalidInputException if the age input is not an integer or if the user's age is not between
+     * 13 and 110 years old
+     */
+    private static int parseAgeIndex(String input) throws InvalidInputException{
+        try{
+            int age = Integer.parseInt(input);
+            if(age <13 && age > 0){
+                throw new InvalidInputException(getUnderAgeMessage());
+            }
+            if (age <0 || age > 110) {
+                throw new InvalidInputException(getAgeOutOfRangeMessage());
+            }
+            return age;
+        } catch (NumberFormatException e){
+            throw new InvalidInputException(getInvalidAgeNumberMessage());
+        }
     }
 
     /**

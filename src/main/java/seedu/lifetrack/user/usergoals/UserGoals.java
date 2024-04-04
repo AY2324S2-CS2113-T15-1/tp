@@ -17,14 +17,13 @@ public class UserGoals {
 
     public static void getHealthInfo(User user) {
         double rawBMR = BMR_WEIGHT_MULTIPLIER * user.getWeight() + BMR_HEIGHT_MULTIPLIER * user.getHeight()
-                + BMR_AGE_MULTIPLIER * user.getAge();
+                - BMR_AGE_MULTIPLIER * user.getAge();
         String gender = user.getSex();
         int genderBMRModifier = gender.equals("male") ? BMR_MALE_MODIFIER : BMR_FEMALE_MODIFIER;
         int exerciseLevel = user.getExerciseLevels();
         double rawAMR = getAMR(rawBMR + genderBMRModifier, exerciseLevel);
         int goal = user.getGoal();
         int caloriesRequired = adjustAMRWithGoal(rawAMR,goal);
-        printUserCaloriesRequired(caloriesRequired);
         user.setCaloriesRequired(caloriesRequired);
     }
 

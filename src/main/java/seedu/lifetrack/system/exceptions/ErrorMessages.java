@@ -56,4 +56,28 @@ public class ErrorMessages {
     public static String getIncorrectSleepDateInputMessage() {
         return "\t Error: Date must be in YYYY-MM-DD format.!";
     }
+
+    public static String getHeightOutOfRangeMessage() {
+        return "\t Please enter a valid height!";
+    }
+    public static String getInvalidHeightNumberMessage(){
+        return "\t Please enter your height(in cm) as an integer!";
+    }
+    public static String getWeightOutOfRangeMessage(){
+        return "\t Please enter a valid weight!";
+    }
+    public static String  getInvalidWeightNumberMessage(){
+        return "\t Please enter your weight(in kg) as an integer!";
+    }
+    public static String getUnderAgeMessage(){
+        return "\t You are too young to use this app :(";
+    }
+
+    public static String getAgeOutOfRangeMessage(){
+        return "\t Please enter a valid age!";
+    }
+
+    public static String getInvalidAgeNumberMessage(){
+        return "\t Please enter your age as an integer!";
+    }
 }
