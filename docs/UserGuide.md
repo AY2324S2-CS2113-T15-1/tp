@@ -45,7 +45,7 @@ Shows a help message listing the commands available in the application.
 **Format:** 
 `help`
 
-#### Expected Output
+#### Expected output
 
          -----------------------------------------------------------------------------
          LifeTrack Command List:
@@ -79,7 +79,7 @@ Exits the program.
 **Format:** 
 `bye`
 
-#### Expected Output
+#### Expected output
 
          -----------------------------------------------------------------------------
          Bye! See you again soon ^^
@@ -127,7 +127,7 @@ Shows a list of all activities in the calories tracker. Includes both calories i
 **Format:**
 `calories list`
 
-#### Sample output
+#### Expected output
          -----------------------------------------------------------------------------
 	 Your Caloric List:
 	 1. 	 Date: 2024-06-15, Description: chicken, Calories: 1000
@@ -265,7 +265,7 @@ Displays a progress bar to show the percentage of calories and hydration you hav
 **Notes about the command:**
 If you have not set your user up beforehand, this command will prompt you to do so instead.
 
-#### Sample Output
+#### Expected output
 
         -----------------------------------------------------------------------------
 	 Calories:
@@ -283,6 +283,24 @@ If you have not set your user up beforehand, this command will prompt you to do 
 **Q**: How do I transfer my data to another computer? 
 
 **A**: {your answer here}
+
+## Coming soon
+
+### Calorie lists to show calorie intakes and outflow separately
+
+When the user inputs `calorie list` into the terminal, they should be able to see the calorie lists for their calorie intakes and outflow separately.
+
+This upcoming feature will be implemented by allowing the `CalorieList` class to have two `ArrayList` members that store the calorie inflows and outflows separately.
+
+### Calorie and hydration progress to be calculated based on date
+
+The current implementation of the calorie and hydration progress calculates the calories/hydration consumed based on the total number of entries in the list, irregardless of the date.
+
+We want to be able to provide accurate representations of users meeting their daily calorie and hydration needs, so this feature will be updated very soon to accommodate that.
+
+### Edit user details
+
+The user should be able to quickly edit their details without having to run the `user setup` command again, as they may only need to change a few details for their account.
 
 ## Command Summary
 
