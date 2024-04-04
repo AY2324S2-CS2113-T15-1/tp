@@ -9,8 +9,8 @@ public class UserUi {
     public static void printUserCalorieProgress(int caloriesConsumed, int caloriesRequired, String progressBar,
                                                 int percentage) {
         System.out.print("\t Calories:\n");
-        System.out.printf("\t You have consumed " + caloriesConsumed + "calories out of your goal of "
-                + caloriesRequired + "calories so far.\n");
+        System.out.printf("\t You have consumed " + caloriesConsumed + " calories out of your goal of "
+                + caloriesRequired + " calories so far.\n");
         System.out.printf("\t %s %d%%\n\n", progressBar, percentage);
     }
 

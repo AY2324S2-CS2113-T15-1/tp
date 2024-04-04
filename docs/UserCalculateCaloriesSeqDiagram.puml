@@ -1,0 +1,36 @@
+'https://plantuml.com/sequence-diagram
+
+@startuml
+actor Tom
+Tom -> UI: Input "user setup" command
+activate UI
+
+UI -> UI: handleUserInput()
+activate UI
+
+UI -> UI: handleUserCommands()
+activate UI
+
+UI -> User : setUp()
+activate User
+
+User -> ParserUser: parseSetUp()
+activate ParserUser
+
+ParserUser -> User: setName(),setHeight(),setWeight(),setAge(),setSex(),setExerciseLevels(),setGoal()
+ParserUser -> User: getHealthInfo()
+activate User
+
+User -> UserGoals : getHealthInfo(user)
+activate UserGoals
+return caloriesRequired
+
+return
+return
+return
+return
+return
+return
+
+
+@enduml

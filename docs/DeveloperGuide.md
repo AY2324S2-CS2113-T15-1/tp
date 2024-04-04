@@ -44,26 +44,33 @@ This functionality is facilitated by `UserGoals`. It implements one operation, n
 This operation is exposed in the `User` class as `User#getHealhInfo()`.
 
 Given below is an example usage scenario and how this mechanism behaves at every step:
-- Step 1: When the user inputs the command `user progress` in the terminal,
-  the string is sent to `User#getHealthInfo()`, which calls `UserGoals#getHealthInfo(User)`.
+- Step 1: When the user inputs the command `user setup` in the terminal, 
+  the input string is sent to `Ui#handleUserCommands(User,String)`, which calls `User#setup(String)`.
 
-- Step 2: The method retrieves the user`s information such as his height, weight, age, gender, exercise levels and intended goal.
+- Step 2: `User#setup(String)` calls `ParserUser#parseSetUp(String, User)` which parses the user's information such as 
+  his height, weight, age, gender, exercise levels and intended goal and sets these information to the `User`.
 
-- Step 3: Using these information, the method creates a `requestBody` `String`. 
+- Step 3: `User#setup(String)` then calls `User#getHealthInfo()` which calls `UserGoals#getHealthInfo(User)`.
 
-- Step 4: The created `requestBody` is used to send a `HttpRequest` to RapidAPI`s Fitness API, and the response is parsed to determine the number of calories a user needs to consume according to their personal goals.
+- Step 4: This method calculates the basal metabolism rate of the `user` using the user's height, weight, age and gender.
 
-- Step 5: This value is set to `User.caloriesRequired` by `User#setCaloriesRequired(int)`.
+- Step 5: Using the `user`'s exercise levels, the method calculates his active metabolism rate, and finally calculates the calories required by the user to achieve their goals based on their input.
+
+- Step 6: This value is set to `User.caloriesRequired` by `User#setCaloriesRequired(int)`.
+
+The Sequence Diagram for the above-mentioned process is as follows:
+![Sequence Diagram](UserCalculateCaloriesSeqDiagram.png)
+
 
 #### Design considerations
 
-- **Alternative 1 (current choice):** Uses an API to get the calories needed
-    - Pros: No need to figure out the optimal algorithm
-    - Cons: Need to parse response to sieve out necessary information
-
-- **Alternative 2:** Uses an algorithm to find the number of calories needed
+- **Alternative 1 (current choice):** Uses an algorithm to find the number of calories needed
   - Pros: Not dependent on external APIs
   - Cons: Need to come up with an algorithm to use
+
+- **Alternative 2 :** Uses an API to get the calories needed
+    - Pros: No need to figure out the optimal algorithm
+    - Cons: Need to parse response to sieve out necessary information
 
 ### Calories list feature
 
