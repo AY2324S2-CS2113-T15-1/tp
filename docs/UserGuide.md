@@ -45,33 +45,6 @@ Shows a help message listing the commands available in the application.
 **Format:** 
 `help`
 
-#### Expected output
-
-         -----------------------------------------------------------------------------
-         LifeTrack Command List:
-         - help: Displays a list of available commands and their descriptions.
-         -----------------------------------------------------------------------------
-         - calories in <food> c/<calories> d/<date, format:YYYY-MM-DD> m/[carbohydrates, proteins, fats]
-         : Adds a calorie gaining entry into the calories tracker.
-         - calories out <activity> c/<calories> d/<date, format:YYYY-MM-DD>: Adds a calorie burning 
-         entry into the calories tracker.
-         - calories list: Displays all entries currently stored in the calorie list.
-         - calories delete <index>: Deletes the entry at the specified index from the calorie list.
-         -----------------------------------------------------------------------------
-         - hydration in <type of beverage> v/<volume> d/<date, format:YYYY-MM-DD>: Adds a hydration 
-         entry into the hydration tracker.
-         - hydration list: Displays all entries currently stored in the hydration list.
-         - hydration delete <index>: Deletes the hydration entry at the specified index from the hydration list.     
-         -----------------------------------------------------------------------------
-         - sleep add <duration> d/<date, format:YYYY-MM-DD>: Adds a sleep entry into the sleep tracker.
-         - sleep list: Displays all entries currently stored in the sleep list.
-         - sleep delete <index>: Deletes the entry at the specified index from the sleep list.
-         -----------------------------------------------------------------------------
-         - user setup <name> h/<height> w/<weight> a/<age> s/<sex> e/<exercise_level> g/<body_goal>: 
-         Create a new user, or edit an existing one.
-         - user progress: Display calories and hydration progress towards the daily requirement.
-         -----------------------------------------------------------------------------
-
 ### Exiting the program: `bye`
 
 Exits the program.
@@ -297,6 +270,10 @@ This upcoming feature will be implemented by allowing the `CalorieList` class to
 The current implementation of the calorie and hydration progress calculates the calories/hydration consumed based on the total number of entries in the list, irregardless of the date.
 
 We want to be able to provide accurate representations of users meeting their daily calorie and hydration needs, so this feature will be updated very soon to accommodate that.
+
+### Reduce reliance on network features
+
+As of current, calorie requirements for users is calculated from an external API. However, to reduce the reliance on having a strong network connection for our application to work well, we are implementing a failsafe to calculate calorie requirements even if the network connection is not good.
 
 ### Edit user details
 
