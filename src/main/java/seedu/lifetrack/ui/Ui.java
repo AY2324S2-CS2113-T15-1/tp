@@ -7,6 +7,8 @@ import seedu.lifetrack.user.User;
 
 import java.util.Scanner;
 
+import static seedu.lifetrack.ui.UserUi.printNoUserYetMessage;
+
 /**
  * Reads user input from the console and processes it.
  * <p>
@@ -115,12 +117,20 @@ public class Ui {
         if (line.contains("setup")) {
             user.setUp(line);
         } else if (line.contains("progress")) {
-            user.getHealthInfo();
+            handleUserProgress(user);
+        } else {
+            handleUnknownInput();
+        }
+    }
+
+    private static void handleUserProgress(User user) {
+        if (user.getName() == null){
+            printNoUserYetMessage();
+        } else {
             user.getCaloriesProgressBar();
             user.getHydrationProgressBar();
         }
     }
-
     public static void sayHello() {
         System.out.println(WHITESPACE + "Hello from\n\n" + logo);
         System.out.println(WHITESPACE + "How can I help you today?");

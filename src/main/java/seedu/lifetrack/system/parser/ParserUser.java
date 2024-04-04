@@ -3,12 +3,20 @@ package seedu.lifetrack.system.parser;
 import seedu.lifetrack.system.exceptions.InvalidInputException;
 import seedu.lifetrack.user.User;
 
+import static seedu.lifetrack.system.exceptions.ErrorMessages.getAgeOutOfRangeMessage;
+import static seedu.lifetrack.system.exceptions.ErrorMessages.getHeightOutOfRangeMessage;
+import static seedu.lifetrack.system.exceptions.ErrorMessages.getInvalidAgeNumberMessage;
 import static seedu.lifetrack.system.exceptions.ErrorMessages.getInvalidExerciseLevelsNumberMessage;
-import static seedu.lifetrack.system.exceptions.ErrorMessages.getInvalidNumberOfSetUpInputs;
 import static seedu.lifetrack.system.exceptions.ErrorMessages.getInvalidGoalNumberMessage;
+import static seedu.lifetrack.system.exceptions.ErrorMessages.getInvalidHeightNumberMessage;
+import static seedu.lifetrack.system.exceptions.ErrorMessages.getInvalidNumberOfSetUpInputs;
+import static seedu.lifetrack.system.exceptions.ErrorMessages.getInvalidWeightNumberMessage;
+import static seedu.lifetrack.system.exceptions.ErrorMessages.getUnderAgeMessage;
+import static seedu.lifetrack.system.exceptions.ErrorMessages.getWeightOutOfRangeMessage;
 import static seedu.lifetrack.system.exceptions.InvalidInputExceptionMessage.getEmptyUserSetupInputMessage;
-import static seedu.lifetrack.system.exceptions.InvalidInputExceptionMessage.getOutOfGoalRangeMessage;
 import static seedu.lifetrack.system.exceptions.InvalidInputExceptionMessage.getOutOfExerciseLevelsRangeMessage;
+import static seedu.lifetrack.system.exceptions.InvalidInputExceptionMessage.getOutOfGoalRangeMessage;
+import static seedu.lifetrack.ui.UserUi.printUserSetUpComplete;
 
 /**
  * Utility Class to parse the commands made with regard to the User class.
@@ -41,16 +49,16 @@ public class ParserUser {
         checkSetUpInputsCorrectOrder(heightIndex, weightIndex, ageIndex, sexIndex, exerciseLevelsIndex, goalIndex);
 
         String[] parts = input.split("h/|w/|a/|s/|e/|g/");
-        if (parts.length != 7){
+        if (parts.length != 7) {
             throw new InvalidInputException(getInvalidNumberOfSetUpInputs());
         }
         String name = parts[0].substring(LENGTH_OF_SETUP_COMMAND).trim();
-        int height = Integer.parseInt(parts[1].trim());
-        int weight = Integer.parseInt(parts[2].trim());
-        int age = Integer.parseInt(parts[3].trim());
+        int height = parseHeightIndex(parts[1].trim());
+        int weight = parseWeightIndex(parts[2].trim());
+        int age = parseAgeIndex(parts[3].trim());
         String sex = parts[4].trim().toLowerCase();
-        String exerciseLevels = parseExerciseLevels(parts[5].trim());
-        String goal = parseGoalIndex(parts[6].trim());
+        int exerciseLevels = parseExerciseLevels(parts[5].trim());
+        int goal = parseGoalIndex(parts[6].trim());
 
         user.setName(name);
         user.setHeight(height);
@@ -59,6 +67,72 @@ public class ParserUser {
         user.setSex(sex);
         user.setExerciseLevels(exerciseLevels);
         user.setGoal(goal);
+        user.getHealthInfo();
+        int caloriesRequired = user.getCaloriesRequired();
+        printUserSetUpComplete(user.getName(), caloriesRequired);
+    }
+
+    /**
+     * Parses the user's height input for an Integer
+     *
+     * @param input user's height input
+     * @return user's height as an integer
+     * @throws InvalidInputException if the height input is not an integer or if the user's height is not between
+     *     90 and 225 cm
+     */
+    private static int parseHeightIndex(String input) throws InvalidInputException {
+        try {
+            int height = Integer.parseInt(input);
+            if (height < 90 || height > 225){
+                throw new InvalidInputException(getHeightOutOfRangeMessage());
+            }
+            return height;
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException(getInvalidHeightNumberMessage());
+        }
+    }
+
+    /**
+     * Parses the user's weight input for an Integer
+     *
+     * @param input user's weight input
+     * @return user's weight as an integer
+     * @throws InvalidInputException if the weight input is not an integer or if the user's weight is not between
+     *     30 and 200 kg
+     */
+    private static int parseWeightIndex(String input) throws InvalidInputException {
+        try {
+            int weight = Integer.parseInt(input);
+            if (weight<30 || weight > 200){
+                throw new InvalidInputException(getWeightOutOfRangeMessage());
+            }
+            return weight;
+        } catch (NumberFormatException e){
+            throw new InvalidInputException(getInvalidWeightNumberMessage());
+        }
+    }
+
+    /**
+     * Parses the user's age input for an Integer
+     *
+     * @param input user's age input
+     * @return user's age as an integer
+     * @throws InvalidInputException if the age input is not an integer or if the user's age is not between
+     *     13 and 110 years old
+     */
+    private static int parseAgeIndex(String input) throws InvalidInputException{
+        try{
+            int age = Integer.parseInt(input);
+            if(age <13 && age > 0){
+                throw new InvalidInputException(getUnderAgeMessage());
+            }
+            if (age <0 || age > 110) {
+                throw new InvalidInputException(getAgeOutOfRangeMessage());
+            }
+            return age;
+        } catch (NumberFormatException e){
+            throw new InvalidInputException(getInvalidAgeNumberMessage());
+        }
     }
 
     /**
@@ -68,26 +142,14 @@ public class ParserUser {
      * @return String equivalent of User's goals
      * @throws InvalidInputException if the goal input is not an integer between 1 and 7
      */
-    private static String parseGoalIndex(String input) throws InvalidInputException {
+    private static int parseGoalIndex(String input) throws InvalidInputException {
         try {
             int goalNumber = Integer.parseInt(input);
-            if (goalNumber == 1) {
-                return "fatloss reckless";
-            } else if (goalNumber == 2) {
-                return "fatloss aggressive";
-            } else if (goalNumber == 3) {
-                return "fatloss moderate";
-            } else if (goalNumber == 4) {
-                return "moderate";
-            } else if (goalNumber == 5) {
-                return "bulking slow";
-            } else if (goalNumber == 6) {
-                return "bulking normal";
-            } else if (goalNumber == 7) {
-                return "bulking aggressive";
-            } else {
+            if (goalNumber > 5 || goalNumber < 1) {
+
                 throw new InvalidInputException(getOutOfGoalRangeMessage());
             }
+            return goalNumber;
         } catch (NumberFormatException e) {
             throw new InvalidInputException(getInvalidGoalNumberMessage());
         }
@@ -95,26 +157,18 @@ public class ParserUser {
 
     /**
      * Parses the user's exercise levels input for an Integer and assigns the String equivalent of it
+     *
      * @param input user's exercise levels input
      * @return String equivalent of User's exercise levels
      * @throws InvalidInputException if the goal input is not an integer between 1 and 5
      */
-    private static String parseExerciseLevels(String input) throws InvalidInputException {
+    private static int parseExerciseLevels(String input) throws InvalidInputException {
         try {
             int levelInNumber = Integer.parseInt(input);
-            if (levelInNumber == 1) {
-                return "little";
-            } else if (levelInNumber == 2) {
-                return "light";
-            } else if (levelInNumber == 3) {
-                return "moderate";
-            } else if (levelInNumber == 4) {
-                return "heavy";
-            } else if (levelInNumber == 5) {
-                return "veryheavy";
-            } else {
+            if (levelInNumber < 1 || levelInNumber > 5) {
                 throw new InvalidInputException(getOutOfExerciseLevelsRangeMessage());
             }
+            return levelInNumber;
         } catch (NumberFormatException e) {
             throw new InvalidInputException(getInvalidExerciseLevelsNumberMessage());
         }
@@ -122,17 +176,19 @@ public class ParserUser {
 
     /**
      * Ensures that the input given by the user is in the correct order
-     * @param heightIndex Index of the input where user's height is specified
-     * @param weightIndex Index of the input where user's weight is specified
-     * @param ageIndex Index of the input where user's age is specified
-     * @param sexIndex Index of the input where user's gender is specified
+     *
+     * @param heightIndex         Index of the input where user's height is specified
+     * @param weightIndex         Index of the input where user's weight is specified
+     * @param ageIndex            Index of the input where user's age is specified
+     * @param sexIndex            Index of the input where user's gender is specified
      * @param exerciseLevelsIndex Index of the input where user's exercise levels is specified in Integer form
-     * @param goalIndex Index of the input where user's goal is specified in Integer form
+     * @param goalIndex           Index of the input where user's goal is specified in Integer form
      * @throws InvalidInputException if the order of the inputs is not correct. The input should be in this order:
-     *      height, weight, age, gender, exercise levels and goal.
+     *                               height, weight, age, gender, exercise levels and goal.
      */
     private static void checkSetUpInputsCorrectOrder(int heightIndex, int weightIndex, int ageIndex, int sexIndex,
-            int exerciseLevelsIndex, int goalIndex) throws InvalidInputException {
+                                                     int exerciseLevelsIndex,
+                                                     int goalIndex) throws InvalidInputException {
         if (!(heightIndex < weightIndex && weightIndex < ageIndex && sexIndex < exerciseLevelsIndex
                 && exerciseLevelsIndex < goalIndex)) {
             throw new InvalidInputException(getInvalidNumberOfSetUpInputs());
@@ -141,11 +197,12 @@ public class ParserUser {
 
     /**
      * Checks if User Setup command is empty
+     *
      * @param input input from user
      * @throws InvalidInputException if the command is empty
      */
     private static void checkEmptyInput(String input) throws InvalidInputException {
-        if (input.substring(LENGTH_OF_SETUP_COMMAND).trim().isEmpty()){
+        if (input.substring(LENGTH_OF_SETUP_COMMAND).trim().isEmpty()) {
             throw new InvalidInputException(getEmptyUserSetupInputMessage());
         }
     }

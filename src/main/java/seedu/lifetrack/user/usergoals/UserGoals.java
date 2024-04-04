@@ -2,49 +2,57 @@ package seedu.lifetrack.user.usergoals;
 
 import seedu.lifetrack.user.User;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-
 import static seedu.lifetrack.LifeTrack.calorieList;
 import static seedu.lifetrack.LifeTrack.hydrationList;
+import static seedu.lifetrack.ui.UserUi.printUserCalorieProgress;
+import static seedu.lifetrack.ui.UserUi.printUserHydrationProgress;
 
 public class UserGoals {
-
-    private static final int JSON_HEADING_SIZE = 67;
-    private static final int CALORIES_LENGTH = 4;
+    private static final int BMR_WEIGHT_MULTIPLIER = 10;
+    private static final double BMR_HEIGHT_MULTIPLIER = 6.25;
+    private static final int BMR_AGE_MULTIPLIER = 5;
+    private static final int BMR_MALE_MODIFIER = 5;
+    private static final int BMR_FEMALE_MODIFIER = -161;
 
     public static void getHealthInfo(User user) {
-        try {
-            String requestBody = "height=" + user.getHeight() + "&" +
-                    "weight=" + user.getWeight() + "&" +
-                    "age=" + user.getAge() + "&" +
-                    "gender=" + user.getSex() + "&" +
-                    "exercise=" + user.getExerciseLevels() + "&" +
-                    "goal=" + user.getGoal().replace(" ", "_");
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://fitness-api.p.rapidapi.com/fitness"))
-                    .header("content-type", "application/x-www-form-urlencoded")
-                    .header("X-RapidAPI-Key", "313560bcc6msh96f48210f860abep1be49djsn7c3a2058360d")
-                    .header("X-RapidAPI-Host", "fitness-api.p.rapidapi.com")
-                    .method("POST", HttpRequest.BodyPublishers.ofString(requestBody))
-                    .build();
-            HttpResponse<String> response = HttpClient.newHttpClient()
-                    .send(request, HttpResponse.BodyHandlers.ofString());
-            int indexOfCalories = response.body().indexOf("neededEnergy") + JSON_HEADING_SIZE;
-            int calories = Integer.parseInt(response.body()
-                    .substring(indexOfCalories, indexOfCalories + CALORIES_LENGTH));
-            System.out.println("\t You should consume " + calories + " calories a day to hit your goals!");
-            System.out.println("\t You should drink " + user.getHydrationRequired() + "ml of water a day " + 
-                    "to hit your goals!");
-            user.setCaloriesRequired(calories);
-        } catch (IOException | InterruptedException e) {
-            System.out.println("You ");
-        }
+        double rawBMR = BMR_WEIGHT_MULTIPLIER * user.getWeight() + BMR_HEIGHT_MULTIPLIER * user.getHeight()
+                - BMR_AGE_MULTIPLIER * user.getAge();
+        String gender = user.getSex();
+        int genderBMRModifier = gender.equals("male") ? BMR_MALE_MODIFIER : BMR_FEMALE_MODIFIER;
+        int exerciseLevel = user.getExerciseLevels();
+        double rawAMR = getAMR(rawBMR + genderBMRModifier, exerciseLevel);
+        int goal = user.getGoal();
+        int caloriesRequired = adjustAMRWithGoal(rawAMR,goal);
+        user.setCaloriesRequired(caloriesRequired);
     }
-    
+
+    private static int adjustAMRWithGoal(double rawAMR, int goal) {
+        if (goal == 1){
+            rawAMR *= 0.8;
+        } else if (goal == 2){
+            rawAMR *= 0.9;
+        } else if (goal == 4) {
+            rawAMR *= 1.1;
+        } else if (goal == 5) {
+            rawAMR*=1.2;
+        }
+        return (int) rawAMR;
+    }
+    private static double getAMR(double calories, int exerciseLevel) {
+        if (exerciseLevel == 1) {
+            calories *= 1.2;
+        } else if (exerciseLevel == 2) {
+            calories *= 1.375;
+        } else if (exerciseLevel == 3) {
+            calories *= 1.55;
+        } else if (exerciseLevel == 4) {
+            calories *= 1.725;
+        } else {
+            calories *= 1.9;
+        }
+        return calories;
+    }
+
     public static void getCaloriesProgressBar(User user) {
         int caloriesRequired = user.getCaloriesRequired();
         int caloriesConsumed = calorieList.getCaloriesConsumed();
@@ -63,11 +71,7 @@ public class UserGoals {
         progressBar.append("] ");
 
         int percentage = (int) (progress * 100);
-
-        System.out.printf("\t Calories:\n");
-        System.out.printf("\t You have consumed " + caloriesConsumed + " out of your goal of "
-                + caloriesRequired + " so far.\n");
-        System.out.printf("\t %s %d%%\n\n", progressBar.toString(), percentage);
+        printUserCalorieProgress(caloriesConsumed,caloriesRequired,progressBar.toString(), percentage);
     }
 
     public static void getHydrationProgressBar(User user) {
@@ -88,9 +92,6 @@ public class UserGoals {
         progressBar.append("] ");
 
         int percentage = (int) (progress * 100);
-        System.out.printf("\t Hydration:\n");
-        System.out.printf("\t You have consumed " + hydrationConsumed + " out of your goal of "
-                + hydrationRequired + " so far.\n");
-        System.out.printf("\t %s %d%%\n", progressBar.toString(), percentage);
+        printUserHydrationProgress(hydrationConsumed,hydrationRequired,progressBar.toString(),percentage);
     }
 }
