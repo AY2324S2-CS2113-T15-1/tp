@@ -118,6 +118,7 @@ Given below is an example usage scenario and how this mechanism behaves at every
 **General Health Guidelines:** The recommended daily intake of water for an average adult is around 8 glasses or approximately 2000 milliliters. This guideline is commonly recommended by health authorities and organizations such as HealthHub.
 
 **Ease of Implementation:** Setting a standard hydration requirement simplifies the tracking process for users. It provides a clear goal to strive for, making it easier for individuals to monitor and maintain their hydration levels consistently.
+
 ### Hydration list feature
 
 The `hydration list` feature lists out the record of all the Hydration data that the user has keyed in. The Hydration data are all stored into a `ArrayList<Entry> hydrationArrayList` attribute of the `HydrationList` Class. Hydration data are printed when the `printHydrationList()` function is called.
@@ -146,6 +147,89 @@ Given below is an example usage scenario and how this mechanism behaves at every
 
 The Sequence diagram for Hydration delete feature is shown below:
 ![HydrationDeleteDiagram.png](HydrationDeleteDiagram.png)
+
+### Adding sleep entries feature
+
+#### Implementation
+
+This functionality is facilitated by `UI`, `SleepList`, `FileHandler` and `ParserSleep`. It implements one operation, namely:
+- `UI#handleSleepInput(String,SleepList)`
+- `SleepList#addEntry(String)`
+- `ParserSleep#parseSleepInput(String)`
+- `FileHandler#updateFile()`
+
+This feature is activated when the user inputs a `sleep add` command in the terminal.
+
+Given below is an example usage scenario and how this mechanism behaves at every step:
+
+- Step 1: When the user inputs the command `sleep add 7.5 d/2022-01-02` in the terminal,
+  the string is sent to `UI#handleSleepInput(String, SleepList)`, which calls `SleepList#addSleep(String)`.
+
+- Step 2: Inside `SleepList#addSleep(String)`, the function `ParserSleep#parseSleepInput(String)` is then called to extract information such as the duration and date of entry.
+
+- Step 3: It will create a new entry of class `SleepEntry` that extends `Entry`based on the information.
+
+- Step 4: The created `SleepEntry` instance is added into the `ArrayList<Entry> sleepList` attribute of the `SleepList`.
+
+- Step 5: `FileHandler#updateFile()` is then called to update the data file with the new entry in the `SleepList`.
+
+The sequence diagram for this feature is shown below:
+![SleepAddSeqDiagram](https://github.com/a-wild-chocolate/tp/blob/f9a94746e763ddf54a4309583b71e0fdbabdb141/docs/SleepAddSeqDiagram.jpg)
+
+### Parsing user input for sleep entries
+
+This functionality is facilitated by `ParserSleep`. It implements one operation, namely:
+- `ParserSleep#parseSleepInput(String input)`
+
+This operation is exposed in the `SleepList` class as `SleepList#addSleep(String)`.
+
+Given below is an example usage scenario and how this mechanism behaves at every step:
+- Step 1: When the user inputs the command `sleep add 7.5 d/2022-01-02` in the terminal,
+  the string is sent to `SleepList#addEntry(String)`, which calls `ParserSleep#parseSleepInput(String)`.
+
+- Step 2: Using `String.split()`, the method extracts information such as the duration and date of entry.
+
+- Step 3: It will create a new entry of class `SleepEntry` that extends `Entry`based on the information.
+
+- Step 4: The created `SleepEntry` instance is added into the `ArrayList<Entry> sleepList` attribute of the `SleepList`.
+
+
+### Sleep list feature
+
+The `sleep list` feature lists out the record of all the sleep data that the user has keyed in. The sleep data are all stored into a `ArrayList<Entry> sleepList` attribute of the `SleepList` Class. Sleep data are printed when the `printSleepList()` function is called.
+
+The `printSleepList()` function iterates through the `sleepList` and each entry will call `SleepEntry#toString()` to return its information string to be printed.
+
+The Sequence diagram for Sleep list feature is shown below. Unrelated attributes and Classes were excluded.
+![SleepListSeqDiagram](https://github.com/a-wild-chocolate/tp/blob/f9a94746e763ddf54a4309583b71e0fdbabdb141/docs/SleepListSeqDiagram.jpg)
+
+
+### Sleep delete feature
+
+The `sleep delete` feature can delete the sleep record at specific index of sleep list. This functionality is facilitated by `SleepList`. It implements one operation, namely:
+- `deleteSleep(String line)`
+
+Given below is an example usage scenario and how this mechanism behaves at every step:
+- Step 1: When the user inputs the command `sleep delete INDEX` in the terminal, the string is sent to `Ui#handleUserInput()`, which will call `Ui#handleSleepInput()`.
+
+- Step 2: After the `Ui#handleSleepInput()` matching `sleep delete` key word, the string will be passed into deleteSleep(String line) to execute delete process.
+
+- Step 3: The string will be divided to two substrings according to the command syntax. Index will be tried to get from the second substring by `Integer.parseInt()`.
+
+- Step 4: The sleep record (`Entry`) stored in the `ArrayList<Entry> sleepList` will be deleted by calling `sleepArrayList.remove((index-1));` and a successful deleting message will be shown in terminal by calling `SleepListUi#successfulDeletedMessage(toDelete)`
+
+- Step 5: The latest sleep list will be updated to saving file by calling `SleepList#updateFile()`.
+
+The Sequence diagram for Sleep delete feature is shown below:
+![SleepDeleteDiagram.jpg](https://github.com/a-wild-chocolate/tp/blob/f9a94746e763ddf54a4309583b71e0fdbabdb141/docs/SleepDeleteSeqDiagram.jpg)
+
+### Calculating sleep requirements for each user (Planning)
+
+#### Design Considerations
+
+**General Health Guidelines:** The recommended daily sleep duration for an average adult is around 7.5 hours. However, sleep standard is different for different individual with different healthy status. This feature will calculate recommend sleep duration by formula based on user health information.
+
+**Ease of Implementation:** Setting a standard sleep requirement simplifies the tracking process for users. It provides a clear goal to strive for, making it easier for individuals to monitor and maintain their sleep time levels consistently.
 
 ## Product scope
 ### Target user profile
