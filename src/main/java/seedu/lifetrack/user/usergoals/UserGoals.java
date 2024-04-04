@@ -4,7 +4,6 @@ import seedu.lifetrack.user.User;
 
 import static seedu.lifetrack.LifeTrack.calorieList;
 import static seedu.lifetrack.LifeTrack.hydrationList;
-import static seedu.lifetrack.ui.UserUi.printUserCaloriesRequired;
 import static seedu.lifetrack.ui.UserUi.printUserCalorieProgress;
 import static seedu.lifetrack.ui.UserUi.printUserHydrationProgress;
 

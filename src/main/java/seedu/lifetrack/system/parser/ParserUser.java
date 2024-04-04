@@ -78,7 +78,7 @@ public class ParserUser {
      * @param input user's height input
      * @return user's height as an integer
      * @throws InvalidInputException if the height input is not an integer or if the user's height is not between
-     * 90 and 225 cm
+     *     90 and 225 cm
      */
     private static int parseHeightIndex(String input) throws InvalidInputException {
         try {
@@ -98,7 +98,7 @@ public class ParserUser {
      * @param input user's weight input
      * @return user's weight as an integer
      * @throws InvalidInputException if the weight input is not an integer or if the user's weight is not between
-     * 30 and 200 kg
+     *     30 and 200 kg
      */
     private static int parseWeightIndex(String input) throws InvalidInputException {
         try {
@@ -118,7 +118,7 @@ public class ParserUser {
      * @param input user's age input
      * @return user's age as an integer
      * @throws InvalidInputException if the age input is not an integer or if the user's age is not between
-     * 13 and 110 years old
+     *     13 and 110 years old
      */
     private static int parseAgeIndex(String input) throws InvalidInputException{
         try{
