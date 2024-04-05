@@ -167,12 +167,10 @@ Adds a sleep record into the sleep tracker.
 * The time indicated should follow the 24-hour system.
 * The date provided should be of the form YYYY-MM-DD.
 
-**Notes about the command format:**
-Including the DATE is optional. However, the DURATION must be included!
 
 **Examples:**
-* `sleep add 7.5 d/110324`
-* `sleep add 8`
+* `sleep add 7.5 d/2024-03-11`
+
 
 ### Listing sleep records: `sleep list`
 Show the list of all sleep records in the sleep tracker.
