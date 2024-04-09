@@ -1,3 +1,4 @@
+//@@author a-wild-chocolate
 package seedu.lifetrack.sleep.sleeplist;
 
 import seedu.lifetrack.Entry;
@@ -50,7 +51,7 @@ public class SleepList {
             updateFile();
             SleepListUi.printNewSleepEntry(newSleep);
         } catch (InvalidInputException e) {
-            System.out.println(getIncorrectSleepInputMessage());
+            System.out.println(e.getMessage());
         }
     }
     
@@ -83,4 +84,6 @@ public class SleepList {
     public int getSize() {
         return sleepList.size();
     }
+
 }
+//@@author

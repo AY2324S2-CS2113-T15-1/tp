@@ -87,12 +87,14 @@ public class HydrationList {
      */
     public void addEntry(String input) {
         assert (input.startsWith("hydration add")) : "ensures that input is correct";
+        logr.setLevel(Level.SEVERE);
         try {
             Entry newEntry = ParserHydration.parseHydrationInput(input);
             hydrationArrayList.add(newEntry);
             updateFile();
             HydrationListUI.printNewHydrationEntry(newEntry);
         } catch (InvalidInputException e) {
+            System.out.println(e.getMessage());
             logr.log(Level.WARNING, e.getMessage(), e);
         }
     }

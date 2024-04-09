@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 public class InvalidInputException extends Exception {
 
-    private static Logger logr = Logger.getLogger(CalorieList.class.getName());
     public final String heythere = "";
 
     /**
@@ -15,8 +14,6 @@ public class InvalidInputException extends Exception {
      */
     public InvalidInputException(){
         super("\t Please ensure that you have keyed in the correct format!");
-        logr.setLevel(Level.SEVERE);
-        logr.log(Level.WARNING,"\t Please ensure that you have keyed in the correct format!");
     }
 
     /**

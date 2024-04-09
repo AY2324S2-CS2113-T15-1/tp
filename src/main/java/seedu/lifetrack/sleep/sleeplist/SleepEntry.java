@@ -1,3 +1,4 @@
+//@@author a-wild-chocolate
 package seedu.lifetrack.sleep.sleeplist;
 
 import seedu.lifetrack.Entry;
@@ -38,3 +39,4 @@ public class SleepEntry extends Entry {
         return String.format(super.toFileFriendlyString() + ";" + duration);
     }
 }
+//@@author

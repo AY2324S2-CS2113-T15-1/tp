@@ -80,4 +80,12 @@ public class ErrorMessages {
     public static String getInvalidAgeNumberMessage(){
         return "\t Please enter your age as an integer!";
     }
+    public static String getTooLongSleepDurationMessage()
+    {
+        return "\t Please enter a sleep duration less than 24 hours.";
+    }
+    public static String getInvalidSleepDateMessage()
+    {
+        return "\t Please enter a valid date!";
+    }
 }
