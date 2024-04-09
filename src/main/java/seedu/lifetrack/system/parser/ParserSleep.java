@@ -9,8 +9,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import static seedu.lifetrack.system.exceptions.ErrorMessages.*;
-import static seedu.lifetrack.system.exceptions.InvalidInputExceptionMessage.*;
+import static seedu.lifetrack.system.exceptions.ErrorMessages.getIncorrectSleepInputMessage;
+import static seedu.lifetrack.system.exceptions.ErrorMessages.getTooLongSleepDurationMessage;
+import static seedu.lifetrack.system.exceptions.InvalidInputExceptionMessage.getSleepMissingKeywordMessage;
 
 public class ParserSleep {
     private static final int DURATION_IDX = 0;
@@ -44,9 +45,8 @@ public class ParserSleep {
         return newSleep;
     }
 
-    private static double parseDuration(String durationStr) throws InvalidInputException
-    {
-        double duration;
+    private static double parseDuration(String durationStr) throws InvalidInputException {
+        double duration=0;
 
         try {
             duration = Double.parseDouble(durationStr);
@@ -56,13 +56,11 @@ public class ParserSleep {
 
         if (duration <= 0) {
             throw new InvalidInputException(getIncorrectSleepInputMessage());
-        }
-        else if (duration >= 24) {
+        } else if (duration >= 24) {
             throw new InvalidInputException(getTooLongSleepDurationMessage());
         }
-
         return duration;
-}
+    }
 
 
     private static LocalDate parseDate(String strDate) throws InvalidInputException {
@@ -72,6 +70,7 @@ public class ParserSleep {
             throw new InvalidInputException("\tInvalid date! Please enter a valid date in format YYYY-MM-DD.");
         }
     }
+
     private static void checkKeywordsExist(int dateIndex) throws InvalidInputException {
         if (dateIndex == -1 ) {
             throw new InvalidInputException(getSleepMissingKeywordMessage());
@@ -84,7 +83,5 @@ public class ParserSleep {
                     "sleep add <duration> d/<strDate>");
         }
     }
-
-
 }
 //@@author

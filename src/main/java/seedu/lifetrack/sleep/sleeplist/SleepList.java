@@ -10,7 +10,6 @@ import seedu.lifetrack.ui.SleepListUi;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import static seedu.lifetrack.system.exceptions.ErrorMessages.getIncorrectSleepInputMessage;
 
 public class SleepList {
 

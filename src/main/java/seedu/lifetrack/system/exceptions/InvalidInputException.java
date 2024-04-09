@@ -1,8 +1,5 @@
 package seedu.lifetrack.system.exceptions;
-import seedu.lifetrack.calories.calorielist.CalorieList;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class InvalidInputException extends Exception {
 
