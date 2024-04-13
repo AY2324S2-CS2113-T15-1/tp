@@ -222,7 +222,7 @@ public class StorageHandler {
             }
 
             return new Subtransaction(lender, borrower, amount);
-            
+          
         } catch (NumberFormatException | LongAhException e) {
             throw new LongAhException(ExceptionMessage.INVALID_STORAGE_CONTENT);
         }
