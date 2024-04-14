@@ -1,0 +1,31 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+class Group {
+    - members: MemberList
+    - transactions: TransactionList
+    - storage: StorageHandler
+    - groupName: String
+    - transactionSolution: ArrayList<Subtransaction>
+    + Constructor(String)
+    + updateTransactionSolution()
+    + settleUp(String)
+    + saveAllData()
+    + listDebts(): String
+    + listIndivDebt(String): String
+}
+
+class GroupList {
+    - activeGroup: Group
+    - groupList: ArrayList<Group>
+    + Constructor()
+    + switchActiveGroup(Group)
+    + createGroup()
+    + loadGroupList()
+    + addGroup(Group)
+    + deleteGroup(String)
+    + saveGroupList()
+}
+
+GroupList "1" --> "*" Group
+@enduml

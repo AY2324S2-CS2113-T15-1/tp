@@ -231,7 +231,7 @@ The `Group` class has the following attributes:
 * *groupName*: A string representing the name of the group.
 * *transactionSolution*: An array list collection of Subtransaction objects representing the least transactions solution to solving all debts in the group.
 
-The `GroupList` class has the following attribute:
+The `GroupList` class has the following attributes:
 * *activeGroup*: A Group object representing the currently active group.
 * *groupList*: An array list collection of Group objects representing the list of groups stored in the application.
 
@@ -240,13 +240,13 @@ The `GroupList` class has the following attribute:
 
 The detailed class diagram for `Group` and `GroupList` can be found below.
 
-![Group Class Diagram](diagrams/Group.png)
+![Group Class Diagram](diagrams/Group Class.png)
 
 <ins>Constructor</ins>
 
 The Group constructor creates a group object with the given group name and initializes a new member list, transaction list, storage handler. The latter is used to ensure that data across groups are kept discrete.
 
-Key arguments of the Group constructor are a string `groupName`.
+Key arguments of the Group constructor is a string `groupName`.
 
 The GroupList constructor initializes an empty array list of groups for newly created groups to be added and stored to.
 
@@ -321,9 +321,11 @@ GroupList groupList = new GroupList();
 // Creating a new group and adding it to the group list
 groupList.createGroup();
 
-// Adding more groups to the list
-groupList.createGroup();
-groupList.createGroup();
+// Init and add more groups to the list
+Group group2 = new Group("Group1");
+Group group3 = new Group("Group2");
+groupList.addGroup(group2);
+groupList.addGroup(group3);
 
 // Getting the active group
 UI.showMessage("Active Group: " + GroupList.getActiveGroup().getGroupName());
@@ -456,114 +458,82 @@ The MemberList class takes the following into consideration.
 
 * `updateMembersBalance` clears current balances at the start of invokation. This removes any transactions that are not captured within the `TransactionList` object passed into the method.
 
+
 ### Transaction and TransactionList
 <ins>Transaction Overview</ins>
 
-The Transaction class is responsible for representing a single transaction in the LongAh application between 2 members.
+The `Transaction` class is responsible for representing a single transaction in the LongAh application between 2 members.
 It contains information about the lender, borrowers, and the amount involved in the transaction.
 
+The `TransactionList` class manages a list of transactions in the LongAh application, providing methods to add, delete, and retrieve transactions from the list.
 
-<ins>Class Fields</ins>
-* lender: Represents the member who lent the money.
-* transaction time (optional): Represents the time at which the transaction took place.
-* subtransactions: An ArrayList of Subtransaction objects, representing individual borrowings within the transaction.
+<ins>Class Structure</ins>
 
-<ins>Transaction Constructor</ins>
+The Transaction class has the following attributes.
 
-`Transaction(String userInput, MemberList members)`
-* Parses the given user input and creates a new Transaction object with the specified lender, borrowers, and amount.
-* Called whenever a new transaction is added to the transaction list.
+* *lender*: A member object representing the lender in the transaction.
+* *transactionTime*: A DateTime object representing the time of the transaction. (optional)
+* *subtransactions*: An ArrayList of Subtransaction objects, representing individual borrowings within the transaction.
 
-`Transaction(Member lender, ArrayList<Subtransaction> subtransactions,
-MemberList members)`
-* Constructs a transaction instance using specified lender, subtransactions, member list.
-* This constructor is used for storage methods only.
+The TransactionList class has the following attributes.
 
-`Transaction(Member lender, ArrayList<Subtransaction> subtransactions,
-MemberList members, String transactionTime)`
-* Constructs a transaction instance using specified lender, subtransactions, member list and transaction time.
-* This constructor is used for storage methods only on entries with transaction time.
+* *transactions*: An ArrayList of Transaction objects representing the list of transactions in a group.
 
-<ins>Transaction Methods</ins>
+<ins>Implementation Details</ins>
+
+The detailed class diagram for `Transaction` and `TransactionList` can be found below.
+
+![Transaction Class Diagram](diagrams/Transaction Class.png)
+
+
+<ins>Constructor</ins>
+
+The `Transaction` constructor creates a transaction object with the specified lender and transaction time (if applicable). The subtransactions are initialized as an empty ArrayList.
+
+Key arguments of the Transaction constructor are a `Member` object `lender`, an ArrayList of `subtransactions`, and optionally a `DateTime` object `transactionTime`.
+
+<ins>Methods</ins>
+
+The Transaction class has the following key methods.
 
 - *parseTransaction*: Parses the user input to extract lender and borrowers, then adds them to the transaction.
 - *addBorrower*: Adds a borrower to the transaction.
-- *getLender*: Returns the lender of the transaction.
-- *isLender*: Checks if a given member is the lender of the transaction.
-- *isborrower*: Checks if a given member is a borrower in the transaction.
-- *isInvolved*: Checks if a given member is involved in the transaction.
 - *toStorageString*: Converts the transaction to a string format for storage.
-- *getSubtransactions*: Returns the list of subtransactions in the transaction.
 - *editTransaction*: Edits the transaction based on new user input.
 - *deleteMember*: Deletes a member from the transaction and returns true if transaction needs to be removed.
-- *haveTime*: Checks if a given transaction has a corresponding time component.
 
+The TransactionList class has the following key methods.
 
-<ins>TransactionList Overview</ins>
-
-The TransactionList class is responsible for managing a list of transactions in the LongAh application. It provides methods to add, delete, and retrieve transactions from the list.
-
-<ins>Class Fields</ins>
-
-- *transactions*: An ArrayList of Transaction objects representing the list of transactions in LongAh!.
-
-<ins>TransactionList Methods</ins>
-
-- *addTransaction*: Parses user input and adds a new transaction to the list.
-
-- *getTransactionListSize*: Returns the size of the transaction list.
-
-- *remove*: Removes a transaction from the list based on the index.
-
+- *addTransaction*: Adds a new transaction to the list based on user input.
+- remove: Removes a transaction from the list based on the index.
 - *clear*: Clears all transactions from the list.
-
-- *getTransaction*: Returns the list of transactions.
-
-- *listTransactions*: Lists all transactions in the transaction list.
-
-- *findLender*: Finds all transaction where a specified member is the lender.
-
-- *findBorrower*: Finds all transaction where a specified member is a borrower.
-
+- findLender: Finds all transactions where a specified member is the lender.
+- findBorrower: Finds all transactions where a specified member is a borrower.
 - *findTransactions*: Finds a transaction based on member name.
-
+- *filterTransactionsEqualToDateTime*: Filters transactions based on the specified date and time.
+- *filterTransactionsBeforeDateTime*: Filters transactions before the specified date and time.
+- *filterTransactionsAfterDateTime*: Filters transactions after the specified date and time.
+- *filterTransactionsBetweenDateTime*: Filters transactions between the specified start and end date and time.
 - *editTransactionList*: Edits a transaction in the list based on user input.
-
 - *findDebts*: Finds all debts owed by a specified member.
-
 - *deleteMember*: Deletes a member from all transactions in the list.
 
 <ins>Usage Example</ins>
 
-Adding a new transaction:
+The diagram below illustrates a sample usage scenario of adding a transaction: 
 ![addTransaction.png](diagrams/addTransaction.png)
 
-Given below is an example usage scenario and how the Transaction class behaves at each step:
 
+<ins>Design Considerations</ins>
 
-1. The user enters a new transaction using the 'add transaction' command with the lender, borrower(s), amount(s) and time specified.
-2. The TransactionList class takes in the user input and creates a new Transaction object with the specified details for the specified memberList.
-3. The Transaction class parses the user input to extract the lender and borrower(s) and adds them to the transaction.
-4. The Transaction object is added to the TransactionList, which stores the list of transactions.
-5. The Logger class logs the new transaction for information tracking, and logs a warning if an invalid transaction format is entered.
-6. The Group class then updates the best transaction settlement solution and member balances based on the new transaction.
-7. The StorageHandler class saves the updated data to the relevant files for future reference.
+The Transaction class takes the following into consideration.
 
-Code Snippet
-```
-MemberList members = group.getMemberList();
-TransactionList transactions = group.getTransactionList();
-transactions.addTransaction(taskExpression, members);
-group.updateTransactionSolution();
-group.saveAllData();
-```
-<ins>Conclusion</ins>
+- Separate constructors and `parseTransaction` methods for storage purposes and user input parsing respectively.
+- `toStorageString` method takes in a String `delimiter` for the purpose of splitting the transaction string into its constituent parts for storage.
 
-The Transaction class provides functionality for managing transactions between
-facilitates the lending of money and ensures data integrity by validating input and managing member interactions.
+The TransactionList class takes the following into consideration.
+- Transactions are indexed starting from 1 for user reference and ease of use by other methods such as edit and delete.
 
-The TransactionList class provides essential functionalities for managing a list of transactions.
-Its methods facilitate the addition, removal, editing, and retrieval of transactions, ensuring efficient management of transactions within a group.
 
 ### PIN
 
@@ -820,31 +790,31 @@ Busy people with large transaction quantities among friends
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...                                                                                  |
-|--------|----------|---------------|----------------------------------------------------------------------------------------------------|
-|v1.0|user|to be able to find the least transactions needed to resolve amounts owed by various members of my various groups| -                                                                                                  |
-|v1.0|user|add transactions involving multiple people in a group| keep track of people involved and value of the transaction                                         |
-|v1.0|user|edit transactions| fix mistakes made when entering transactions                                                       |
-|v1.0|user|delete transactions| clear erroneous transactions which I do not intend to keep                                         |
-|v1.0|user|keep a log of my data| retain memory of past transactions in past runs of the platform                                    |
-|v1.0|user|have easy access command to clear my pending debts| -                                                                                                  |
-|v1.0|user|be able to organise people into groups| minimise the occurrence of being affected by typos                                                  |
-|v1.0|user|add members to a group| add them to future transactions                                                                    |
-|v1.0|user|restart data for a group| reduce clutter of the application                                                                  |
-|v2.0|new user|view help commands| have an easy reference for commands while using the application                                    |
-|v2.0|user|enable the use of passwords for my application| prevent wrongful access to my records                                                              |
-|v2.0|user|disable the password| have an easier time allowing people to view my records                                             |
-|v2.0|user|edit my password| change my password in case it has been compromised                                                 |
-|v2.0|user|have my password be encrypted| ensure my password cannot be easily found out                                                      |
-|v2.0|user|edit members in my group| change their nicknames which I store within the application                                        |
-|v2.0|user|delete current members| keep my groups neat and free of people who are no longer part of them                              |
-|v2.0|user|create more groups| use the application for multiple groups of friends without data overlapping                        |
-|v2.0|forgetful user|time of transactions to be saved| reference when each transaction were made                                                          |
-|v2.0|user|search for specific transactions| find out information relating to the transaction in case I need to affect it                       |
-|v2.1|advanced user|merge different groups together| combine groups which have large overlaps in members                                                |
-|v2.1|user|setup expenditure limits| be notified when someone have too large of a debt                                                  |
-|v2.1|advanced user|create equal share transactions| add multiple people to a transaction without having to type their associated value to each of them |
-|v2.1|advanced user|have command shortcuts| input commands faster                                                                              |
+| Version | As a ...       | I want to ...                                                                                                    | So that I can ...                                                                                  |
+|---------|----------------|------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| v1.0    | user           | to be able to find the least transactions needed to resolve amounts owed by various members of my various groups | -                                                                                                  |
+| v1.0    | user           | add transactions involving multiple people in a group                                                            | keep track of people involved and value of the transaction                                         |
+| v1.0    | user           | edit transactions                                                                                                | fix mistakes made when entering transactions                                                       |
+| v1.0    | user           | delete transactions                                                                                              | clear erroneous transactions which I do not intend to keep                                         |
+| v1.0    | user           | keep a log of my data                                                                                            | retain memory of past transactions in past runs of the platform                                    |
+| v1.0    | user           | have easy access command to clear my pending debts                                                               | -                                                                                                  |
+| v1.0    | user           | be able to organise people into groups                                                                           | minimise the occurrence of being affected by typos                                                 |
+| v1.0    | user           | add members to a group                                                                                           | add them to future transactions                                                                    |
+| v1.0    | user           | restart data for a group                                                                                         | reduce clutter of the application                                                                  |
+| v2.0    | new user       | view help commands                                                                                               | have an easy reference for commands while using the application                                    |
+| v2.0    | user           | enable the use of passwords for my application                                                                   | prevent wrongful access to my records                                                              |
+| v2.0    | user           | disable the password                                                                                             | have an easier time allowing people to view my records                                             |
+| v2.0    | user           | edit my password                                                                                                 | change my password in case it has been compromised                                                 |
+| v2.0    | user           | have my password be encrypted                                                                                    | ensure my password cannot be easily found out                                                      |
+| v2.0    | user           | edit members in my group                                                                                         | change their nicknames which I store within the application                                        |
+| v2.0    | user           | delete current members                                                                                           | keep my groups neat and free of people who are no longer part of them                              |
+| v2.0    | user           | create more groups                                                                                               | use the application for multiple groups of friends without data overlapping                        |
+| v2.0    | forgetful user | time of transactions to be saved                                                                                 | reference when each transaction were made                                                          |
+| v2.0    | user           | search for specific transactions                                                                                 | find out information relating to the transaction in case I need to affect it                       |
+| v2.1    | advanced user  | merge different groups together                                                                                  | combine groups which have large overlaps in members                                                |
+| v2.1    | user           | setup expenditure limits                                                                                         | be notified when someone have too large of a debt                                                  |
+| v2.1    | advanced user  | create equal share transactions                                                                                  | add multiple people to a transaction without having to type their associated value to each of them |
+| v2.1    | advanced user  | have command shortcuts                                                                                           | input commands faster                                                                              |
 
 ## Non-Functional Requirements
 

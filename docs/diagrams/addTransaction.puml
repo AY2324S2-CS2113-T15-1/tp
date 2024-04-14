@@ -1,56 +1,33 @@
 @startuml
-
 actor User
 
-participant "User" as User
-participant "Group" as Group
-participant "MemberList" as MemberList
-participant "TransactionList" as TransactionList
-participant "Transaction" as Transaction
-participant "Logger" as Logger
+participant ":LongAh"
+participant ":Group"
+participant ":Command"
+participant ":MemberList"
+participant ":TransactionList"
+participant ":Transaction"
+participant ":UI"
 
-User -> Group: execute(group)
-activate Group
-Group -> Group: getMemberList()
-activate Group
-Group -> MemberList: getMembers()
-activate MemberList
-MemberList --> Group: members
-deactivate MemberList
-Group -> Group: getTransactionList()
-activate Group
-Group -> TransactionList: getTransactions()
-activate TransactionList
-TransactionList --> Group: transactions
-deactivate TransactionList
+
+ref over "User" , ":Command"
+Command Execution Sequence
+(addTransaction)
+end ref
+":Group" -> ":MemberList" : Get members
+":MemberList" --> ":Group" : members
+":Group" -> ":TransactionList" : Get transactions
+":TransactionList" --> ":Group" : transactions
 alt Valid transaction format
-    Group -> TransactionList: addTransaction(taskExpression, members)
-    activate TransactionList
-    TransactionList -> TransactionList: addTransaction(expression, memberList)
-    activate TransactionList
-    TransactionList -> Transaction: new Transaction(expression, memberList)
-    activate Transaction
-    TransactionList --> TransactionList: transaction added
-    deactivate Transaction
-    deactivate TransactionList
+    ":Group" -> ":TransactionList": Add transaction
+    ":TransactionList" -> ":Transaction": Add transaction
+    ":Transaction" -> ":UI": "Transaction added successfully"
+    ":Transaction" -> ":UI": Transaction details
+    ":Group" -> ":Group": Update members balance
+    ":Group" -> ":Group": Update transaction solution
+    ":Logger" -> ":Logger": log(Level.INFO, "Transaction solution updated")
 else Invalid transaction format
-    User -> Logger: LogWarning (Invalid transaction format)
-    activate Logger
-    Logger -> Logger: log(Level.WARNING, "Invalid transaction format")
-    deactivate Logger
+    ":Transaction" -> ":UI": "Invalid transaction format"
 end
-Group -> Group: updateTransactionSolution()
-Group -> MemberList: updateMembersBalance(transactions)
-activate MemberList
-MemberList -> MemberList: update members' balances
-deactivate MemberList
-Group -> Group: solveTransactions()
-Group -> Logger: Log info (Transaction solution updated)
-activate Logger
-Logger -> Logger: log(Level.INFO, "Transaction solution updated")
-deactivate Logger
-Group -> Group: saveAllData()
-Group --> User: Done
-deactivate Group
 
 @enduml
