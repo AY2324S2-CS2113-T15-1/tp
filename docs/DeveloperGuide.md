@@ -84,7 +84,7 @@ The UI class has the following key methods:
 
 The InputHandler class has the following key method:
 
-* *paseInput*: Parses the user input and returns the corresponding `Command` object.
+* *parseInput*: Parses the user input and returns the corresponding `Command` object.
 
 <ins>Design Considerations</ins>
 
@@ -100,7 +100,7 @@ The `Command` class has been subdivided into further packages for similar comman
 
 <ins>Implementation Details</ins>
 
-The following diagram is a inheritance diagram for `Command` and its children classes. This has been heavily simplified and only shows the key commands.
+The following diagram is an inheritance diagram for `Command` and its children classes. This has been heavily simplified and only shows the key commands.
 
 ![Command Inheritance Diagram](diagrams/CommandInheritance.png)
 
@@ -171,7 +171,7 @@ The StorageHandler has the following attributes:
 
 The StorageHandler constructor creates the relevant data storage directories if they do not current exist while initializing the attributes of the object.
 
-Key arguments for the constructor are a `MemberList` object, a `TransactionList` object and a string `groupName`. The first two are used to represent the list of `Member` objects and the list of `Transaction` objects associated with the group for reference when loading or saving data. The last represents the directory to be written to to ensure that data across groups are kept discrete.
+Key arguments for the constructor are a `MemberList` object, a `TransactionList` object and a string `groupName`. The first two are used to represent the list of `Member` objects and the list of `Transaction` objects associated with the group for reference when loading or saving data. The last represents the directory to be written to ensure that data across groups are kept discrete.
 
 <ins>Methods</ins>
 
@@ -240,6 +240,7 @@ The `GroupList` class has the following attribute:
 
 The detailed class diagram for `Group` and `GroupList` can be found below.
 
+![Group Class Diagram](diagrams/Group.png)
 
 <ins>Constructor</ins>
 
@@ -395,7 +396,7 @@ The Member class has the following key methods.
 
 The MemberList class has the following key methods.
 
-* *addMember*: Adds a member object to the current array list of members. This method is overloaded to allow for appending an exisiting member object or appending a newly created member object.
+* *addMember*: Adds a member object to the current array list of members. This method is overloaded to allow for appending an existing member object or appending a newly created member object.
 * *isMember*: Checks if a member object is already a part of the current array list of members.
 * *getMember*: Returns the member object representation given the name of a member.
 * *editMemberName*: Updates the name of an existing member based on their current name.
@@ -449,7 +450,7 @@ members.delete("Bob");
 The Member class takes the following into consideration.
 
 * The class ensures that member names are alphanumeric and does not allow for special characters including blank space.
-* This method is used in conjunction with a `TransactionList` obejct as part of a `Group`.
+* This method is used in conjunction with a `TransactionList` object as part of a `Group`.
 
 The MemberList class takes the following into consideration.
 
@@ -535,7 +536,7 @@ The TransactionList class is responsible for managing a list of transactions in 
 <ins>Usage Example</ins>
 
 Adding a new transaction:
-![addTransaction.png](diagrams%2FaddTransaction.png)
+![addTransaction.png](diagrams/addTransaction.png)
 
 Given below is an example usage scenario and how the Transaction class behaves at each step:
 
@@ -628,7 +629,7 @@ If the file does not exist or the savedPin is empty, it calls the createPin meth
 
 <ins> Usage Example </ins>
 
-![pinhandler longah.png](diagrams%2Fpinhandler%20longah.png)
+![pinhandler longah.png](diagrams/pinhandler%20longah.png)
 
 
 Given below is an example usage scenario and how the PIN creation and authentication mechanism behaves at each step:
@@ -819,35 +820,35 @@ Busy people with large transaction quantities among friends
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|user|to be able to find the least transactions needed to resolve amounts owed by various members of my various groups|-|
-|v1.0|user|add transactions involving multiple people in a group|keep track of people involved and value of the transaction|
-|v1.0|user|edit transactions|fix mistakes made when entering transactions|
-|v1.0|user|delete transactions|clear erroneous transactions which I do not intend to keep|
-|v1.0|user|keep a log of my data|retain memory of past transactions in past runs of the platform|
-|v1.0|user|have easy access command to clear my pending debts|-|
-|v1.0|user|be able to organise people into groups|minimise the occurence of being affected by typos|
-|v1.0|user|add members to a group|add them to future transactions|
-|v1.0|user|restart data for a group|reduce clutter of the application|
-|v2.0|new user|view help commands|have an easy reference for commands while using the application|
-|v2.0|user|enable the use of passwords for my application|prevent wrongful access to my records|
-|v2.0|user|disable the password|have an easier time allowing people to view my records|
-|v2.0|user|edit my password|change my password in case it has been compromised|
-|v2.0|user|have my password be encrypted|ensure my password cannot be easily found out|
-|v2.0|user|edit members in my group|change their nicknames which I store within the application|
-|v2.0|user|delete current members|keep my groups neat and free of people who are no longer part of them|
-|v2.0|user|create more groups|use the application for multiple groups of friends without data overlapping|
-|v2.0|forgetful user|time of transactions to be saved|reference when each transaction were made|
-|v2.0|user|search for specific transactions|find out information relating to the transaction in case I need to affect it|
-|v2.1|advanced user|merge different groups together|combine groups which have large overlaps in members|
-|v2.1|user|setup expenditure limits|be notified when someone have too large of a debt|
-|v2.1|advanced user|create equal share transactions|add multiple people to a transaction without having to type their associated value to each of them|
-|v2.1|advanced user|have command shortcuts|input commands faster|
+|Version| As a ... | I want to ... | So that I can ...                                                                                  |
+|--------|----------|---------------|----------------------------------------------------------------------------------------------------|
+|v1.0|user|to be able to find the least transactions needed to resolve amounts owed by various members of my various groups| -                                                                                                  |
+|v1.0|user|add transactions involving multiple people in a group| keep track of people involved and value of the transaction                                         |
+|v1.0|user|edit transactions| fix mistakes made when entering transactions                                                       |
+|v1.0|user|delete transactions| clear erroneous transactions which I do not intend to keep                                         |
+|v1.0|user|keep a log of my data| retain memory of past transactions in past runs of the platform                                    |
+|v1.0|user|have easy access command to clear my pending debts| -                                                                                                  |
+|v1.0|user|be able to organise people into groups| minimise the occurrence of being affected by typos                                                  |
+|v1.0|user|add members to a group| add them to future transactions                                                                    |
+|v1.0|user|restart data for a group| reduce clutter of the application                                                                  |
+|v2.0|new user|view help commands| have an easy reference for commands while using the application                                    |
+|v2.0|user|enable the use of passwords for my application| prevent wrongful access to my records                                                              |
+|v2.0|user|disable the password| have an easier time allowing people to view my records                                             |
+|v2.0|user|edit my password| change my password in case it has been compromised                                                 |
+|v2.0|user|have my password be encrypted| ensure my password cannot be easily found out                                                      |
+|v2.0|user|edit members in my group| change their nicknames which I store within the application                                        |
+|v2.0|user|delete current members| keep my groups neat and free of people who are no longer part of them                              |
+|v2.0|user|create more groups| use the application for multiple groups of friends without data overlapping                        |
+|v2.0|forgetful user|time of transactions to be saved| reference when each transaction were made                                                          |
+|v2.0|user|search for specific transactions| find out information relating to the transaction in case I need to affect it                       |
+|v2.1|advanced user|merge different groups together| combine groups which have large overlaps in members                                                |
+|v2.1|user|setup expenditure limits| be notified when someone have too large of a debt                                                  |
+|v2.1|advanced user|create equal share transactions| add multiple people to a transaction without having to type their associated value to each of them |
+|v2.1|advanced user|have command shortcuts| input commands faster                                                                              |
 
 ## Non-Functional Requirements
 
-* Technical Requirements: Any mainstream OS, i.e. Windows, MacOS or Linux, with Java 11 installed. Instructions for downloading Java 11 can be found [here](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html).
+* Technical Requirements: Any mainstream OS, i.e. Windows, macOS or Linux, with Java 11 installed. Instructions for downloading Java 11 can be found [here](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html).
 * Project Scope Constraints: The application should only be used for tracking. It is not meant to be involved in any form of monetary transaction.
 * Project Scope Constraints: Data storage is only to be performed locally.
 * Quality Requirements: The application should be able to be used effectively by a novice with little experience with CLIs.
@@ -875,7 +876,7 @@ JUnit tests are written in the [`test directory`](../src/test/java/longah/) and 
 
 Files relating to Text UI Testing can be found [here](../text-ui-test/).
 
-When running tests on a Windows system, run the following command from the specificied directory:
+When running tests on a Windows system, run the following command from the specified directory:
 ```
 ./runtest.bat
 ```
