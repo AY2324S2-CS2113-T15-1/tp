@@ -51,7 +51,7 @@ A quick reference table for all commands is presented below. Certain commands ha
 | Clear all transactions | `clear`                                                                                               | N/A               |
 | Settle up debts        | `settleup [member]`                                                                                   | `settle`          |
 | Switch groups          | `group [group_name]`                                                                                  | N/A               |
-| Filter transactions    | `filter time a/[TIME] b/[TIME]`                                                                       | N/A               |
+| Filter transactions    | `filter a/[TIME] b/[TIME]`                                                                            | N/A               |
 | View chart             | `chart`                                                                                               | N/A               |
 | Exit                   | `exit`                                                                                                | N/A               |
 
@@ -65,6 +65,7 @@ A quick reference table for all commands is presented below. Certain commands ha
     - [Group Management](#group-management)
     - [Member and Transaction Management](#member-and-transaction-management)
     - [Group Balances \& Expense Tracking](#group-balances--expense-tracking)
+    - [Easily Finding Transactions You Need](#Easily-Finding-Transactions)
     - [Debt Simplification](#debt-simplification)
     - [Security](#security)
     - [Data Storage](#data-storage)
@@ -94,7 +95,7 @@ A quick reference table for all commands is presented below. Certain commands ha
     - [Clearing all transactions `clear`](#clearing-all-transactions-clear)
     - [Settle a user's debts: `settleup`](#settle-a-users-debts-settleup)
     - [Switching groups: `group`](#switching-groups-group)
-    - [Filter transactions: `filter`](#filter-transactions-filter)
+    - [Filter transactions (by transaction time): `filter`](#filter-transactions-filter)
     - [Views the balances of all members on a chart: `chart`](#views-the-balances-of-all-members-on-a-chart-chart)
     - [Exiting the application: `exit`](#exiting-the-application-exit)
   - [FAQ](#faq)
@@ -118,6 +119,10 @@ Within each group, LongAh! provides comprehensive member and transaction managem
 ### Group Balances & Expense Tracking
 
 Tracking group balances and expenses has never been easier with LongAh! Users can log transactions between members, facilitating transparent and equitable expense distribution. LongAh! also offers intuitive visualizations, allowing users to quickly assess group financial dynamics at a glance.
+
+### Easily Finding Transactions
+
+Apart from neatly organising users' pending transactions, LongAh! offers a variety of ways for users to conveniently locate the transactions they are interested in by simply providing the related details. As of now, LongAh! has embedded support towards user searches based on both member names and transaction time, effectively lowering the cost of navigating through the transaction list when entries increase. 
 
 ### Debt Simplification
 
@@ -671,16 +676,61 @@ group friends
 
 ### Filter transactions: `filter`
 
-Filters transactions based on the time of the transaction.
+Filters transactions based on the date & time of dated transactions.
 
-Format: `filter time a/[TIME] b/[TIME]` OR `filter time a/[TIME]` OR `filter time b/[TIME]` OR `filter time`
-* The `TIME` should be in the format `dd-MM-yyyy HHmm`.
-* The `a/` prefix is used to filter transactions that occurred after the specified time.
-* The `b/` prefix is used to filter transactions that occurred before the specified time.
+Format: `filter a/[TIME] b/[TIME]` OR `filter a/[TIME]` OR `filter b/[TIME]` OR `filter [TIME]`
+
+* The `TIME` should be in the format of `dd-MM-yyyy HHmm`.
+* The `a/` prefix is used to specify the earlier time bound of the search. It should be before the `b/` prefix at all times.
+* The `b/` prefix is used to specify the later time bound of the search.
+* The `filter a/[TIME] b/[TIME]` command applies for searching transactions occurring between a specified time period.
+* The `filter a/[TIME]` command applies for searching transactions after a specified date & time.
+* The `filter b/[TIME]` command applies for searching transactions before a specified date & time.
+* The `filter [TIME]` command applies for searching transactions matching a specified date & time.
 
 Example of usage:
 ```
+add member alice
+add member bob
+add transaction alice t/01-01-2022 2359 p/bob a/3
+add transaction alice t/01-01-2023 2359 p/bob a/3
+add transaction alice t/01-01-2024 2359 p/bob a/3
 
+filter a/01-02-2022 2359 b/01-02-2023 2359 //filtering transactions between a time period
+  The following list of transactions is between the time 01-02-2022 2359 and 01-02-2023 2359.
+  2.
+  Lender: alice
+  Transaction time: 01-01-2023 2359
+  Borrower 1: bob Owed amount: $3.00
+
+filter a/01-01-2020 2359 //filtering transactions after a specified date & time
+  The following list of transactions is after the time 01-01-2020 2359.
+  1.
+  Lender: alice
+  Transaction time: 01-01-2022 2359
+  Borrower 1: bob Owed amount: $3.00
+  2.
+  Lender: alice
+  Transaction time: 01-01-2023 2359
+  Borrower 1: bob Owed amount: $3.00
+  3.
+  Lender: alice
+  Transaction time: 01-01-2024 2359
+  Borrower 1: bob Owed amount: $3.00
+
+filter b/31-12-2022 2359 //filtering transcations before a specified date & time
+  The following list of transactions is before the time 31-12-2022 2359.
+  1.
+  Lender: alice
+  Transaction time: 01-01-2022 2359
+  Borrower 1: bob Owed amount: $3.00
+
+filter 01-01-2024 2359 //filtering transactions matching a specified date & time
+  The following list of transactions matches with the time 01-01-2024 2359.
+  3.
+  Lender: alice
+  Transaction time: 01-01-2024 2359
+  Borrower 1: bob Owed amount: $3.00
 ```
 
 ### Views the balances of all members on a chart: `chart`
