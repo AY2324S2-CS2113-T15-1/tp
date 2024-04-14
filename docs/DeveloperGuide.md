@@ -456,7 +456,7 @@ The Member class takes the following into consideration.
 
 The MemberList class takes the following into consideration.
 
-* `updateMembersBalance` clears current balances at the start of invokation. This removes any transactions that are not captured within the `TransactionList` object passed into the method.
+* `updateMembersBalance` clears current balances at the start of invocation. This removes any transactions that are not captured within the `TransactionList` object passed into the method.
 
 
 ### Transaction and TransactionList
