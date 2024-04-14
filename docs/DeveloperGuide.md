@@ -424,6 +424,7 @@ The TransactionList class is responsible for managing a list of transactions in 
 <ins>Usage Example</ins>
 
 Adding a new transaction:
+
 ![addTransaction.png](diagrams%2FaddTransaction.png)
 
 Given below is an example usage scenario and how the Transaction class behaves at each step:
@@ -497,6 +498,16 @@ after the preset system time). Currently used within the constructor only.
 storing.
 - *toString*: Overrides the default toString method. Formats the dateTime field of the existing DateTime instance into a
 String output suitable for printouts.
+
+<ins>Usage Example</ins>
+
+Adding the dateTime component for a dated transaction:
+
+![addDateTimeforDatedTransaction.png](diagrams%2FaddDateTimeforDatedTransaction.png)
+
+Printing the dateTime component of a dated transaction:
+
+Comparing dateTime expressions:
 
 ### PIN
 
