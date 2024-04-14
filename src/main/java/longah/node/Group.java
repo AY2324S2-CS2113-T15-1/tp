@@ -38,7 +38,7 @@ public class Group {
 
     /**
      * Sets the name of the group.
-     * 
+     *
      * @param groupName The name of the group
      */
     public void setGroupName(String groupName) {
@@ -47,7 +47,7 @@ public class Group {
 
     /**
      * Returns the name of the group.
-     * 
+     *
      * @return The name of the group
      */
     public String getGroupName() {
@@ -56,7 +56,7 @@ public class Group {
 
     /**
      * Sets the member list of the group.
-     * 
+     *
      * @param members The member list to be set
      */
     public void setMemberList(MemberList members) {
@@ -65,7 +65,7 @@ public class Group {
 
     /**
      * Returns the member list of the group.
-     * 
+     *
      * @return The member list of the group
      */
     public MemberList getMemberList() {
@@ -74,7 +74,7 @@ public class Group {
 
     /**
      * Sets the transaction list of the group.
-     * 
+     *
      * @param transactions The transaction list to be set
      */
     public void setTransactionList(TransactionList transactions) {
@@ -83,7 +83,7 @@ public class Group {
 
     /**
      * Returns the transaction list of the group.
-     * 
+     *
      * @return The transaction list of the group
      */
     public TransactionList getTransactionList() {
@@ -92,7 +92,7 @@ public class Group {
 
     /**
      * Update the transaction solution of the group based on the debts and credits of the members.
-     * 
+     *
      * @throws LongAhException If the transaction solution cannot be updated
      */
     public void updateTransactionSolution() throws LongAhException {
@@ -132,7 +132,7 @@ public class Group {
 
     /**
      * Saves the member data into the storage file.
-     * 
+     *
      * @throws LongAhException If the data file is not written
      */
     public void saveMembersData() throws LongAhException {
@@ -141,7 +141,7 @@ public class Group {
 
     /**
      * Saves the transaction data into the storage file.
-     * 
+     *
      * @throws LongAhException If the data file is not written
      */
     public void saveTransactionsData() throws LongAhException {
@@ -150,7 +150,7 @@ public class Group {
 
     /**
      * Saves the data from the member list and transaction list into storage file.
-     * 
+     *
      * @throws LongAhException If the data file is not written
      */
     public void saveAllData() throws LongAhException {
@@ -158,9 +158,9 @@ public class Group {
     }
 
     /**
-     * Returns the solution to the debts in the group.
-     * 
-     * @return The solution to the debts in the group
+     * Returns a string representation of the solution to all debts in the group.
+     *
+     * @return The solution to all debts in the group
      * @throws LongAhException If there are no debts to be solved
      */
     public String listDebts() throws LongAhException {
@@ -176,9 +176,9 @@ public class Group {
     }
 
     /**
-     * Returns the list of members in the group.
-     * 
-     * @return The list of members in the group
+     * Returns the solution to the debt of the specified member in the group.
+     *
+     * @return The solution to the debt of the specified member
      * @throws LongAhException If there are no members in the group
      */
     public String listIndivDebt(String name) throws LongAhException {

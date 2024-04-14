@@ -80,7 +80,7 @@ The InputHandler class itself does not have any attributes.
 The UI class has the following key methods:
 
 * *getUserInput*: Reads the user input from the console and returns it as a String.
-* *showMessage*: Displays the provided message to the user. This is overloaded to take either a String or a String and a boolean. The latter is used to define whether a newline should be printed at the end of the String. Newline is printed by default. 
+* *showMessage*: Displays the provided message to the user. This is overloaded to take either a String or a String and a boolean. The latter is used to define whether a newline should be printed at the end of the String. Newline is printed by default.
 
 The InputHandler class has the following key method:
 
@@ -143,7 +143,7 @@ NAME | BALANCE
 ![Sample Members File](diagrams/MembersFileSample.png)
 
 * `transactions.txt`
-  
+
 ```
 LENDER NAME | TRANSACTION TIME(if applicable) | BORROWER1 NAME | AMOUNT1 | BORROWER2 NAME...
 ```
@@ -179,7 +179,7 @@ Key arguments for the constructor are a `MemberList` object, a `TransactionList`
 * *loadTransactionsData*: Reads data from `transactionsFile` and unpacks it, checking if each member exists in `MemberList` before inserting `Transaction` objects into `TransactionList`.
 * *saveMembersData*: Writes packaged data from each `Member` and saves it as a record in `membersFile`.
 * *saveTransactionsData*: Writes packaged data from each `Transaction` and saves it as a record in `transactionsFile`.
-  
+
 Data loading methods are merged in the *loadAllData* method while data saving methods are merged in the *saveAllData* method.
 
 <ins>Usage Example</ins>
@@ -219,17 +219,139 @@ storage.saveAllData();
 
 <ins>Overview</ins>
 
-<ins>Implementation Details</ins>
+The `Group` class is used to represent a group of people who have transactions among themselves. The `GroupList` class is used to represent a list of groups
+stored in the application.
 
 <ins>Class Structure</ins>
 
+The `Group` class has the following attributes:
+* *memberList*: A MemberList object representing the list of Members in the group.
+* *transactionList*: A TransactionList object representing the list of Transactions in the group.
+* *storage*: A StorageHandler object representing the storage handler for the group.
+* *groupName*: A string representing the name of the group.
+* *transactionSolution*: An array list collection of Subtransaction objects representing the least transactions solution to solving all debts in the group.
+
+The `GroupList` class has the following attribute:
+* *activeGroup*: A Group object representing the currently active group.
+* *groupList*: An array list collection of Group objects representing the list of groups stored in the application.
+
+
+<ins>Implementation Details</ins>
+
+The detailed class diagram for `Group` and `GroupList` can be found below.
+
+
 <ins>Constructor</ins>
+
+The Group constructor creates a group object with the given group name and initializes a new member list, transaction list, storage handler. The latter is used to ensure that data across groups are kept discrete.
+
+Key arguments of the Group constructor are a string `groupName`.
+
+The GroupList constructor initializes an empty array list of groups for newly created groups to be added and stored to.
 
 <ins>Methods</ins>
 
+The `Group` class has the following key methods.
+* *updateTransactionSolution*: Updates the current transaction solution of the group based on the current list of transactions.
+* *settleUp*: Settles the debt of the specified member by creating a transaction with the lender(s) based on the transaction solution of the group.
+* *saveAllData*: Saves the current member and transaction data of the group to the storage handler.
+* *listDebts*: Returns a string representation of the current transaction solution to all debts in the group.
+* *listIndivDebt*: Returns a string representation of the current transaction solution to the debt of a specified member in the group.
+
+The `GroupList` class has the following key methods.
+* *switchActiveGroup*: Switches the active group to the group with the specified name. This method is used when the user wants to switch to manage a different group.
+* *createGroup*: Prompts user to enter a new group name and creates a new group with the specified name. Automatically sets it as the active group.
+* *loadGroupList*: Loads the list of groups stored in the application from the storage handler.
+* *addGroup*: Adds a group to the group list. This method is used when a new group is created.
+* *deleteGroup*: Deletes a group from the group list based on the specified group name. The member and transaction files associated with the group are also deleted from storage.
+* *saveGroupList*: Saves the list of groups stored in the groupList to the storage handler.
+
 <ins>Usage Example</ins>
 
+The following code segment outlines a sample use of `Group`.
+
+```
+import longah.util.TransactionList;
+import longah.handler.UI;
+import longah.exception.LongAhException;
+import longah.node.Group;
+
+// Creating a new group
+Group myGroup = new Group("MyGroup");
+
+// Adding members to the group
+myGroup.getMemberList().addMember("Alice");
+myGroup.getMemberList().addMember("Bob");
+myGroup.getMemberList().addMember("Charlie");
+
+// Adding transactions to the group
+TransactionList transactions = new TransactionList();
+transactions.addTransaction("Alice p/Bob a/20", myGroup.getMemberList());
+transactions.addTransaction("Charlie p/Alice a/15", myGroup.getMemberList());
+transactions.addTransaction("Bob p/Charlie a/10", myGroup.getMemberList());
+
+// Setting the transactions for the group
+myGroup.setTransactionList(transactions);
+
+// Updating transaction solutions for the group
+myGroup.updateTransactionSolution();
+
+// Listing debts in the group
+String debts = myGroup.listDebts();
+UI.showMessage("Debts in the group:\n" + debts);
+
+// Settling up debts for a specific member
+myGroup.settleUp("Alice");
+
+// Saving all data related to the group
+myGroup.saveAllData();
+```
+
+The following code segment outlines a sample use of `GroupList`.
+
+```
+import longah.exception.LongAhException;
+import longah.handler.UI;
+import longah.node.GroupList;
+
+// Creating a new GroupList instance
+GroupList groupList = new GroupList();
+
+// Creating a new group and adding it to the group list
+groupList.createGroup();
+
+// Adding more groups to the list
+groupList.createGroup();
+groupList.createGroup();
+
+// Getting the active group
+UI.showMessage("Active Group: " + GroupList.getActiveGroup().getGroupName());
+
+// Listing all groups
+String allGroups = groupList.getGroupList();
+UI.showMessage("All Groups:\n" + allGroups);
+
+// Switching to a different active group
+GroupList.switchActiveGroup(groupList.getGroup("Group2"));
+UI.showMessage("Active Group: " + GroupList.getActiveGroup().getGroupName());
+
+// Deleting a group from the list
+groupList.deleteGroup("Group3");
+
+// Saving the updated group list
+groupList.saveGroupList();
+```
+
 <ins>Design Considerations</ins>
+
+The Group class takes the following into consideration.
+* The class ensures that group names are alphanumeric and does not allow for special characters including blank space.
+* `settleUp` minimizes the number of transactions needed to settle the debt of a member by creating a single transaction with all lender(s) as borrower(s) based on the transaction solution of the group.
+
+The GroupList class takes the following into consideration.
+* `createGroup` checks if the groupList is empty and automatically prompts the user to create a new group if it is and sets it as the active group.
+* `loadGroupList` is called at the start of the application to ensure that all groups are loaded from storage into the groupList.
+
 
 ### Member and MemberList
 
@@ -364,25 +486,15 @@ MemberList members, String transactionTime)`
 <ins>Transaction Methods</ins>
 
 - *parseTransaction*: Parses the user input to extract lender and borrowers, then adds them to the transaction.
-
 - *addBorrower*: Adds a borrower to the transaction.
-
 - *getLender*: Returns the lender of the transaction.
-
 - *isLender*: Checks if a given member is the lender of the transaction.
-
 - *isborrower*: Checks if a given member is a borrower in the transaction.
-
 - *isInvolved*: Checks if a given member is involved in the transaction.
-
 - *toStorageString*: Converts the transaction to a string format for storage.
-
 - *getSubtransactions*: Returns the list of subtransactions in the transaction.
-
 - *editTransaction*: Edits the transaction based on new user input.
-
 - *deleteMember*: Deletes a member from the transaction and returns true if transaction needs to be removed.
-
 - *haveTime*: Checks if a given transaction has a corresponding time component.
 
 
@@ -504,7 +616,7 @@ If the file does not exist or the savedPin is empty, it calls the createPin meth
 - *authenticate*: Authenticates the user by comparing the entered PIN with the saved PIN.
 
 - *resetPin*: Resets the PIN for the user by prompting for the current PIN and creating a new PIN if the current
-PIN is correct.
+  PIN is correct.
 
 - *enablePin*: Enables authentication upon startup.
 
@@ -521,26 +633,26 @@ PIN is correct.
 
 Given below is an example usage scenario and how the PIN creation and authentication mechanism behaves at each step:
 
-1. The user launches the application for the first time. The PINHandler initializes, loading the saved PIN and 
-authentication enabled status from the file. If no PIN exists, it prompts the user to create a new PIN.
+1. The user launches the application for the first time. The PINHandler initializes, loading the saved PIN and
+   authentication enabled status from the file. If no PIN exists, it prompts the user to create a new PIN.
 
-2. The user creates a new 6-digit PIN using the createPin method. The entered PIN is hashed using SHA-256 before 
-saving it to the file.
+2. The user creates a new 6-digit PIN using the createPin method. The entered PIN is hashed using SHA-256 before
+   saving it to the file.
 
-3. The user closes the application and relaunches it. The PINHandler loads the saved PIN and authentication 
-enabled status from the file again.
+3. The user closes the application and relaunches it. The PINHandler loads the saved PIN and authentication
+   enabled status from the file again.
 
-4. The user attempts to log in by entering their PIN. The authenticate method hashes the entered PIN and 
-compares it with the saved hashed PIN. If they match, the user is successfully authenticated.
+4. The user attempts to log in by entering their PIN. The authenticate method hashes the entered PIN and
+   compares it with the saved hashed PIN. If they match, the user is successfully authenticated.
 
-5. The user decides to reset their PIN by entering their current PIN and creating a new one using the resetPin 
-method.
+5. The user decides to reset their PIN by entering their current PIN and creating a new one using the resetPin
+   method.
 
-6. The user disables authentication upon startup using the 'pin disable' command. The authenticationEnabled flag 
-is set to false and saved to the file.
+6. The user disables authentication upon startup using the 'pin disable' command. The authenticationEnabled flag
+   is set to false and saved to the file.
 
-7. The user relaunches the application, and authentication is no longer required since it has been disabled. 
-The user can proceed with the application and do any actions without entering a PIN.
+7. The user relaunches the application, and authentication is no longer required since it has been disabled.
+   The user can proceed with the application and do any actions without entering a PIN.
 
 Code Snippet
 ```
@@ -579,7 +691,7 @@ It provides a convenient way to visualize data, particularly for member balances
 
 <ins>Implementation Details</ins>
 
-Data Representation: 
+Data Representation:
 
 The Chart class utilizes the XChart library to represent data in the form of bar charts. It distinguishes positive and negative balances by differentiating them with green and red colors, respectively.
 
@@ -594,9 +706,9 @@ The Chart class consists of the following components:
 
 <ins>Methods</ins>
 
-- *viewBalancesBarChart*(List<String> members, List<Double> balances): Generates a bar chart displaying member balances. It 
-distinguishes positive and negative balances and adds tooltips for enhanced user interaction. Additionally, it includes 
-an annotation recommending a command for managing debts effectively.
+- *viewBalancesBarChart*(List<String> members, List<Double> balances): Generates a bar chart displaying member balances. It
+  distinguishes positive and negative balances and adds tooltips for enhanced user interaction. Additionally, it includes
+  an annotation recommending a command for managing debts effectively.
 
 <ins>Usage Example</ins>
 
