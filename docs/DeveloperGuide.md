@@ -438,7 +438,7 @@ Adding a new transaction:
 Given below is an example usage scenario and how the Transaction class behaves at each step:
 
 
-1. The user enters a new transaction using the 'add transaction' command with the lender, borrower(s), amount(s) and time specified.
+1. The user enters a new transaction using the 'add transaction' command with the lender, borrower(s) and amount(s)specified.
 2. The TransactionList class takes in the user input and creates a new Transaction object with the specified details for the specified memberList.
 3. The Transaction class parses the user input to extract the lender and borrower(s) and adds them to the transaction.
 4. The Transaction object is added to the TransactionList, which stores the list of transactions.
@@ -513,21 +513,96 @@ The following UML diagram displays how the dateTime component is handled when th
 
 ![addDateTimeforDatedTransaction.png](diagrams%2FaddDateTimeforDatedTransaction.png)
 
+Given below is an example usage scenario of how the DateTime class behaves at each step in adding dated transactions:
+
+1. Following steps 1-3 of the scenario of adding a new transaction, the Transaction class now identifies a potential 
+presence of a dateTime component in the userExpression through the specified prefix.
+2. It initiates the constructor method of the DateTime class and attempts to create a new object to store the user input 
+date & time. Validation of the dateTimeExpression will occur in the DateTime class at this stage.
+3. If the dateTimeExpression from the user is valid, the corresponding DateTime object will be returned to the
+Transaction class as a result and stored as the dateTime of the transaction.
+4. If the dateTimeExpression from the user is in the wrong format, exception occurs and the DateTime class will output 
+the "Invalid dateTime format" warning through the logger.
+5. If the dateTimeExpression from the user is an unrealistic future date & time, exception occurs and the DateTime class
+will output the "Invalid dateTime input" warning through the logger.
+6. If the dateTime component is appended successfully, the Transaction class will proceed to handle other details of the
+transaction input, as per adding a normal transaction.
+
+The following Code Snippet outlines the above usage:
+```
+//In pareTransaction() method of the Transaction Class 
+if (splitInput[0].contains("t/")) { //Checks for the special prefix of date & time component while adding parsing user expression
+  String[] splitLenderTime = splitInput[0].split("t/", 2);
+  ...
+  this.transactionTime = new DateTime(splitLenderTime[1]);
+}
+```
+
 The following UML diagram displays how the dateTime component is handled when printout requests are initiated for dated 
 transactions.
 
 ![printingDateTime](diagrams%2FprintingDateTime.png)
+
+Given below is an example usage scenario of how the DateTime class behaves at each step when printouts are required:
+1. A String printout request is sent to the Transaction Class. 
+2. If the transaction has a dateTime component, proceed with sending a String printout request further to the DateTime
+class.
+3. The DateTime class formats the dateTime object of the current transaction into a String representation suitable for
+printout and returns this result back to Transaction class.
+4. The transaction class appends the returned String representation to the existing printout String.
+
+The following Code Snippet outlines the above usage:
+```
+//In toString() method of the Transaction Class 
+if (this.haveTime()) { //Checks whether the current transaction has a dateTime component
+    time = "Transaction time: " + this.transactionTime + "\n"; //Initiates a toString() call to the DateTime class
+}
+```
 
 The following UML diagram displays how the dateTime component is compared with user inputs in time filtering methods 
 (e.g. in *filterTransactionsEqualToDateTime*).
 
 ![comparingDateTime](diagrams%2FcomparingDateTime.png)
 
-<ins> Conclusion </ins>
+Given below is an example usage scenario of how the DateTime class behaves at each step when comparison is initiated by
+filter methods.
+1. Upon receiving a filtering request, the TransactionList class first initiates the DateTime constructor and attempts 
+to store the user's dateTime Expression into a DateTime object.
+2. After the successful creation of the userDateTime object, the filtering method proceeds by looping through all 
+transactions in the current list. 
+3. For every transaction, the Transaction List first gets the dateTime object of the transaction by calling the 
+getTransactionTime() method of the Transaction class.
+4. A comparison request (in this case .isEqual()) of the DateTime class is initiated, comparing the transactionDateTime
+as well as userDateTime objects of the class.
+5. Depending on the Boolean value determining the result of comparison, the filtering method will then proceed to decide
+if the current transaction is to be added to the printout.
 
-The DateTime class is crucial in reducing coupling of time-related operations with other classes. With time handling
-contained under this single class, developer changes of time-related behaviors(e.g. formatting of time in printouts) is 
-easily compatible with other parts of the LongAh system.
+The following Code Snippet outlines the above usage:
+```
+//In filterTransactionsEqualToDateTime() method of the TransactionList Class 
+DateTime dateTimeToCompare = new DateTime(dateTime); //Stores user expression into a DateTime object
+...
+for (Transaction transaction : this.transactions) {
+    ...
+    if (transaction.getTransactionTime().isEqual(dateTimeToCompare)) { //Compares the two DateTime objects using .isEqual() comparison method
+        ...
+}
+```
+
+<ins> Design Considerations </ins>
+
+To reduce the coupling of time-related operations with other classes as much as possible, the following precautions was
+put in-placed during the development of the DateTime class.
+
+- Isolation of dateTime checks: The validity of all dateTime inputs of LongAh is only checked and handled within the
+constructor of the DateTime class.
+- Isolation of comparison methods: dateTime fields are only accessed and compared through defined methods of the 
+DateTime class.
+- Isolation of printouts: All dateTime fields are formatted and output only through the toString() method.
+
+The above methods effectively contains all time handling under the single DateTime class. This allows developer to 
+change the input and output structure of time-related behaviors(e.g. formatting of time in printouts) easily without 
+compromising compatibility with other parts of the LongAh system.
 
 ### PIN
 
@@ -791,31 +866,33 @@ Busy people with large transaction quantities among friends
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|user|to be able to find the least transactions needed to resolve amounts owed by various members of my various groups|-|
-|v1.0|user|add transactions involving multiple people in a group|keep track of people involved and value of the transaction|
-|v1.0|user|edit transactions|fix mistakes made when entering transactions|
-|v1.0|user|delete transactions|clear erroneous transactions which I do not intend to keep|
-|v1.0|user|keep a log of my data|retain memory of past transactions in past runs of the platform|
-|v1.0|user|have easy access command to clear my pending debts|-|
-|v1.0|user|be able to organise people into groups|minimise the occurence of being affected by typos|
-|v1.0|user|add members to a group|add them to future transactions|
-|v1.0|user|restart data for a group|reduce clutter of the application|
-|v2.0|new user|view help commands|have an easy reference for commands while using the application|
-|v2.0|user|enable the use of passwords for my application|prevent wrongful access to my records|
-|v2.0|user|disable the password|have an easier time allowing people to view my records|
-|v2.0|user|edit my password|change my password in case it has been compromised|
-|v2.0|user|have my password be encrypted|ensure my password cannot be easily found out|
-|v2.0|user|edit members in my group|change their nicknames which I store within the application|
-|v2.0|user|delete current members|keep my groups neat and free of people who are no longer part of them|
-|v2.0|user|create more groups|use the application for multiple groups of friends without data overlapping|
-|v2.0|forgetful user|time of transactions to be saved|reference when each transaction were made|
-|v2.0|user|search for specific transactions|find out information relating to the transaction in case I need to affect it|
-|v2.1|advanced user|merge different groups together|combine groups which have large overlaps in members|
-|v2.1|user|setup expenditure limits|be notified when someone have too large of a debt|
-|v2.1|advanced user|create equal share transactions|add multiple people to a transaction without having to type their associated value to each of them|
-|v2.1|advanced user|have command shortcuts|input commands faster|
+| Version | As a ...       | I want to ...                                                                                                    | So that I can ...                                                                                  |
+|---------|----------------|------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| v1.0    | user           | to be able to find the least transactions needed to resolve amounts owed by various members of my various groups | -                                                                                                  |
+| v1.0    | user           | add transactions involving multiple people in a group                                                            | keep track of people involved and value of the transaction                                         |
+| v1.0    | user           | edit transactions                                                                                                | fix mistakes made when entering transactions                                                       |
+| v1.0    | user           | delete transactions                                                                                              | clear erroneous transactions which I do not intend to keep                                         |
+| v1.0    | user           | keep a log of my data                                                                                            | retain memory of past transactions in past runs of the platform                                    |
+| v1.0    | user           | have easy access command to clear my pending debts                                                               | -                                                                                                  |
+| v1.0    | user           | be able to organise people into groups                                                                           | minimise the occurence of being affected by typos                                                  |
+| v1.0    | user           | add members to a group                                                                                           | add them to future transactions                                                                    |
+| v1.0    | user           | restart data for a group                                                                                         | reduce clutter of the application                                                                  |
+| v1.0    | user           | find transactions related to a certain member                                                                    | better keep track of my pending transactions or payments                                           |
+| v2.0    | new user       | view help commands                                                                                               | have an easy reference for commands while using the application                                    |
+| v2.0    | user           | enable the use of passwords for my application                                                                   | prevent wrongful access to my records                                                              |
+| v2.0    | user           | disable the password                                                                                             | have an easier time allowing people to view my records                                             |
+| v2.0    | user           | edit my password                                                                                                 | change my password in case it has been compromised                                                 |
+| v2.0    | user           | have my password be encrypted                                                                                    | ensure my password cannot be easily found out                                                      |
+| v2.0    | user           | edit members in my group                                                                                         | change their nicknames which I store within the application                                        |
+| v2.0    | user           | delete current members                                                                                           | keep my groups neat and free of people who are no longer part of them                              |
+| v2.0    | user           | create more groups                                                                                               | use the application for multiple groups of friends without data overlapping                        |
+| v2.0    | forgetful user | time of transactions to be saved                                                                                 | reference when each transaction were made                                                          |
+| v2.0    | user           | search for specific transactions                                                                                 | find out information relating to the transaction in case I need to affect it                       |
+| v2.1    | advanced user  | merge different groups together                                                                                  | combine groups which have large overlaps in members                                                |
+| v2.1    | user           | filter transactions based on transaction time                                                                    | easily reference a transaction made during an interested time period                               |
+| v2.1    | user           | setup expenditure limits                                                                                         | be notified when someone have too large of a debt                                                  |
+| v2.1    | advanced user  | create equal share transactions                                                                                  | add multiple people to a transaction without having to type their associated value to each of them |
+| v2.1    | advanced user  | have command shortcuts                                                                                           | input commands faster                                                                              |
 
 ## Non-Functional Requirements
 
