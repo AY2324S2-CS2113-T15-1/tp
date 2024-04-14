@@ -11,6 +11,7 @@
     - [Group and GroupList](#group-and-grouplist)
     - [Member and MemberList](#member-and-memberlist)
     - [Transaction and TransactionList](#transaction-and-transactionlist)
+    - [DateTime](#DateTime)
     - [PIN](#pin)
     - [Chart](#chart)
     - [Exceptions and Logging](#exceptions-and-logging)
@@ -451,6 +452,51 @@ facilitates the lending of money and ensures data integrity by validating input 
 
 The TransactionList class provides essential functionalities for managing a list of transactions.
 Its methods facilitate the addition, removal, editing, and retrieval of transactions, ensuring efficient management of transactions within a group.
+
+### DateTime
+
+<ins> Overview </ins>
+
+The DateTime class handles all operations in LongAh involving the tracking of time. This includes storing and printing
+the datetime elements in dated transactions, parsing user's date & time related inputs as well as filtering transactions
+according to their stored date & time. Implementation of the class is made possible with the help of the *java.time*
+class.
+
+<ins> Class Fields </ins>
+
+Storing requirements only occurs for the specific datetime component of the class. Hence, the class field structure is
+as follows:
+
+- *dateTime*: A dateTime object from the system class *java.time* representing date & time associated with the current 
+instance.
+
+<ins> Constructor </ins>
+
+The DateTime constructor takes in a string representation of date & time in the `dd-MM-YYYY HHmm` form and parse it into
+a LocalDateTime instance from *java.time* and stores it under the *dateTime* field.
+
+Invalid string date & time inputs to the constructor will trigger exceptions. The exceptions and triggering conditions
+are as follows:
+
+- `INVALID_TIME_FORMAT`: String input representing date & time is not in the `dd-MM-YYYY HHmm` format.
+- `INVALID_TIME_INPUT`: String input is representing a future date & time. This is not permitted in the LongAh system
+  considering real-life practicability.
+
+<ins> Methods </ins>
+
+- *getDateTime*: Getter method to get the dateTime field of the current instance. Currently used within the class only.
+- *isBefore*: Determines whether an input DateTime object has a dateTime field that is before that of the current
+instance.
+- *isAfter*: Determines whether an input DateTime object has a dateTime field that is after that of the current
+instance.
+- *isEqual*: Determines whether an input DateTime object has a dateTime field that is equal to that of the current 
+instance.
+- *isFuture*: Determines whether the dateTime field of the current instance represent a future date & time (e.g. is 
+after the preset system time). Currently used within the constructor only.
+- *toStorageString*: Formats the dateTime field of the current instance into a String output suitable for loading and 
+storing.
+- *toString*: Overrides the default toString method. Formats the dateTime field of the existing DateTime instance into a
+String output suitable for printouts.
 
 ### PIN
 
