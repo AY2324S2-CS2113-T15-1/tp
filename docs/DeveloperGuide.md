@@ -343,7 +343,7 @@ It contains information about the lender, borrowers, and the amount involved in 
 
 <ins>Class Fields</ins>
 * lender: Represents the member who lent the money.
-* transaction time (optional): Represents the time at which the transaction took place.
+* transaction time (optional): A DateTime object represents the date & time at which the transaction took place.
 * subtransactions: An ArrayList of Subtransaction objects, representing individual borrowings within the transaction.
 
 <ins>Transaction Constructor</ins>
@@ -384,7 +384,7 @@ MemberList members, String transactionTime)`
 
 - *deleteMember*: Deletes a member from the transaction and returns true if transaction needs to be removed.
 
-- *haveTime*: Checks if a given transaction has a corresponding time component.
+- *haveTime*: Checks if a given transaction has a corresponding DateTime component.
 
 
 <ins>TransactionList Overview</ins>
@@ -420,6 +420,14 @@ The TransactionList class is responsible for managing a list of transactions in 
 - *findDebts*: Finds all debts owed by a specified member.
 
 - *deleteMember*: Deletes a member from all transactions in the list.
+
+- *filterTransactionsEqualToDateTime*: Lists all transactions with dateTime equal to the input String represented dateTime
+
+- *filterTransactionBeforeDateTime*: Lists all transactions with dateTime before the input String represented dateTime
+
+- *filterTransactionAfterDateTime*: Lists all transactions with dateTime after the input String represented dateTime
+
+- *filterTransactionBetweenDateTime*: Lists all transactions with dateTime between the two input String represented dateTimes
 
 <ins>Usage Example</ins>
 
@@ -461,14 +469,14 @@ Its methods facilitate the addition, removal, editing, and retrieval of transact
 The DateTime class handles all operations in LongAh involving the tracking of time. This includes storing and printing
 the datetime elements in dated transactions, parsing user's date & time related inputs as well as filtering transactions
 according to their stored date & time. Implementation of the class is made possible with the help of the *java.time*
-class.
+system class.
 
 <ins> Class Fields </ins>
 
 Storing requirements only occurs for the specific datetime component of the class. Hence, the class field structure is
 as follows:
 
-- *dateTime*: A dateTime object from the system class *java.time* representing date & time associated with the current 
+- *dateTime*: A dateTime object from *java.time* representing date & time associated with the current 
 instance.
 
 <ins> Constructor </ins>
@@ -501,13 +509,25 @@ String output suitable for printouts.
 
 <ins>Usage Example</ins>
 
-Adding the dateTime component for a dated transaction:
+The following UML diagram displays how the dateTime component is handled when the user is adding a dated transaction.
 
 ![addDateTimeforDatedTransaction.png](diagrams%2FaddDateTimeforDatedTransaction.png)
 
-Printing the dateTime component of a dated transaction:
+The following UML diagram displays how the dateTime component is handled when printout requests are initiated for dated 
+transactions.
 
-Comparing dateTime expressions:
+![printingDateTime](diagrams%2FprintingDateTime.png)
+
+The following UML diagram displays how the dateTime component is compared with user inputs in time filtering methods 
+(e.g. in *filterTransactionsEqualToDateTime*).
+
+![comparingDateTime](diagrams%2FcomparingDateTime.png)
+
+<ins> Conclusion </ins>
+
+The DateTime class is crucial in reducing coupling of time-related operations with other classes. With time handling
+contained under this single class, developer changes of time-related behaviors(e.g. formatting of time in printouts) is 
+easily compatible with other parts of the LongAh system.
 
 ### PIN
 
