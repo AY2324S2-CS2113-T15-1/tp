@@ -1,0 +1,34 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class MemberList {
+    -members: Arraylist<Member>
+    +addMember(Member)
+    +addMember(String)
+    +addMember(String, double)
+    +editMemberName(String, String)
+    +listMembers(): String
+    +updateMembersBalance(TransactionList)
+    +solveTransactions(): ArrayList<Subtransaction>
+    +clearBalances()
+    +deleteMember(String)
+}
+
+class Member {
+    -name: String
+    -balance: double
+    +Constructor(String)
+    +Constructor(String, double)
+    +addToBalance(double)
+    +subtractFromBalance(double)
+    +clearBalance()
+}
+
+class TransactionList
+class Subtransaction
+
+MemberList -> Member
+MemberList -[dashed]-> TransactionList
+MemberList -[dashed]-> Subtransaction
+@enduml

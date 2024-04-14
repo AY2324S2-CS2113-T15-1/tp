@@ -1,28 +1,39 @@
 @startuml
 actor User
-User -> LongAh: Sample Command
-LongAh -> Group: Get group
-Group --> LongAh: group
-LongAh -> Command: command, group
-Command -> Group: Execute command
+participant ":LongAh"
+participant ":Group"
+participant ":Command"
+participant ":MemberList"
+participant ":TransactionList"
+participant ":StorageHandler"
+
+User -> ":LongAh": Sample Command
+":LongAh" -> ":Group": Get group
+":Group"--> ":LongAh": group
+":LongAh" -> ":Command": command, group
+":Command" -> ":Group": Execute command
+
 opt update members
-  Group -> MemberList: Get members
-  MemberList --> Group: members
-  Group -> MemberList: Execute members-related command
-  MemberList --> Group
+  ":Group" -> ":MemberList": Get members
+  ":MemberList" --> ":Group": members
+  ":Group"-> ":MemberList": Execute members-related command
+  ":MemberList" --> ":Group"
 end
+
 opt update transactions
-  Group -> TransactionList: Get transactions
-  TransactionList --> Group: transactions
-  Group -> TransactionList: Execute transaction-related command
-  TransactionList --> Group
+  ":Group"-> ":TransactionList": Get transactions
+  ":TransactionList"--> ":Group": transactions
+  ":Group"-> ":TransactionList": Execute transaction-related command
+  ":TransactionList"--> ":Group"
 end
+
 opt data updated
-  Group -> MemberList: Update transactions solution
-  MemberList --> Group
-  Group -> StorageHandler: Save new data
-  StorageHandler --> Group
+  ":Group"-> ":MemberList": Update transactions solution
+  MemberList --> ":Group"
+  ":Group"-> ":StorageHandler": Save new data
+  ":StorageHandler" --> ":Group"
 end
-Group --> LongAh
-LongAh --> User
+
+":Group"--> ":LongAh"
+":LongAh" --> User
 @enduml

@@ -154,8 +154,12 @@ public class Transaction {
         }
 
         // Exception is thrown if the amount borrowed has more than 2dp
-        if (BigDecimal.valueOf(amountBorrowed).scale() > 2) {
-            throw new LongAhException(ExceptionMessage.INVALID_TRANSACTION_VALUE);
+        try {
+            if (BigDecimal.valueOf(amountBorrowed).scale() > 2) {
+                throw new LongAhException(ExceptionMessage.INVALID_TRANSACTION_VALUE);
+            }
+        } catch (NumberFormatException e) {
+            throw new LongAhException(ExceptionMessage.BALANCE_OVERFLOW);
         }
 
         // Exception is thrown if the amount borrowed is not positive

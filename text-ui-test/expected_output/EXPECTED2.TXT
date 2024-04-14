@@ -41,6 +41,8 @@ Enter command: Invalid transaction format.
 ____________________________________________________________
 Enter command: Invalid transaction format.
 ____________________________________________________________
+Enter command: Balance overflow. Transaction not processed.
+____________________________________________________________
 Enter command: Invalid DateTime format. Please format you date and time inputs in the form of DD-MM-YYYY HHmm
 ____________________________________________________________
 Enter command: Invalid DateTime input. Dates of the future are not allowed.

@@ -1,0 +1,20 @@
+@startuml
+actor User
+participant ":PINHandler" as PINHandler
+
+User -> PINHandler: reset pin
+loop until valid current PIN entered
+    PINHandler --> User: Enter your current PIN
+    User -> PINHandler: [enters current PIN]
+    PINHandler -> PINHandler: Compare entered current PIN
+    alt current PIN is correct
+        PINHandler --> User: Create your 6-digit PIN
+        User -> PINHandler: [enters new PIN]
+        PINHandler -> PINHandler: Encrypt new PIN
+        PINHandler -> PINHandler: Save new PIN
+        PINHandler --> User: New PIN saved
+    else current PIN is incorrect
+        PINHandler --> User: Invalid PIN
+    end
+end
+@enduml

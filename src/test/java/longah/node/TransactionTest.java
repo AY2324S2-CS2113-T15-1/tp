@@ -9,8 +9,25 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.io.File;
+
 
 public class TransactionTest {
+    /**
+     * Helper method to remove a directory and its contents.
+     * 
+     * @param dir The file to be removed
+     */
+    public void deleteDir(File dir) {
+        File[] contents = dir.listFiles();
+        if (contents != null) {
+            for (File file : contents) {
+                deleteDir(file);
+            }
+        }
+        dir.delete();
+    }
+
     /**
      * Tests the successful creation of a transaction with balances correctly updated.
      */
@@ -30,6 +47,7 @@ public class TransactionTest {
             assertEquals(5.0, lender.getBalance());
             Member borrower = memberList.getMember("Bob");
             assertEquals(-5.0, borrower.getBalance());
+            deleteDir(new File("./data/testGroup"));
         } catch (LongAhException e) {
             fail();
         }
@@ -49,6 +67,23 @@ public class TransactionTest {
         } catch (LongAhException e) {
             String expectedString = ExceptionMessage.INVALID_TRANSACTION_FORMAT.getMessage();
             assertEquals(expectedString, e.getMessage());
+        }
+    }
+
+    @Test
+    public void transactionConstructor_overflowAmount_exceptionThrown() {
+        try {
+            Group group = new Group("testGroup");
+            MemberList memberList = group.getMemberList();
+            TransactionList transactionList = group.getTransactionList();
+            memberList.addMember("Alice");
+            memberList.addMember("Bob");
+            transactionList.addTransaction("Alice p/Bob a/1e309", memberList, group);
+            fail();
+        } catch (LongAhException e) {
+            String expectedString = ExceptionMessage.BALANCE_OVERFLOW.getMessage();
+            assertEquals(expectedString, e.getMessage());
+            deleteDir(new File("./data/testGroup"));
         }
     }
 

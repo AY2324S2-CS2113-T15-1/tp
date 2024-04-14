@@ -1,24 +1,24 @@
 @startuml
-participant LongAh
-participant Group
-participant MemberList
-participant TransactionList
-participant StorageHandler
+participant ":LongAh"
+participant ":Group"
+participant ":MemberList"
+participant ":TransactionList"
+participant ":StorageHandler"
 
-LongAh -> Group: Get group
-Group -> MemberList: Create members
-MemberList --> Group: Members
-Group -> TransactionList: Create transactions
-TransactionList --> Group: Transactions
-Group --> LongAh: group
-LongAh -> StorageHandler: Members, Transactions, Name
-StorageHandler -> StorageHandler: Initialise 
+":LongAh" -> ":Group": Get group
+":Group" -> ":MemberList": Create members
+":MemberList" --> ":Group": Members
+":Group" -> ":TransactionList": Create transactions
+":TransactionList" --> ":Group": Transactions
+":Group" --> ":LongAh": group
+":LongAh" -> ":StorageHandler": Members, Transactions, Name
+":StorageHandler" -> ":StorageHandler": Initialise 
 loop until file is fully read
-StorageHandler -> StorageHandler: Read Data from Files
-StorageHandler -> MemberList: Get Member Data
-MemberList --> StorageHandler : Member Data
-StorageHandler -> TransactionList: Get Transaction Data
-TransactionList --> StorageHandler : Transaction Data
+":StorageHandler" -> ":StorageHandler": Read Data from Files
+":StorageHandler" -> ":MemberList": Get Member Data
+":MemberList" --> ":StorageHandler" : Member Data
+":StorageHandler" -> ":TransactionList": Get Transaction Data
+":TransactionList" --> ":StorageHandler" : Transaction Data
 end
-StorageHandler --> LongAh
+":StorageHandler" --> ":LongAh"
 @enduml

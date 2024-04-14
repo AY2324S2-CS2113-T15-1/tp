@@ -9,6 +9,8 @@ import longah.exception.ExceptionMessage;
  * Represents a member in the LongAh application.
  */
 public class Member {
+    private static final int MAX_NAME_LENGTH = 50;
+    
     private String name;
     private double balance;
 
@@ -49,6 +51,10 @@ public class Member {
         if (!Pattern.matches("[A-Za-z0-9]+", name)) {
             throw new LongAhException(ExceptionMessage.INVALID_MEMBER_NAME);
         }
+        // Check if name exceeds character limit
+        if (name.length() > MAX_NAME_LENGTH) {
+            throw new LongAhException(ExceptionMessage.CHAR_LIMIT_EXCEEDED);
+        }
     }
 
     /**
@@ -71,6 +77,9 @@ public class Member {
         if (amount <= 0) {
             throw new LongAhException(ExceptionMessage.INVALID_TRANSACTION_VALUE);
         }
+        if (this.balance + amount == Double.POSITIVE_INFINITY) {
+            throw new LongAhException(ExceptionMessage.BALANCE_OVERFLOW);
+        }
         this.balance += amount;
     }
 
@@ -82,6 +91,9 @@ public class Member {
     public synchronized void subtractFromBalance(double amount) throws LongAhException {
         if (amount <= 0) {
             throw new LongAhException(ExceptionMessage.INVALID_TRANSACTION_VALUE);
+        }
+        if (this.balance - amount == Double.NEGATIVE_INFINITY) {
+            throw new LongAhException(ExceptionMessage.BALANCE_OVERFLOW);
         }
         this.balance -= amount;
     }

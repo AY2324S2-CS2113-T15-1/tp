@@ -25,8 +25,7 @@ public class AddTransactionCommand extends Command {
     public void execute(Group group) throws LongAhException {
         MemberList members = group.getMemberList();
         TransactionList transactions = group.getTransactionList();
-        transactions.addTransaction(taskExpression, members);
-        group.updateTransactionSolution();
+        transactions.addTransaction(taskExpression, members, group);
         group.saveAllData();
     }
 }
