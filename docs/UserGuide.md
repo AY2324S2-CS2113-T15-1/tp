@@ -99,6 +99,9 @@ A quick reference table for all commands is presented below. Certain commands ha
     - [Views the balances of all members on a chart: `chart`](#views-the-balances-of-all-members-on-a-chart-chart)
     - [Exiting the application: `exit`](#exiting-the-application-exit)
   - [FAQ](#faq)
+  - [Common Errors](#Common-Errors)
+    - [Failure to adhere to command format](#Failure-to-adhere-to-command-format)
+    - [Invalid Requests](#Invalid-Requests)
   - [Known Issues](#known-issues)
   - [Future Improvements](#future-improvements)
 
@@ -779,6 +782,42 @@ close
 **Q**: How do I transfer my data to another computer? 
 
 **A**: Install LongAh! on the other computer and replace the empty members, pin, and transaction TXT files it creates with the files containing your data.
+
+## Common Errors
+
+### Failure to adhere to command format
+Error messages will be output by LongAh! in the event if the user input does not match the corresponding formatting for 
+the desired operation. For e.g.
+```
+lsit transactions
+  Invalid command. Use 'help' to see the list of commands.
+```
+Or
+```
+filter 23-Nov-2022 11:59
+  Invalid DateTime format. Please format you date and time inputs in the form of DD-MM-YYYY HHmm
+```
+This could be potentially caused by
+* Misspelled Action keywords (e.g. lsit transactions instead of list transactions)
+* Absence of required user parameters
+* Absence of important formatting prefixes (e.g. t/)
+* User parameters does not follow intended standards (e.g. Wrong formatting of date & time input)
+
+### Invalid Requests
+As LongAh! is designed to specifically target transactions taking place in real-life, illogical requests going against 
+real-life/system standards may also trigger error messages. For e.g.,
+```
+add transaction alice t/20-07-2077 2359 p/bob a/200
+  Invalid DateTime input. Dates of the future are not allowed.
+```
+Or
+```
+add transaction alice p/bob a/200.0005
+  Invalid transaction value.
+```
+This could be potentially caused by
+* Invalid parameters (e.g. Dates of the future, Transaction Values more than 2 decimal places)
+* Illogical parameters (e.g. A member being both a lender and a borrower within a transaction)
 
 ## Known Issues
 
