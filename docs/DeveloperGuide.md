@@ -11,6 +11,7 @@
     - [Group and GroupList](#group-and-grouplist)
     - [Member and MemberList](#member-and-memberlist)
     - [Transaction and TransactionList](#transaction-and-transactionlist)
+    - [DateTime](#DateTime)
     - [PIN](#pin)
     - [Chart](#chart)
     - [Exceptions and Logging](#exceptions-and-logging)
@@ -56,6 +57,7 @@ Design and Implementation has been broken down into the subsequent sections, eac
 * [Group and GroupList](#group-and-grouplist)
 * [Member and MemberList](#member-and-memberlist)
 * [Transaction and TransactionList](#transaction-and-transactionlist)
+* [DateTime](#DateTime)
 * [PIN](#pin)
 * [Chart](#chart)
 * [Exceptions and Logging](#exceptions-and-logging)
@@ -530,6 +532,145 @@ The TransactionList class takes the following into consideration.
 - Transactions are indexed starting from 1 for user reference and ease of use by other methods such as edit and delete.
 
 
+### DateTime
+
+<ins> Overview </ins>
+
+The DateTime class handles all operations in LongAh involving the tracking of time. This includes storing and printing
+the datetime elements in dated transactions, parsing user's date & time related inputs as well as filtering transactions
+according to their stored date & time. Implementation of the class is made possible with the help of the *java.time*
+system class.
+
+<ins> Class Structure </ins>
+
+Storing requirements only occurs for the specific datetime component of the class. Hence, the class field structure is
+as follows:
+
+- *dateTime*: A dateTime object from *java.time* representing date & time associated with the current 
+instance.
+
+<ins> Constructor </ins>
+
+The DateTime constructor takes in a string representation of date & time in the `DD-MM-YYYY HHMM` form and parse it into
+a LocalDateTime instance from *java.time* and stores it under the *dateTime* field.
+
+Invalid string date & time inputs to the constructor will trigger exceptions. The exceptions and triggering conditions
+are as follows:
+
+- `INVALID_TIME_FORMAT`: String input representing date & time is not in the `DD-MM-YYYY HHMM` format.
+- `INVALID_TIME_INPUT`: String input is representing a future date & time. This is not permitted in the LongAh system
+  considering real-life practicability.
+
+<ins> Methods </ins>
+
+- *isBefore*: Determines whether an input DateTime object has a dateTime field that is before that of the current
+instance.
+- *isAfter*: Determines whether an input DateTime object has a dateTime field that is after that of the current
+instance.
+- *isEqual*: Determines whether an input DateTime object has a dateTime field that is equal to that of the current 
+instance.
+- *isFuture*: Determines whether the dateTime field of the current instance represent a future date & time (e.g. is 
+after the preset system time). Currently used within the constructor only.
+- *toStorageString*: Formats the dateTime field of the current instance into a String output suitable for loading and 
+storing.
+
+<ins>Usage Example</ins>
+
+The following UML diagram displays how the dateTime component is handled when the user is adding a dated transaction.
+
+![addDateTimeforDatedTransaction.png](diagrams%2FaddDateTimeforDatedTransaction.png)
+
+Given below is an example usage scenario of how the DateTime class behaves at each step in adding dated transactions:
+
+1. Following steps 1-3 of the scenario of adding a new transaction, the Transaction class now identifies a potential 
+presence of a dateTime component in the userExpression through the specified prefix.
+2. It initiates the constructor method of the DateTime class and attempts to create a new object to store the user input 
+date & time. Validation of the dateTimeExpression will occur in the DateTime class at this stage.
+3. If the dateTimeExpression from the user is valid, the corresponding DateTime object will be returned to the
+Transaction class as a result and stored as the dateTime of the transaction.
+4. If the dateTimeExpression from the user is in the wrong format, exception occurs and the DateTime class will output 
+the "Invalid dateTime format" warning through the logger.
+5. If the dateTimeExpression from the user is an unrealistic future date & time, exception occurs and the DateTime class
+will output the "Invalid dateTime input" warning through the logger.
+6. If the dateTime component is appended successfully, the Transaction class will proceed to handle other details of the
+transaction input, as per adding a normal transaction.
+
+The following Code Snippet outlines the above usage:
+```
+//In pareTransaction() method of the Transaction Class 
+if (splitInput[0].contains("t/")) { //Checks for the special prefix of date & time component while adding parsing user expression
+  String[] splitLenderTime = splitInput[0].split("t/", 2);
+  ...
+  this.transactionTime = new DateTime(splitLenderTime[1]);
+}
+```
+
+The following UML diagram displays how the dateTime component is handled when printout requests are initiated for dated 
+transactions.
+
+![printingDateTime](diagrams%2FprintingDateTime.png)
+
+Given below is an example usage scenario of how the DateTime class behaves at each step when printouts are required:
+1. A String printout request is sent to the Transaction Class. 
+2. If the transaction has a dateTime component, proceed with sending a String printout request further to the DateTime
+class.
+3. The DateTime class formats the dateTime object of the current transaction into a String representation suitable for
+printout and returns this result back to Transaction class.
+4. The transaction class appends the returned String representation to the existing printout String.
+
+The following Code Snippet outlines the above usage:
+```
+//In toString() method of the Transaction Class 
+if (this.haveTime()) { //Checks whether the current transaction has a dateTime component
+    time = "Transaction time: " + this.transactionTime + "\n"; //Initiates a toString() call to the DateTime class
+}
+```
+
+The following UML diagram displays how the dateTime component is compared with user inputs in time filtering methods 
+(e.g. in *filterTransactionsEqualToDateTime*).
+
+![comparingDateTime](diagrams%2FcomparingDateTime.png)
+
+Given below is an example usage scenario of how the DateTime class behaves at each step when comparison is initiated by
+filter methods.
+1. Upon receiving a filtering request, the TransactionList class first initiates the DateTime constructor and attempts 
+to store the user's dateTime Expression into a DateTime object.
+2. After the successful creation of the userDateTime object, the filtering method proceeds by looping through all 
+transactions in the current list. 
+3. For every transaction, the Transaction List first gets the dateTime object of the transaction by calling the 
+getTransactionTime() method of the Transaction class.
+4. A comparison request (in this case .isEqual()) of the DateTime class is initiated, comparing the transactionDateTime
+as well as userDateTime objects of the class.
+5. Depending on the Boolean value determining the result of comparison, the filtering method will then proceed to decide
+if the current transaction is to be added to the printout.
+
+The following Code Snippet outlines the above usage:
+```
+//In filterTransactionsEqualToDateTime() method of the TransactionList Class 
+DateTime dateTimeToCompare = new DateTime(dateTime); //Stores user expression into a DateTime object
+...
+for (Transaction transaction : this.transactions) {
+    ...
+    if (transaction.getTransactionTime().isEqual(dateTimeToCompare)) { //Compares the two DateTime objects using .isEqual() comparison method
+        ...
+}
+```
+
+<ins> Design Considerations </ins>
+
+To reduce the coupling of time-related operations with other classes as much as possible, the following precautions was
+put in-placed during the development of the DateTime class.
+
+- Isolation of dateTime checks: The validity of all dateTime inputs of LongAh is only checked and handled within the
+constructor of the DateTime class.
+- Isolation of comparison methods: dateTime fields are only accessed and compared through defined methods of the 
+DateTime class.
+- Isolation of printouts: All dateTime fields are formatted and output only through the toString() method.
+
+The above methods effectively contains all time handling under the single DateTime class. This allows developer to 
+change the input and output structure of time-related behaviors(e.g. formatting of time in printouts) easily without 
+compromising compatibility with other parts of the LongAh system.
+
 ### PIN
 
 <ins> Overview </ins>
@@ -783,6 +924,10 @@ Busy people with large transaction quantities among friends
 | v1.0    | user           | be able to organise people into groups                                                                           | minimise the occurrence of being affected by typos                                                 |
 | v1.0    | user           | add members to a group                                                                                           | add them to future transactions                                                                    |
 | v1.0    | user           | restart data for a group                                                                                         | reduce clutter of the application                                                                  |
+| v1.0    | user           | be able to organise people into groups                                                                           | minimise the occurence of being affected by typos                                                  |
+| v1.0    | user           | add members to a group                                                                                           | add them to future transactions                                                                    |
+| v1.0    | user           | restart data for a group                                                                                         | reduce clutter of the application                                                                  |
+| v1.0    | user           | find transactions related to a certain member                                                                    | better keep track of my pending transactions or payments                                           |
 | v2.0    | new user       | view help commands                                                                                               | have an easy reference for commands while using the application                                    |
 | v2.0    | user           | enable the use of passwords for my application                                                                   | prevent wrongful access to my records                                                              |
 | v2.0    | user           | disable the password                                                                                             | have an easier time allowing people to view my records                                             |
@@ -794,6 +939,7 @@ Busy people with large transaction quantities among friends
 | v2.0    | forgetful user | time of transactions to be saved                                                                                 | reference when each transaction were made                                                          |
 | v2.0    | user           | search for specific transactions                                                                                 | find out information relating to the transaction in case I need to affect it                       |
 | v2.1    | advanced user  | merge different groups together                                                                                  | combine groups which have large overlaps in members                                                |
+| v2.1    | user           | filter transactions based on transaction time                                                                    | easily reference a transaction made during an interested time period                               |
 | v2.1    | user           | setup expenditure limits                                                                                         | be notified when someone have too large of a debt                                                  |
 | v2.1    | advanced user  | create equal share transactions                                                                                  | add multiple people to a transaction without having to type their associated value to each of them |
 | v2.1    | advanced user  | have command shortcuts                                                                                           | input commands faster                                                                              |
