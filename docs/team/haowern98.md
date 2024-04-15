@@ -16,7 +16,7 @@ Given below are my contributions to the project.
 * **New Feature**: New Feature: Improved Command Prompt Readability
    * What it does: Enhances the command prompt display to include a line after each command input.
    * Justification: Improves readability and user interaction by clearly separating each command input and output.
-   * Highlights: Modified the showCommandPrompt() method to display a prompt with a clear indication of where the user can input commands, enhancing the overall user experience.
+   * Highlights: Implemented the printSeparator() method to print the separator line, aiding in visually separating different sections of displayed content.
      
 * **New Feature**: Exit Message Display
    * What it does: Displays a farewell message upon program exit.
@@ -27,9 +27,8 @@ Given below are my contributions to the project.
 
 
 * **Project Management**:
-  * Facilitated discussion in weekly meetings to breakdown assigned workload to manageable sub-tasks.
+  * Participated in weekly meetings to breakdown assigned workload to manageable sub-tasks.
 
 
 * **Community**:
-  * Participated in PRs reviews with non-trivial review comments. (e.g.: [#43](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/43) [#121](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/121) [#153](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/153))
   * Actively exchanged implementation ideas with team members in authored PRs. (e.g.: [#38](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/38) [#77](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/77) [#156](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/156))
