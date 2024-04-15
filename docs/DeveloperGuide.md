@@ -56,33 +56,16 @@ The high-level overview of the application is provided in the flowchart below as
 
 Design and Implementation has been broken down into the subsequent sections, each tagged for ease of reference:
 
-- [Developer Guide](#developer-guide)
-  - [Table of Contents](#table-of-contents)
-  - [Acknowledgements](#acknowledgements)
-  - [Design \& Implementation](#design--implementation)
-    - [UI and I/O](#ui-and-io)
-    - [Commands](#commands)
-    - [Storage](#storage)
-    - [Group and GroupList](#group-and-grouplist)
-    - [Member and MemberList](#member-and-memberlist)
-    - [Transaction and TransactionList](#transaction-and-transactionlist)
-    - [DateTime](#datetime)
-    - [PIN](#pin)
-    - [Chart](#chart)
-    - [Exceptions and Logging](#exceptions-and-logging)
-  - [User Stories](#user-stories)
-  - [Product scope](#product-scope)
-    - [Target user profile](#target-user-profile)
-    - [Value proposition](#value-proposition)
-  - [Non-Functional Requirements](#non-functional-requirements)
-  - [Glossary](#glossary)
-  - [Instructions for Testing](#instructions-for-testing)
-    - [Manual Testing](#manual-testing)
-    - [JUnit Testing](#junit-testing)
-    - [Text UI Testing](#text-ui-testing)
-  - [Future Enhancements](#future-enhancements)
-
-<div style="page-break-after: always;"></div>
+1. [UI and I/O](#ui-and-io)
+2. [Commands](#commands)
+3. [Storage](#storage)
+4. [Group and GroupList](#group-and-grouplist)
+5. [Member and MemberList](#member-and-memberlist)
+6. [Transaction and TransactionList](#transaction-and-transactionlist)
+7. [DateTime](#datetime)
+8. [PIN](#pin)
+9. [Chart](#chart)
+10. [Exceptions and Logging](#exceptions-and-logging)
 
 ### UI and I/O
 
@@ -110,11 +93,11 @@ The `InputHandler` class has the following key method:
 
 * *parseInput*: Parses the user input and returns the corresponding `Command` object.
 
+<div style="page-break-after: always;"></div>
+
 <ins>Design Considerations</ins>
 
 * `UI` class is used as part of exception handling for displaying of error messages to the user for feedback.
-
-<div style="page-break-after: always;"></div>
 
 ### Commands
 
@@ -175,7 +158,7 @@ NAME | BALANCE
 * `transactions.txt`
 
 ```
-LENDER NAME | TRANSACTION TIME(if applicable) | BORROWER1 NAME | AMOUNT1 | BORROWER2 NAME...
+LENDER NAME | TRANSACTION TIME(if applicable) | BORROWER1 NAME | AMOUNT1 | ...
 ```
 
 ![Sample Transactions File](diagrams/TransactionsFileSample.png)
