@@ -104,7 +104,6 @@ A quick reference table for all commands is presented below. Certain commands ha
   - [Common Errors](#common-errors)
     - [Failure to adhere to command format](#failure-to-adhere-to-command-format)
     - [Invalid Requests](#invalid-requests)
-  - [Known Issues](#known-issues)
   - [Future Improvements](#future-improvements)
 
 <div style="page-break-after: always;"></div>
@@ -824,8 +823,6 @@ add transaction alice p/bob a/200.0005
 This could be potentially caused by
 * Invalid parameters (e.g. Dates of the future, Transaction Values more than 2 decimal places)
 * Illogical parameters (e.g. A member being both a lender and a borrower within a transaction)
-
-## Known Issues
 
 ## Future Improvements
 
