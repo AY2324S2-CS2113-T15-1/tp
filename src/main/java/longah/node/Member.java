@@ -1,7 +1,5 @@
 package longah.node;
 
-import java.util.regex.Pattern;
-
 import longah.exception.LongAhException;
 import longah.handler.NameHandler;
 import longah.exception.ExceptionMessage;
@@ -9,9 +7,7 @@ import longah.exception.ExceptionMessage;
 /**
  * Represents a member in the LongAh application.
  */
-public class Member {
-    private static final int MAX_NAME_LENGTH = 50;
-    
+public class Member {    
     private String name;
     private double balance;
 
