@@ -77,18 +77,18 @@ The InputHandler class itself does not have any attributes.
 
 <ins>Methods</ins>
 
-The UI class has the following key methods:
+The `UI` class has the following key methods:
 
 * *getUserInput*: Reads the user input from the console and returns it as a String.
 * *showMessage*: Displays the provided message to the user. This is overloaded to take either a String or a String and a boolean. The latter is used to define whether a newline should be printed at the end of the String. Newline is printed by default. 
 
-The InputHandler class has the following key method:
+The `InputHandler` class has the following key method:
 
 * *paseInput*: Parses the user input and returns the corresponding `Command` object.
 
 <ins>Design Considerations</ins>
 
-* UI class is used as part of exception handling for displaying of error messages to the user for feedback.
+* `UI` class is used as part of exception handling for displaying of error messages to the user for feedback.
 
 ### Commands
 
@@ -117,7 +117,7 @@ The abstract `Command` class and its related children classes have the following
 
 <ins>Constructor</ins>
 
-The Command constructor updates the attributes based on the input arguments.
+The `Command` constructor updates the attributes based on the input arguments.
 
 <ins>Methods</ins>
 
@@ -169,7 +169,7 @@ The StorageHandler has the following attributes:
 
 <ins>Constructor</ins>
 
-The StorageHandler constructor creates the relevant data storage directories if they do not current exist while initializing the attributes of the object.
+The `StorageHandler` constructor creates the relevant data storage directories if they do not current exist while initializing the attributes of the object.
 
 Key arguments for the constructor are a `MemberList` object, a `TransactionList` object and a string `groupName`. The first two are used to represent the list of `Member` objects and the list of `Transaction` objects associated with the group for reference when loading or saving data. The last represents the directory to be written to to ensure that data across groups are kept discrete.
 
@@ -252,15 +252,15 @@ The detailed class diagram for `Member` and `MemberList` can be found below.
 
 <ins>Constructor</ins>
 
-The Member constructor creates a member object and initialises the current balance of the member, either to 0 or to a specified value. The latter is largely only used as part of storage methods. Checking for validity of the name is performed here.
+The `Member` constructor creates a member object and initialises the current balance of the member, either to 0 or to a specified value. The latter is largely only used as part of storage methods. Checking for validity of the name is performed here.
 
-Key arguments of the Member constructor are a string `name` and optionally a double `balance`.
+Key arguments of the `Member` constructor are a string `name` and optionally a double `balance`.
 
 The MemberList constructor initializes an empty array list of members for newly created members to be added to.
 
 <ins>Methods</ins>
 
-The Member class has the following key methods.
+The `Member` class has the following key methods.
 
 * *setName*: Updates the name of a member. Used when edit member command is invoked.
 * *addToBalance*: Adds the value of a transaction to a member. Absolute values are used to reduce complexity of balance update method calls for both the loaner and the borrower.
@@ -320,12 +320,12 @@ members.delete("Bob");
 
 <ins>Design Considerations</ins>
 
-The Member class takes the following into consideration.
+The `Member` class takes the following into consideration.
 
 * The class ensures that member names are alphanumeric and does not allow for special characters including blank space.
 * This method is used in conjunction with a `TransactionList` obejct as part of a `Group`.
 
-The MemberList class takes the following into consideration.
+The `MemberList` class takes the following into consideration.
 
 * `updateMembersBalance` clears current balances at the start of invokation. This removes any transactions that are not captured within the `TransactionList` object passed into the method.
 
@@ -452,7 +452,7 @@ Its methods facilitate the addition, removal, editing, and retrieval of transact
 
 <ins> Overview </ins>
 
-The PINHandler class is responsible for managing the creation, loading, authentication, and resetting of a
+The `PINHandler` class is responsible for managing the creation, loading, authentication, and resetting of a
 Personal Identification Number (PIN) used for authentication in the LongAh application. It uses SHA-256 hashing to
 securely store and compare PINs. The PINHandler class interacts with the StorageHandler class to save and load the PIN
 and authentication status.
@@ -471,18 +471,16 @@ The file format is as follows:
 
 <ins> Class Structure </ins>
 
-The PINHandler class has the following static fields:
+The `PINHandler` class has the following static fields:
 
 
 - *PIN_FILE_PATH*: The path to the file where the PIN and authentication status are saved.
-
 - *savedPin*: The hashed PIN saved in the file.
-
 - *authenticationEnabled*: A boolean flag indicating whether authentication is enabled.
 
 <ins> Constructor </ins>
 
-The PINHandler constructor initializes the savedPin and authenticationEnabled fields by loading them from the file using
+The `PINHandler` constructor initializes the savedPin and authenticationEnabled fields by loading them from the file using
 the loadPinAndAuthenticationEnabled method.
 
 If the file does not exist or the savedPin is empty, it calls the createPin method to create a new PIN.
@@ -490,24 +488,15 @@ If the file does not exist or the savedPin is empty, it calls the createPin meth
 <ins> Methods </ins>
 
 - *loadPinAndAuthenticationEnabled*: Loads the saved PIN and authentication enabled status from the file.
-
 - *savePinAndAuthenticationEnabled*: Saves the PIN and authentication enabled status to the file.
-
 - *getPinFilePath*: Returns the file path of the PIN file.
-
 - *createPin*: Prompts the user to create a new 6-digit PIN and hashes it before saving.
-
 - *authenticate*: Authenticates the user by comparing the entered PIN with the saved PIN.
-
 - *resetPin*: Resets the PIN for the user by prompting for the current PIN and creating a new PIN if the current
 PIN is correct.
-
 - *enablePin*: Enables authentication upon startup.
-
 - *disablePin*: Disables authentication upon startup.
-
 - *getSavedPin*: Returns the saved PIN.
-
 - *getAuthenticationStatus*: Returns the authentication status.
 
 <ins> Usage Example </ins>
@@ -524,24 +513,17 @@ Given below is an example usage scenario and how the PIN creation and authentica
 
 1. The user launches the application for the first time. The PINHandler initializes, loading the saved PIN and 
 authentication enabled status from the file. If no PIN exists, it prompts the user to create a new PIN.
-
 2. The user creates a new 6-digit PIN using the createPin method. The entered PIN is hashed using SHA-256 before 
 saving it to the file.
-
 3. The user enables authentication upon startup using the 'pin enable' command. The authenticationEnabled flag is set to True and saved to the file.
-
 4. The user closes the application and relaunches it. The PINHandler loads the saved PIN and authentication 
 enabled status from the file again.
-
 5. The user attempts to log in by entering their PIN. The authenticate method hashes the entered PIN and 
 compares it with the saved hashed PIN. If they match, the user is successfully authenticated. Otherwise, the user is denied access.
-
 6. The user decides to reset their PIN by entering their current PIN and creating a new one using the resetPin 
 method.
-
 7. The user disables authentication upon startup using the 'pin disable' command. The authenticationEnabled flag 
 is set to false and saved to the file.
-
 8. The user relaunches the application, and authentication is no longer required since it has been disabled. 
 The user can proceed with the application and do any actions without entering a PIN.
 
@@ -572,7 +554,7 @@ security needs and convenience.
 
 <ins>Overview</ins>
 
-The Chart class is responsible for generating a visual representation of the transaction solution in the form of a chart.
+The `Chart` class is responsible for generating a visual representation of the transaction solution in the form of a chart.
 
 The chart is displayed in a separate window and shows the individual balances among the group members.
 
@@ -584,16 +566,14 @@ It provides a convenient way to visualize data, particularly for member balances
 
 Data Representation: 
 
-The Chart class utilizes the XChart library to represent data in the form of bar charts. It distinguishes positive and negative balances by differentiating them with green and red colors, respectively.
+The `Chart` class utilizes the XChart library to represent data in the form of bar charts. It distinguishes positive and negative balances by differentiating them with green and red colors, respectively.
 
 
 <ins>Class Structure</ins>
 
-The Chart class consists of the following components:
+The `Chart` class consists of the following components:
 
 - *Constructor*: Instantiates a new Chart object by displaying the provided category chart.
-
-- *Static Method*: viewBalancesBarChart constructs and displays a bar chart representing member balances.
 
 <ins>Methods</ins>
 
@@ -637,42 +617,42 @@ are aware of available features within the application.
 
 <ins>Overview</ins>
 
-This project makes used of centralised exception handling and logging means, allowing for greater standardisation throughout the codebase. This is done through the LongAhException class and Logging class respectively.
+This project makes used of centralised exception handling and logging means, allowing for greater standardisation throughout the codebase. This is done through the `LongAhException` class and `Logging` class respectively.
 
 <ins>Implementation Details</ins>
 
-The LongAhException class makes use of enumerations `ExceptionMessage` and `ExceptionType` to dictate its behaviour. `ExceptionMessage` stores the desired output message for each kind of potential error along with its associated `ExceptionType`. `ExceptionType` is used to define the manner in which the exception is logged.
+The `LongAhException` class makes use of enumerations `ExceptionMessage` and `ExceptionType` to dictate its behaviour. `ExceptionMessage` stores the desired output message for each kind of potential error along with its associated `ExceptionType`. `ExceptionType` is used to define the manner in which the exception is logged.
 
 Note: All exception calls are logged by default, either as WARNING or INFO depending on the `ExceptionType` classification tagged to the `ExceptionMessage`.
 
 <ins>Class Structure</ins>
 
-The LongAhException class has the following static field:
+The `LongAhException` class has the following static field:
 * *type*: A ExceptionType enumeration denoting how the exception should be logged.
 
-The Logging class has the following static field:
+The `Logging` class has the following static field:
 * *longAhLogger*: A Logger type object to perform the logging.
 
 <ins>Constructor</ins>
 
-The LongAhException class calls the Exception constructor using the message associated with the received ExceptionMessage and stores the type of exception.
+The `LongAhException` class calls the Exception constructor using the message associated with the received ExceptionMessage and stores the type of exception.
 
-The Logging class initializes a file directory to store logging data.
+The `Logging` class initializes a file directory to store logging data.
 
 <ins>Methods</ins>
 
-The LongAhException class has the following key methods:
+The `LongAhException` class has the following key methods:
 
 * *printException*: Prints the desired output message when an exception is thrown.
 
-The Logging class has the following key methods:
+The `Logging` class has the following key methods:
 
 * *logInfo*: Takes a string `message` as an argument. Create a log at the INFO level.
 * *logWarning*: Takes a string `message` as an argument. Create a log at the WARNING level.
 
 <ins>Usage Example</ins>
 
-Use of the LongAhException class is demonstrated below, including throwing of an exception and printing the desired output message. This example covers the throwing exception due to invalid index.
+Use of the `LongAhException` class is demonstrated below, including throwing of an exception and printing the desired output message. This example covers the throwing exception due to invalid index.
 ```
 import longah.exception.LongAhException;
 import longah.exception.ExceptionMessage;
@@ -686,7 +666,7 @@ catch (LongAhException e) {
 }
 ```
 
-Logging can be performed using the following lines of code:
+`Logging` can be performed using the following lines of code:
 ```
 import longah.handler.Logging;
 
