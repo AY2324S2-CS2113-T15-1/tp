@@ -156,7 +156,7 @@ The following diagram is a sequence diagram of the initialisation of `StorageHan
 
 <ins>Class Structure</ins>
 
-The StorageHandler has the following attributes:
+The `StorageHandler` has the following attributes:
 
 * *storageFolderPath*: A string containing the path to the storage directory specific to the group.
 * *storageMembersFilePath*: A string containing the path to the `members.txt` directory associated with the group.
