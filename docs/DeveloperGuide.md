@@ -57,6 +57,7 @@ Design and Implementation has been broken down into the subsequent sections, eac
 * [Group and GroupList](#group-and-grouplist)
 * [Member and MemberList](#member-and-memberlist)
 * [Transaction and TransactionList](#transaction-and-transactionlist)
+* [DateTime](#DateTime)
 * [PIN](#pin)
 * [Chart](#chart)
 * [Exceptions and Logging](#exceptions-and-logging)
