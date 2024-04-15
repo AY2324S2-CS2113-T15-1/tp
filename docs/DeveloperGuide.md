@@ -82,6 +82,8 @@ Design and Implementation has been broken down into the subsequent sections, eac
     - [Text UI Testing](#text-ui-testing)
   - [Future Enhancements](#future-enhancements)
 
+<div style="page-break-after: always;"></div>
+
 ### UI and I/O
 
 <ins>Overview</ins>
@@ -108,11 +110,11 @@ The `InputHandler` class has the following key method:
 
 * *parseInput*: Parses the user input and returns the corresponding `Command` object.
 
-<div style="page-break-after: always;"></div>
-
 <ins>Design Considerations</ins>
 
 * `UI` class is used as part of exception handling for displaying of error messages to the user for feedback.
+
+<div style="page-break-after: always;"></div>
 
 ### Commands
 
@@ -878,6 +880,8 @@ Authentication Management: Users have the option to enable or disable authentica
 and 'pin disable' commands. This flexibility allows users to customize their authentication preferences based on their
 security needs and convenience.
 
+<div style="page-break-after: always;"></div>
+
 ### Chart
 
 <ins>Overview</ins>
@@ -928,17 +932,13 @@ Chart.viewBalancesBarChart(members, balances);
 ```
 <ins>Design Considerations</ins>
 
-Data Visualization:
-
-The class focuses on providing clear and concise visualization of member balances through bar
+Data Visualization - The class focuses on providing clear and concise visualization of member balances through bar
 charts, aiding users in understanding financial distributions.
 
-Interactivity:
-
-Tooltips are enabled to enhance user interaction, providing insights into specific data points when
+Interactivity - Tooltips are enabled to enhance user interaction, providing insights into specific data points when
 hovered over.
 
-Annotation: An annotation is included to suggest a command for managing debts efficiently, ensuring users
+Annotation - An annotation is included to suggest a command for managing debts efficiently, ensuring users
 are aware of available features within the application.
 
 ### Exceptions and Logging
