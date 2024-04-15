@@ -307,4 +307,19 @@ public class StorageHandler {
         saveMembersData();
         saveTransactionsData();
     }
+
+    /**
+     * Helper method to remove a directory and its contents.
+     * 
+     * @param dir The file to be removed
+     */
+    public static void deleteDir(File dir) {
+        File[] contents = dir.listFiles();
+        if (contents != null) {
+            for (File file : contents) {
+                deleteDir(file);
+            }
+        }
+        dir.delete();
+    }
 }
