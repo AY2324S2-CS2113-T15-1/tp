@@ -186,6 +186,7 @@ public class GroupList {
 
     /**
      * Returns the group with a specified name.
+     * 
      * @param name The name of the group.
      * @return The group with a specified name.
      */
@@ -204,6 +205,7 @@ public class GroupList {
 
     /**
      * Returns the size of the group list.
+     * 
      * @return The size of the group list.
      */
     public int getSize() {
@@ -212,6 +214,7 @@ public class GroupList {
 
     /**
      * Checks if the group is in the list.
+     * 
      * @param groupName The name of the group.
      * @return True if the group is in the list, false otherwise.
      */
@@ -226,6 +229,7 @@ public class GroupList {
 
     /**
      * Saves the group list to the txt file.
+     * 
      * @throws LongAhException If an I/O exception occurs.
      */
     public static void saveGroupList() throws LongAhException {
