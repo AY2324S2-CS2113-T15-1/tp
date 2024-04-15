@@ -93,6 +93,8 @@ The `InputHandler` class has the following key method:
 
 * *parseInput*: Parses the user input and returns the corresponding `Command` object.
 
+<div style="page-break-after: always;"></div>
+
 <ins>Design Considerations</ins>
 
 * `UI` class is used as part of exception handling for displaying of error messages to the user for feedback.
@@ -179,8 +181,6 @@ The `StorageHandler` has the following attributes:
 * *members*: A MemberList object representing the list of Members in the group.
 * *transactions*: A TransactionList object representing the list of Transactions in the group.
 * *scanners*: A size 2 array of Scanners to be used for loading data from the data storage files. The first Scanner in the array is used for reading from `members.txt` while the second is used for reading from `transactions.txt`.
-
-<div style="page-break-after: always;"></div>
 
 <ins>Constructor</ins>
 
@@ -284,6 +284,8 @@ The `GroupList` class has the following key methods.
 * *deleteGroup*: Deletes a group from the group list based on the specified group name. The member and transaction files associated with the group are also deleted from storage.
 * *saveGroupList*: Saves the list of groups stored in the groupList to the storage handler.
 
+<div style="page-break-after: always;"></div>
+
 <ins>Usage Example</ins>
 
 The following code segment outlines a sample use of `Group`.
@@ -324,6 +326,8 @@ myGroup.settleUp("Alice");
 // Saving all data related to the group
 myGroup.saveAllData();
 ```
+
+<div style="page-break-after: always;"></div>
 
 The following code segment outlines a sample use of `GroupList`.
 
