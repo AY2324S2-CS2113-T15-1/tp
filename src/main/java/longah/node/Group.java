@@ -129,7 +129,7 @@ public class Group {
                 UI.showMessage(borrowerName + " has repaid " + lender.getName() + " $" + amountRepaid);
             }
         }
-        UI.showMessage("");
+        UI.printEmptyLine();
         this.transactions.addTransaction(transactionExpression, this.members);
         updateTransactionSolution();
         assert this.members.getMember(borrowerName).getBalance() == 0 : "Borrower should have no more debts.";
