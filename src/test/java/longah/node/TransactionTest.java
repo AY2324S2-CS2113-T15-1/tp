@@ -149,4 +149,21 @@ public class TransactionTest {
         }
     }
 
+    /**
+     * Tests the successful checking of whether a person is involved in a transaction.
+     */
+    @Test
+    public void isInvolved_validInput_success() {
+        try {
+            MemberList memberList = new MemberList();
+            memberList.addMember("Alice");
+            memberList.addMember("Bob");
+            Transaction transaction = new Transaction("Alice p/Bob a/5", memberList);
+            assertEquals(true, transaction.isInvolved("Alice"));
+            assertEquals(true, transaction.isInvolved("Bob"));
+            assertEquals(false, transaction.isInvolved("Charlie"));
+        } catch (LongAhException e) {
+            fail();
+        }
+    }
 }
