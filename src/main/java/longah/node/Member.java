@@ -3,6 +3,7 @@ package longah.node;
 import java.util.regex.Pattern;
 
 import longah.exception.LongAhException;
+import longah.handler.NameHandler;
 import longah.exception.ExceptionMessage;
 
 /**
@@ -21,7 +22,7 @@ public class Member {
      * @throws LongAhException If the name is invalid.
      */
     public Member(String name) throws LongAhException {
-        checkNameValidity(name);
+        NameHandler.checkMemberNameValidity(name);
         this.name = name;
         this.balance = 0.0;
     }
@@ -35,26 +36,9 @@ public class Member {
      * @throws LongAhException If the name is invalid.
      */
     public Member(String name, double balance) throws LongAhException {
-        checkNameValidity(name);
+        NameHandler.checkMemberNameValidity(name);
         this.name = name;
         this.balance = balance;
-    }
-
-    /**
-     * Checks if the name is valid.
-     * 
-     * @param name The name to check.
-     * @throws LongAhException If the name is not alphanumeric.
-     */
-    public void checkNameValidity(String name) throws LongAhException {
-        // Check if name is fully alphanumeric
-        if (!Pattern.matches("[A-Za-z0-9]+", name)) {
-            throw new LongAhException(ExceptionMessage.INVALID_MEMBER_NAME);
-        }
-        // Check if name exceeds character limit
-        if (name.length() > MAX_NAME_LENGTH) {
-            throw new LongAhException(ExceptionMessage.CHAR_LIMIT_EXCEEDED);
-        }
     }
 
     /**
@@ -64,7 +48,7 @@ public class Member {
      * @throws LongAhException If the name is invalid.
      */
     public void setName(String name) throws LongAhException {
-        checkNameValidity(name);
+        NameHandler.checkMemberNameValidity(name);
         this.name = name;
     }
 
