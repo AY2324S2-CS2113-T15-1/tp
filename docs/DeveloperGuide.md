@@ -422,11 +422,8 @@ The TransactionList class is responsible for managing a list of transactions in 
 - *deleteMember*: Deletes a member from all transactions in the list.
 
 - *filterTransactionsEqualToDateTime*: Lists all transactions with dateTime equal to the input String represented dateTime
-
 - *filterTransactionBeforeDateTime*: Lists all transactions with dateTime before the input String represented dateTime
-
 - *filterTransactionAfterDateTime*: Lists all transactions with dateTime after the input String represented dateTime
-
 - *filterTransactionBetweenDateTime*: Lists all transactions with dateTime between the two input String represented dateTimes
 
 <ins>Usage Example</ins>
@@ -481,19 +478,18 @@ instance.
 
 <ins> Constructor </ins>
 
-The DateTime constructor takes in a string representation of date & time in the `dd-MM-YYYY HHmm` form and parse it into
+The DateTime constructor takes in a string representation of date & time in the `DD-MM-YYYY HHMM` form and parse it into
 a LocalDateTime instance from *java.time* and stores it under the *dateTime* field.
 
 Invalid string date & time inputs to the constructor will trigger exceptions. The exceptions and triggering conditions
 are as follows:
 
-- `INVALID_TIME_FORMAT`: String input representing date & time is not in the `dd-MM-YYYY HHmm` format.
+- `INVALID_TIME_FORMAT`: String input representing date & time is not in the `DD-MM-YYYY HHMM` format.
 - `INVALID_TIME_INPUT`: String input is representing a future date & time. This is not permitted in the LongAh system
   considering real-life practicability.
 
 <ins> Methods </ins>
 
-- *getDateTime*: Getter method to get the dateTime field of the current instance. Currently used within the class only.
 - *isBefore*: Determines whether an input DateTime object has a dateTime field that is before that of the current
 instance.
 - *isAfter*: Determines whether an input DateTime object has a dateTime field that is after that of the current
@@ -504,8 +500,6 @@ instance.
 after the preset system time). Currently used within the constructor only.
 - *toStorageString*: Formats the dateTime field of the current instance into a String output suitable for loading and 
 storing.
-- *toString*: Overrides the default toString method. Formats the dateTime field of the existing DateTime instance into a
-String output suitable for printouts.
 
 <ins>Usage Example</ins>
 

@@ -1,19 +1,14 @@
 @startuml
-participant TransactionList as Foo
-participant Transaction as Foo1
-participant DateTime as Foo2
+participant ":TransactionList" as Foo
+participant ":Transaction" as Foo1
+participant ":DateTime" as Foo2
 [->      Foo:""filterTransactionsEqualToDateTime(dateTimeExpression)""
-activate Foo
 Foo -> Foo2:new DateTime(dateTimeExpression)
-activate Foo2
 Foo2 --> Foo: DateTime object of user input created
-deactivate Foo2
 loop for transaction in transactions
     Foo -> Foo1: transaction.getTransactionTime()
     Foo1 --> Foo: DateTime object of transaction
     Foo -> Foo2: transactionDateTime.isEqual(userDateTime)
-    activate Foo2
     Foo2 --> Foo: Boolean determining whether the two dateTimes are equal
-    deactivate Foo2
 end
 @enduml

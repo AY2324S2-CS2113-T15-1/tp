@@ -1,32 +1,23 @@
 @startuml
-participant TransactionList as Foo1
-participant Transaction as Foo2
-participant DateTime as Foo3
-participant Logger as Foo4
+participant ":TransactionList" as Foo1
+participant ":Transaction" as Foo2
+participant ":DateTime" as Foo3
+participant ":Logger" as Foo4
 [->      Foo1 : ""addTransaction(taskExpression, members)""
-activate Foo1
 Foo1 -> Foo1:addTransaction(expression,memberList)
-activate Foo1
 Foo1 -> Foo2: new Transaction(expression, memberList)
-activate Foo2
 Foo2 -> Foo2:parseTransaction(expression, memberList)
-activate Foo2
 alt expression contains dateTimeExpression
     Foo2 -> Foo3:new DateTime(dateTimeExpression)
-    activate Foo3
     alt dateTimeExpression is valid
         Foo3 --> Foo2: DateTime object created
         Foo2 -> Foo2: transaction DateTime added
     else dateTimeExpression is not in format
         Foo3 -> Foo4:LogWarning(invalid dateTime format)
-        activate Foo4
         Foo4 -> Foo4: log(Level.Warning, "Invalid DateTime Format")
-        deactivate Foo4
    else dateTimeExpression is of future
         Foo3 -> Foo4: LogWarning(invalid  dateTime input)
-        activate Foo4
         Foo4 -> Foo4: log(Level.Warning,"DateTime of future is not allowed")
-        deactivate Foo4
    end
 end
 @enduml

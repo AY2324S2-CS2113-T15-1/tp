@@ -1,13 +1,10 @@
 @startuml
-participant Transaction as Foo
-participant DateTime as Foo1
+participant ":Transaction" as Foo
+participant ":DateTime" as Foo1
 [->      Foo:""toString()""
-activate Foo
 alt transaction has dateTime
     Foo -> Foo1:toString()
-    activate Foo1
     Foo1 --> Foo: String representing dateTime
-    deactivate Foo1
     Foo -> Foo: added String dateTime to printout
 end
 @enduml

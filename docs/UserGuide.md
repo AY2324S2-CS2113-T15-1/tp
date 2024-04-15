@@ -683,7 +683,7 @@ Filters transactions based on the date & time of dated transactions.
 
 Format: `filter a/[TIME] b/[TIME]` OR `filter a/[TIME]` OR `filter b/[TIME]` OR `filter [TIME]`
 
-* The `TIME` should be in the format of `dd-MM-yyyy HHmm`.
+* The `TIME` should be in the format of `DD-MM-YYYY HHMM`.
 * The `a/` prefix is used to specify the earlier time bound of the search. It should be before the `b/` prefix at all times.
 * The `b/` prefix is used to specify the later time bound of the search.
 * The `filter a/[TIME] b/[TIME]` command applies for searching transactions occurring between a specified time period.
