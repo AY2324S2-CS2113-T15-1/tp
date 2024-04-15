@@ -6,14 +6,13 @@ import longah.util.MemberList;
 import longah.util.Subtransaction;
 import longah.util.TransactionList;
 import longah.handler.Logging;
+import longah.handler.NameHandler;
 import longah.handler.StorageHandler;
 import longah.handler.UI;
 import longah.exception.LongAhException;
 import longah.exception.ExceptionMessage;
 
 public class Group {
-    private static final int MAX_NAME_LENGTH = 50;
-
     private MemberList members;
     private TransactionList transactions;
     private StorageHandler storage;
@@ -27,15 +26,7 @@ public class Group {
      * @throws LongAhException If the group name is invalid
      */
     public Group(String groupName) throws LongAhException {
-        // Check if group name is fully alphanumeric
-        if (!groupName.matches("[A-Za-z0-9]+")) {
-            throw new LongAhException(ExceptionMessage.INVALID_GROUP_NAME);
-        }
-        // Check if name exceeds character limit
-        if (groupName.length() > MAX_NAME_LENGTH) {
-            throw new LongAhException(ExceptionMessage.CHAR_LIMIT_EXCEEDED);
-        }
-        
+        NameHandler.checkGroupNameValidity(groupName);
         this.groupName = groupName;
         this.members = new MemberList();
         this.transactions = new TransactionList();
@@ -129,7 +120,7 @@ public class Group {
                 UI.showMessage(borrowerName + " has repaid " + lender.getName() + " $" + amountRepaid);
             }
         }
-        UI.showMessage("");
+        UI.printEmptyLine();
         this.transactions.addTransaction(transactionExpression, this.members);
         updateTransactionSolution();
         assert this.members.getMember(borrowerName).getBalance() == 0 : "Borrower should have no more debts.";
@@ -178,7 +169,7 @@ public class Group {
         for (Subtransaction subtransaction : this.transactionSolution) {
             solution += subtransaction.toString() + "\n";
         }
-        return solution;
+        return solution.trim();
     }
 
     /**
@@ -199,6 +190,6 @@ public class Group {
                 output += subtransaction.toString() + "\n";
             }
         }
-        return output;
+        return output.trim();
     }
 }

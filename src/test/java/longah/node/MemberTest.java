@@ -46,8 +46,8 @@ public class MemberTest {
         try {
             new Member("Alice123-");
             fail();
-        } catch (Exception e) {
-            boolean isMessage = LongAhException.isMessage((LongAhException) e, ExceptionMessage.INVALID_MEMBER_NAME);
+        } catch (LongAhException e) {
+            boolean isMessage = LongAhException.isMessage(e, ExceptionMessage.INVALID_MEMBER_NAME);
             assertTrue(isMessage);
         }
     }
@@ -60,8 +60,23 @@ public class MemberTest {
         try {
             new Member("");
             fail();
+        } catch (LongAhException e) {
+            boolean isMessage = LongAhException.isMessage(e, ExceptionMessage.INVALID_MEMBER_NAME);
+            assertTrue(isMessage);
+        }
+    }
+
+    /**
+     * Tests the unsuccessful creation of a member with a name exceeding the character limit.
+     */
+    @Test
+    public void memberConstructor_nameExceedsLimit_exceptionThrown() {
+        try {
+            new Member("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + 
+                    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            fail();
         } catch (Exception e) {
-            boolean isMessage = LongAhException.isMessage((LongAhException) e, ExceptionMessage.INVALID_MEMBER_NAME);
+            boolean isMessage = LongAhException.isMessage((LongAhException) e, ExceptionMessage.CHAR_LIMIT_EXCEEDED);
             assertTrue(isMessage);
         }
     }
@@ -85,7 +100,7 @@ public class MemberTest {
      * Tests the addToBalance method of the Member class with invalid added balance.
      */
     @Test
-    public void addToBalance_invalidAdd_exceptionThrown() {
+    public void addToBalance_negativeValue_exceptionThrown() {
         try {
             Member member = new Member("Bob");
             member.addToBalance(-20.0);
@@ -115,7 +130,7 @@ public class MemberTest {
      * Tests the subtractFromBalance method of the Member class with invalid subtracted balance.
      */
     @Test
-    public void subtractFromBalance_invalidSubtract_exceptionThrown() {
+    public void subtractFromBalance_negativeValue_exceptionThrown() {
         try {
             Member member = new Member("Alice");
             member.subtractFromBalance(-20.0);
@@ -170,6 +185,21 @@ public class MemberTest {
             t2.start();
             t1.join();
             t2.join();
+            assertEquals(0.0, member.getBalance());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    /**
+     * Tests the successful clearing of the balance of a member.
+     */
+    @Test
+    public void clearBalance_validClear_success() {
+        try {
+            Member member = new Member("Alice");
+            member.addToBalance(10.0);
+            member.clearBalance();
             assertEquals(0.0, member.getBalance());
         } catch (Exception e) {
             fail();

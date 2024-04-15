@@ -37,7 +37,7 @@ FC actual_output\ACTUAL4.TXT expected_output\EXPECTED4.TXT >NUL && set /a ERROR_
 FC actual_output\ACTUAL5A.TXT expected_output\EXPECTED5A.TXT >NUL && set /a ERROR_COUNT=ERROR_COUNT || (set /a ERROR_COUNT+=1 && set FAILED_TESTS=%FAILED_TESTS% 5A)
 
 if %ERROR_COUNT% EQU 0 (
-    Echo Test passed!
+    Echo All tests passed!
 ) else (
     Echo %ERROR_COUNT% tests failed:%FAILED_TESTS%
 )

@@ -384,4 +384,27 @@ public class TransactionListTest {
             fail();
         }
     }
+
+    /**
+     * Test the successful clearing of the transaction list
+     */
+    @Test
+    public void clear_valid_success() {
+        try {
+            MemberList memberList = new MemberList();
+            TransactionList transactionList = new TransactionList();
+            memberList.addMember("Alice");
+            memberList.addMember("Bob");
+
+            transactionList.addTransaction("Alice p/Bob a/5", memberList);
+            assertEquals(1, transactionList.getTransactionListSize());
+            transactionList.clear(memberList);
+            assertEquals(0, transactionList.getTransactionListSize());
+            
+            String output = memberList.listMembers();
+            assertEquals("Alice: $0.00\nBob: $0.00", output);
+        } catch (LongAhException e) {
+            fail();
+        }
+    }
 }
