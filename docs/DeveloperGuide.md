@@ -15,10 +15,10 @@
     - [PIN](#pin)
     - [Chart](#chart)
     - [Exceptions and Logging](#exceptions-and-logging)
+  - [User Stories](#user-stories)
   - [Product scope](#product-scope)
     - [Target user profile](#target-user-profile)
     - [Value proposition](#value-proposition)
-  - [User Stories](#user-stories)
   - [Non-Functional Requirements](#non-functional-requirements)
   - [Glossary](#glossary)
   - [Instructions for Testing](#instructions-for-testing)
@@ -56,16 +56,31 @@ The high-level overview of the application is provided in the flowchart below as
 
 Design and Implementation has been broken down into the subsequent sections, each tagged for ease of reference:
 
-* [UI and I/O](#ui-and-io)
-* [Commands](#commands)
-* [Storage](#storage)
-* [Group and GroupList](#group-and-grouplist)
-* [Member and MemberList](#member-and-memberlist)
-* [Transaction and TransactionList](#transaction-and-transactionlist)
-* [DateTime](#DateTime)
-* [PIN](#pin)
-* [Chart](#chart)
-* [Exceptions and Logging](#exceptions-and-logging)
+- [Developer Guide](#developer-guide)
+  - [Table of Contents](#table-of-contents)
+  - [Acknowledgements](#acknowledgements)
+  - [Design \& Implementation](#design--implementation)
+    - [UI and I/O](#ui-and-io)
+    - [Commands](#commands)
+    - [Storage](#storage)
+    - [Group and GroupList](#group-and-grouplist)
+    - [Member and MemberList](#member-and-memberlist)
+    - [Transaction and TransactionList](#transaction-and-transactionlist)
+    - [DateTime](#datetime)
+    - [PIN](#pin)
+    - [Chart](#chart)
+    - [Exceptions and Logging](#exceptions-and-logging)
+  - [User Stories](#user-stories)
+  - [Product scope](#product-scope)
+    - [Target user profile](#target-user-profile)
+    - [Value proposition](#value-proposition)
+  - [Non-Functional Requirements](#non-functional-requirements)
+  - [Glossary](#glossary)
+  - [Instructions for Testing](#instructions-for-testing)
+    - [Manual Testing](#manual-testing)
+    - [JUnit Testing](#junit-testing)
+    - [Text UI Testing](#text-ui-testing)
+  - [Future Enhancements](#future-enhancements)
 
 ### UI and I/O
 
@@ -679,7 +694,7 @@ import longah.util.DateTime;
 import longah.util.Transaction;
 
 // In pareTransaction() method of the Transaction Class
-// Check for the special prefix of date & time component while adding parsing user expression
+// Check for prefix of date & time component while adding parsing user expression
 if (splitInput[0].contains("t/")) { 
   String[] splitLenderTime = splitInput[0].split("t/", 2);
   ...
@@ -831,21 +846,14 @@ This diagram shows the sequence when the user resets their PIN.
 
 Given below is an example usage scenario and how the PIN creation and authentication mechanism behaves at each step:
 
-1. The user launches the application for the first time. The PINHandler initializes, loading the saved PIN and 
-authentication enabled status from the file. If no PIN exists, it prompts the user to create a new PIN.
-2. The user creates a new 6-digit PIN using the createPin method. The entered PIN is hashed using SHA-256 before 
-saving it to the file.
-3. The user enables authentication upon startup using the 'pin enable' command. The authenticationEnabled flag is set to True and saved to the file.
-4. The user closes the application and relaunches it. The PINHandler loads the saved PIN and authentication 
-enabled status from the file again.
-5. The user attempts to log in by entering their PIN. The authenticate method hashes the entered PIN and 
-compares it with the saved hashed PIN. If they match, the user is successfully authenticated. Otherwise, the user is denied access.
-6. The user decides to reset their PIN by entering their current PIN and creating a new one using the resetPin 
-method.
-7. The user disables authentication upon startup using the 'pin disable' command. The authenticationEnabled flag 
-is set to false and saved to the file.
-8. The user relaunches the application, and authentication is no longer required since it has been disabled. 
-The user can proceed with the application and do any actions without entering a PIN.
+1. PINHandler initialization loads the saved PIN and authentication enabled status from the file. If no PIN exists, prompt the user to create a new PIN.
+2. User creates a new 6-digit PIN using the createPin method. The entered PIN is hashed using SHA-256 before saving it to the file.
+3. User enables authentication upon startup using the 'pin enable' command. The authenticationEnabled flag is set to True and saved to the file.
+4. The user closes the application and relaunches it. The PINHandler loads the saved PIN and authentication enabled status from the file again.
+5. The user attempts to log in by entering their PIN. The authenticate method hashes the entered PIN and compares it with the saved hashed PIN.If they match, the user is successfully authenticated. Otherwise, the user is denied access.
+6. The user decides to reset their PIN by entering their current PIN and creating a new one using the resetPin method.
+7. The user disables authentication upon startup using the 'pin disable' command. The authenticationEnabled flag is set to false and saved to the file.
+8. On relaunch, authentication is not required since it was disabled. The user can proceed with the application and do any actions without entering a PIN.
 
 Code Segment:
 ```
@@ -860,8 +868,6 @@ PINHandler.authenticate();
 // Authentication is disabled, proceed with application logic
 }
 ```
-
-<div style="page-break-after: always;"></div>
 
 <ins> Design Considerations </ins>
 
@@ -902,8 +908,6 @@ The `Chart` class consists of the following components:
   distinguishes positive and negative balances and adds tooltips for enhanced user interaction. Additionally, it includes
   an annotation recommending a command for managing debts effectively.
 
-<div style="page-break-after: always;"></div>
-
 <ins>Usage Example</ins>
 
 Given below is an example usage scenario and how the Chart class behaves at each step:
@@ -911,7 +915,9 @@ Given below is an example usage scenario and how the Chart class behaves at each
 1. The user adds a few members to the group and performs transactions among them.
 2. The user enters the 'chart' command to view the current balances of all members.
 
-Code Segment
+<div style="page-break-after: always;"></div>
+
+Code Segment:
 ```
 // Prepare data
 List<String> members = Arrays.asList("Member1", "Member2", "Member3");
@@ -935,8 +941,6 @@ hovered over.
 Annotation: An annotation is included to suggest a command for managing debts efficiently, ensuring users
 are aware of available features within the application.
 
-<div style="page-break-after: always;"></div>
-
 ### Exceptions and Logging
 
 <ins>Overview</ins>
@@ -957,6 +961,8 @@ The `LongAhException` class has the following static field:
 The `Logging` class has the following static field:
 * *longAhLogger*: A Logger type object to perform the logging.
 
+<div style="page-break-after: always;"></div>
+
 <ins>Constructor</ins>
 
 The `LongAhException` class calls the Exception constructor using the message associated with the received ExceptionMessage and stores the type of exception.
@@ -973,8 +979,6 @@ The `Logging` class has the following key methods:
 
 * *logInfo*: Takes a string `message` as an argument. Create a log at the INFO level.
 * *logWarning*: Takes a string `message` as an argument. Create a log at the WARNING level.
-
-<div style="page-break-after: always;"></div>
 
 <ins>Usage Example</ins>
 
@@ -1002,17 +1006,6 @@ Logging.logInfo(message);
 // Create log of WARNING Level
 Logging.logWarning(message);
 ```
-
-## Product scope
-
-### Target user profile
-
-Busy people with large transaction quantities among friends
-
-### Value proposition
-
-- Help users to find the least transactions solution to a large quantity of transactions
-- Allow users to view past expenses of a group
 
 <div style="page-break-after: always;"></div>
 
@@ -1043,6 +1036,20 @@ Busy people with large transaction quantities among friends
 | v2.1    | user           | filter transactions based on transaction time                            | reference a transaction made during an interested time period               |
 | v2.1    | advanced user  | have command shortcuts                                                   | input commands faster                                                       |
 
+
+## Product scope
+
+### Target user profile
+
+Busy people with large transaction quantities among friends
+
+### Value proposition
+
+- Help users to find the least transactions solution to a large quantity of transactions
+- Allow users to view past expenses of a group
+
+<div style="page-break-after: always;"></div>
+
 ## Non-Functional Requirements
 
 * Technical Requirements: Any mainstream OS, i.e. Windows, macOS or Linux, with Java 11 installed. Instructions for downloading Java 11 can be found [here](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html).
@@ -1058,6 +1065,8 @@ Busy people with large transaction quantities among friends
 * Subtransaction - Subset of Transaction, consists of ONE Lender and ONE Borrower.
 * Group - Discrete units each containing their respective lists of Member and Transaction.
 * Separator - "\|" has been used to denote separator within this document but within the Storage related classes, the ASCII Unit Separator as denoted by ASCII 31 is used instead. This is defined within `StorageHandler`.
+
+<div style="page-break-after: always;"></div>
 
 ## Instructions for Testing
 
@@ -1094,6 +1103,8 @@ All tests passed!
 // Tests failed: Differing output in test group 2 and member data files
 2 tests failed: MEMBER 2 
 ```
+
+<div style="page-break-after: always;"></div>
 
 ## Future Enhancements
 
