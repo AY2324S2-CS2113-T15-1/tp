@@ -11,7 +11,7 @@
     - [Group and GroupList](#group-and-grouplist)
     - [Member and MemberList](#member-and-memberlist)
     - [Transaction and TransactionList](#transaction-and-transactionlist)
-    - [DateTime](#DateTime)
+    - [DateTime](#datetime)
     - [PIN](#pin)
     - [Chart](#chart)
     - [Exceptions and Logging](#exceptions-and-logging)
@@ -37,7 +37,6 @@ LongAh uses the following tools for development:
 
 1. [JUnit 5](https://junit.org/junit5/) - Used for testing.
 2. [Gradle](https://gradle.org/) - Used for build automation.
-
 
 ## Design & Implementation
 
@@ -158,7 +157,7 @@ The following diagram is a sequence diagram of the initialisation of `StorageHan
 
 <ins>Class Structure</ins>
 
-The StorageHandler has the following attributes:
+The `StorageHandler` has the following attributes:
 
 * *storageFolderPath*: A string containing the path to the storage directory specific to the group.
 * *storageMembersFilePath*: A string containing the path to the `members.txt` directory associated with the group.
@@ -838,7 +837,6 @@ Data Representation:
 
 The `Chart` class utilizes the XChart library to represent data in the form of bar charts. It distinguishes positive and negative balances by differentiating them with green and red colors, respectively.
 
-
 <ins>Class Structure</ins>
 
 The `Chart` class consists of the following components:
@@ -881,7 +879,6 @@ hovered over.
 
 Annotation: An annotation is included to suggest a command for managing debts efficiently, ensuring users
 are aware of available features within the application.
-
 
 ### Exceptions and Logging
 
@@ -1021,7 +1018,10 @@ JUnit tests are written in the [`test directory`](../src/test/java/longah/) and 
 
 Files relating to Text UI Testing can be found [here](../text-ui-test/).
 
+Text UI testing has been configured to simulate multiple sessions run by the same user with a total of 10 tests being run. Details of each set of tests can be found in the README in the above directory. Tests can be modified by changing command calls in the `input` subdirectory, but this is not recommended since the differing expected output may cause tests to fail.
+
 When running tests on a Windows system, run the following command from the specified directory:
+
 ```
 ./runtest.bat
 ```
@@ -1031,11 +1031,23 @@ When running tests on a UNIX-based system, run the following command from the sp
 ./runtest.sh
 ```
 
+Outcomes of these tests are listed in the below code segment.
+```
+// Successfully passed all tests
+All tests passed!
+
+// Tests failed: Differing output in test group 2 and member data files
+2 tests failed: MEMBER 2 
+```
+
 ## Future Enhancements
 
 1. Allow methods for undo-ing previous commands.
-2. Add page-scrolling for `list`, `find` and `filter` commands to reduce screen clogging.
-3. Inclusion of anomaly detection algorithms to flag out potentially erroneous transactions.
-4. Adding of further details tagged to each transaction and allow for searching of transactions based on these details.
-5. Create a reminder system to inform users of upcoming events or to warn them to settle payments.
-6. Allow the setting up of recurring transactions such as credit is deducted periodically.
+2. Allow users to set expenditure limits.
+3. Increase the number of group operations available (i.e. edit, merge).
+4. Add functionality for splitting a transaction by percentage share instead of raw value.
+5. Add page-scrolling for `list`, `find` and `filter` commands to reduce screen clogging.
+6. Inclusion of anomaly detection algorithms to flag out potentially erroneous transactions.
+7. Adding of further details tagged to each transaction and allow for searching of transactions based on these details.
+8. Create a reminder system to inform users of upcoming events or to warn them to settle payments.
+9. Allow the setting up of recurring transactions such as credit is deducted periodically.

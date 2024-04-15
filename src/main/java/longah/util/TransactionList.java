@@ -138,7 +138,7 @@ public class TransactionList {
         int printCount = 0;
         String outString = String.format("%s is a lender in the following list of transaction(s).", lenderName) + "\n";
         for (Transaction transaction : this.transactions) {
-            if (transaction.isLender(lenderName)) {
+            if (transaction.checkIsLender(lenderName)) {
                 outString = outString + String.format("%d.\n%s", index, transaction) + "\n";
                 printCount++;
             }

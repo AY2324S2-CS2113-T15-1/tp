@@ -3,6 +3,7 @@ package longah.node;
 import longah.util.MemberList;
 import longah.util.TransactionList;
 import longah.exception.LongAhException;
+import longah.handler.StorageHandler;
 import longah.exception.ExceptionMessage;
 
 import org.junit.jupiter.api.Test;
@@ -13,21 +14,6 @@ import java.io.File;
 
 
 public class TransactionTest {
-    /**
-     * Helper method to remove a directory and its contents.
-     * 
-     * @param dir The file to be removed
-     */
-    public void deleteDir(File dir) {
-        File[] contents = dir.listFiles();
-        if (contents != null) {
-            for (File file : contents) {
-                deleteDir(file);
-            }
-        }
-        dir.delete();
-    }
-
     /**
      * Tests the successful creation of a transaction with balances correctly updated.
      */
@@ -47,7 +33,7 @@ public class TransactionTest {
             assertEquals(5.0, lender.getBalance());
             Member borrower = memberList.getMember("Bob");
             assertEquals(-5.0, borrower.getBalance());
-            deleteDir(new File("./data/testGroup"));
+            StorageHandler.deleteDir(new File("./data/testGroup"));
         } catch (LongAhException e) {
             fail();
         }
@@ -70,6 +56,9 @@ public class TransactionTest {
         }
     }
 
+    /**
+     * Tests the unsuccessful creation of a transaction due to overflow
+     */
     @Test
     public void transactionConstructor_overflowAmount_exceptionThrown() {
         try {
@@ -83,7 +72,64 @@ public class TransactionTest {
         } catch (LongAhException e) {
             String expectedString = ExceptionMessage.BALANCE_OVERFLOW.getMessage();
             assertEquals(expectedString, e.getMessage());
-            deleteDir(new File("./data/testGroup"));
+            StorageHandler.deleteDir(new File("./data/testGroup"));
+        }
+    }
+
+    /**
+     * Tests the unsuccessful creation of a transaction with invalid arguments.
+     */
+    @Test
+    public void transactionConstructor_invalidArguments_exceptionThrown() {
+        try {
+            MemberList memberList = new MemberList();
+            memberList.addMember("Alice");
+            memberList.addMember("Bob");
+            new Transaction("Alice p/Bob a/c", memberList);
+            fail();
+        } catch (LongAhException e) {
+            String expectedString = ExceptionMessage.INVALID_TRANSACTION_VALUE.getMessage();
+            assertEquals(expectedString, e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the unsuccessful creation of a transaction with an incorrect decimal format.
+     */
+    @Test
+    public void transactionConstructor_incorrectDecimalFormat_exceptionThrown() {
+        try {
+            Group group = new Group("testGroup");
+            MemberList memberList = group.getMemberList();
+            TransactionList transactionList = group.getTransactionList();
+            memberList.addMember("Alice");
+            memberList.addMember("Bob");
+            transactionList.addTransaction("Alice p/Bob a/1.1.1", memberList, group);
+            fail();
+        } catch (LongAhException e) {
+            String expectedString = ExceptionMessage.INVALID_TRANSACTION_VALUE.getMessage();
+            assertEquals(expectedString, e.getMessage());
+            StorageHandler.deleteDir(new File("./data/testGroup"));
+        }
+    }
+
+    /**
+     * Tests the unsuccessful creation of a transaction with an incorrect decimal point count.
+     */
+    @Test
+    public void transactionConstructor_incorrectDecimalPoint_exceptionThrown() {
+        try {
+            Group group = new Group("testGroup");
+            MemberList memberList = group.getMemberList();
+            TransactionList transactionList = group.getTransactionList();
+            memberList.addMember("Alice");
+            memberList.addMember("Bob");
+            transactionList.addTransaction("Alice p/Bob a/1.1111", memberList, group);
+            fail();
+        } catch (LongAhException e) {
+            String expectedString = ExceptionMessage.INVALID_TRANSACTION_VALUE.getMessage();
+            assertEquals(expectedString, e.getMessage());
+            StorageHandler.deleteDir(new File("./data/testGroup"));
         }
     }
 
@@ -163,4 +209,21 @@ public class TransactionTest {
         }
     }
 
+    /**
+     * Tests the successful checking of whether a person is involved in a transaction.
+     */
+    @Test
+    public void isInvolved_validInput_success() {
+        try {
+            MemberList memberList = new MemberList();
+            memberList.addMember("Alice");
+            memberList.addMember("Bob");
+            Transaction transaction = new Transaction("Alice p/Bob a/5", memberList);
+            assertEquals(true, transaction.isInvolved("Alice"));
+            assertEquals(true, transaction.isInvolved("Bob"));
+            assertEquals(false, transaction.isInvolved("Charlie"));
+        } catch (LongAhException e) {
+            fail();
+        }
+    }
 }
