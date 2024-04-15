@@ -29,6 +29,3 @@ Given below are my contributions to the project.
 * **Project Management**:
   * Participated in weekly meetings to breakdown assigned workload to manageable sub-tasks.
 
-
-* **Community**:
-  * Actively exchanged implementation ideas with team members in authored PRs. (e.g.: [#38](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/38) [#77](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/77) [#156](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/156))
