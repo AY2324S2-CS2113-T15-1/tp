@@ -23,6 +23,8 @@ Given below are my contributions to the project.
   * Justification: Storage capability is essential for preserving data between program executions. By storing data in files, users can resume their work and maintain a record of their transactions even after closing the application. This feature enhances the usability and practicality of the application.
   * Highlights: Creates subdirectories for each discrete group unit.
 
+<div style="page-break-after: always;"></div>
+
 * **General Contributions**: Abstraction of Commands, Exceptions and Logging
   * What it does
     * *Commands Abstraction*: Encapsulates command execution logic into a base class `Command`, providing a standardized interface for all commands in the system.
@@ -57,6 +59,7 @@ Given below are my contributions to the project.
 * **Project Management**
   * Maintained issues and managed milestones.
   * In charge of issues assignee allocation.
+  * Conducted triaging of bugs during PE-D.
   
 * **Community**
   * PRs reviewed (with non-trivial review comments): [#31](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/31), [#32](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/32), [#40](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/40), [#49](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/49), [#53](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/53), [#55](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/55), [#61](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/61), [#77](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/77), [#86](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/86), [#89](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/89), [#174](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/174), [#175](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/175)
