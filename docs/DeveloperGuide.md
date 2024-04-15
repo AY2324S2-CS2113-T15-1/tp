@@ -220,14 +220,15 @@ stored in the application.
 
 <ins>Class Structure</ins>
 
-The `Group` class has the following attributes:
+The `Group` class has the following attributes.
 * *memberList*: A MemberList object representing the list of Members in the group.
 * *transactionList*: A TransactionList object representing the list of Transactions in the group.
 * *storage*: A StorageHandler object representing the storage handler for the group.
 * *groupName*: A string representing the name of the group.
 * *transactionSolution*: An array list collection of Subtransaction objects representing the least transactions solution to solving all debts in the group.
 
-The `GroupList` class has the following attributes.
+The `GroupList` class has the following static fields.
+* *GROUP_LIST_FILE_PATH*: The path to the file where the group list is stored.
 * *activeGroup*: A Group object representing the currently active group.
 * *groupList*: An array list collection of Group objects representing the list of groups stored in the application.
 
@@ -552,13 +553,9 @@ The file format is as follows:
 
 <ins> Class Structure </ins>
 
-The PINHandler class has the following static fields:
-
-
+The PINHandler class has the following static fields.
 - *PIN_FILE_PATH*: The path to the file where the PIN and authentication status are saved.
-
 - *savedPin*: The hashed PIN saved in the file.
-
 - *authenticationEnabled*: A boolean flag indicating whether authentication is enabled.
 
 <ins> Constructor </ins>
@@ -571,24 +568,15 @@ If the file does not exist or the savedPin is empty, it calls the createPin meth
 <ins> Methods </ins>
 
 - *loadPinAndAuthenticationEnabled*: Loads the saved PIN and authentication enabled status from the file.
-
 - *savePinAndAuthenticationEnabled*: Saves the PIN and authentication enabled status to the file.
-
 - *getPinFilePath*: Returns the file path of the PIN file.
-
 - *createPin*: Prompts the user to create a new 6-digit PIN and hashes it before saving.
-
 - *authenticate*: Authenticates the user by comparing the entered PIN with the saved PIN.
-
 - *resetPin*: Resets the PIN for the user by prompting for the current PIN and creating a new PIN if the current
   PIN is correct.
-
 - *enablePin*: Enables authentication upon startup.
-
 - *disablePin*: Disables authentication upon startup.
-
 - *getSavedPin*: Returns the saved PIN.
-
 - *getAuthenticationStatus*: Returns the authentication status.
 
 <ins> Usage Example </ins>
