@@ -55,6 +55,8 @@ A quick reference table for all commands is presented below. Certain commands ha
 | View chart             | `chart`                                                                                               | N/A               |
 | Exit                   | `exit`                                                                                                | N/A               |
 
+<div style="page-break-after: always;"></div>
+
 ## Table of Contents
 - [LongAh! User Guide](#longah-user-guide)
   - [Introduction](#introduction)
@@ -131,11 +133,11 @@ Apart from neatly organising users' pending transactions, LongAh! offers a varie
 
 LongAh! streamlines debt settlement processes by automatically computing the optimal repayment strategy. By presenting users with a simplified list of debts and transactions, LongAh! minimizes the effort required to settle financial obligations within the group, fostering smoother financial interactions.
 
+<div style="page-break-after: always;"></div>
+
 ### Security
 
 Protecting sensitive financial data is paramount, which is why LongAh! prioritizes security. With the option to set a personalized PIN, users can safeguard their LongAh! accounts against unauthorized access. This additional layer of security ensures peace of mind, knowing that financial information remains confidential and secure. Additionally, users have the flexibility to enable, disable, or modify their PIN settings according to their preferences and needs.
-
-<div style="page-break-after: always;"></div>
 
 ### Data Storage
 LongAh! data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -148,21 +150,16 @@ If all is well, LongAh will save the files in the following data structure durin
 ├─data
 │  │  groupList.txt
 │  │  pin.txt
-│  │
 │  ├─<group 1 name>
 │  │      members.txt
 │  │      transactions.txt
-│  │
 │  ├─<group 2 name>
 │  │      members.txt
 │  │      transactions.txt
 │   .
 │   .
-│   .
-│
 ├─log
 │      LongAh.log
-│
 └─tp.jar
 ```
 
@@ -186,7 +183,7 @@ A command has the general structure:
 ```
 
 There are 5 main group of commands: 'add', 'delete', 'edit', 'find', 'list', along with other commands.
-Command shortcuts are available for certain commands and are detailed below in the "format" section for relevant commands.
+Command shortcuts are available for certain commands and are detailed below in the `Format` section for relevant commands.
 
 ### Viewing help: `help`
 
@@ -206,6 +203,8 @@ help
     ...
     ...
 ```
+
+<div style="page-break-after: always;"></div>
 
 ### Adding a member: `add member`
 
@@ -227,13 +226,15 @@ am Charlie
     Added member: Charlie
 ```
 
+<div style="page-break-after: always;"></div>
+
 ### Adding a transaction: `add transaction`
 
 Adds a new transaction to the list of transactions in LongAh!.
 
 Format: `add transaction [LENDER] t/[DATE IN DD-MM-YYYY HHMM] p/[BORROWER1] a/[AMOUNT] p/[BORROWER2] a/[AMOUNT] ...` OR `addt` OR `at`
 * The transaction supports 1 or more borrower(s), each with custom borrowed amounts.
-* `t/` is the prefix for the transaction time, and should be followed by the transaction lender and before the name of the first borrower.
+* `t/` is the prefix for the transaction time, and should be followed after the transaction lender and before the name of the first borrower.
 * The transaction time is optional and can be omitted.
 * `p/` is the prefix for the borrower's name, and should be followed by the name of the borrower.
 * `a/` is the prefix for the amount borrowed, and should be followed by the amount borrowed by that borrower from the lender.
@@ -257,6 +258,8 @@ add transaction Alice t/11-11-2000 2359 p/Bob a/10
     Borrower 1: bob Owed amount: $10.00
 ```
 
+<div style="page-break-after: always;"></div>
+
 ### Adding a new group `add group`
 
 Adds a new group to LongAh! for you to manage expenses and debts separately for different groups of people.
@@ -277,6 +280,8 @@ addg Tiktok
 ag Tiktok
     Added group: Tiktok
 ```
+
+<div style="page-break-after: always;"></div>
 
 ### Listing all members: `list members`
 
@@ -301,6 +306,8 @@ lm
     bob: -$5.0
 ```
 
+<div style="page-break-after: always;"></div>
+
 ### Listing all transactions: `list transactions`
 
 Shows a list of all transactions in LongAh!.
@@ -322,6 +329,8 @@ lt
     Lender: alice
     Borrower 1: bob Owed amount: 5.00
 ```
+
+<div style="page-break-after: always;"></div>
 
 ### Listing all debts: `list debts`
 
@@ -345,6 +354,8 @@ ld
     bob owes alice $2.0
 ```
 
+<div style="page-break-after: always;"></div>
+
 ### Listing all groups: `list groups`
 
 Shows a list of all groups in LongAh!.
@@ -365,6 +376,8 @@ lg
     2. Friends
     3. Family
 ```
+
+<div style="page-break-after: always;"></div>
 
 ### Find Transactions: `find transactions`
 
@@ -393,6 +406,8 @@ ft Alice
     Borrower 1: Alice Owed amount: $3.00
 ```
 
+<div style="page-break-after: always;"></div>
+
 ### Find Lender `find lender`
 
 Finds all transactions where the specified member is the lender.
@@ -413,6 +428,8 @@ fl Alice
     Borrower 1: Bob Owed amount: $5.00
 ```
 
+<div style="page-break-after: always;"></div>
+
 ### Find Borrower `find borrower`
 
 Finds all transactions where the specified member is a borrower.
@@ -432,6 +449,8 @@ fb Alice
     Lender: Bob
     Borrower 1: Alice Owed amount: $3.00
 ```
+
+<div style="page-break-after: always;"></div>
 
 ### Find Debts `find debts`
 
@@ -457,6 +476,8 @@ fd Alice
     Alice owes Charlie $5.0
 ```
 
+<div style="page-break-after: always;"></div>
+
 ### Deleting a member: `delete member`
 
 Deletes a member from the list of members in the group.
@@ -473,6 +494,8 @@ deletem Alice
 dm Alice
     Deleted member: Alice
 ```
+
+<div style="page-break-after: always;"></div>
 
 ### Deleting a transaction: `delete transaction`
 
@@ -494,6 +517,8 @@ dt 3
     Transaction time: 11-11-2000 2359
     Borrower 1: Bob Owed amount: $10.00
 ```
+
+<div style="page-break-after: always;"></div>
 
 ### Deleting a group `delete group`
 
@@ -519,6 +544,8 @@ dg friends
 Deleted group: friends
 ```
 
+<div style="page-break-after: always;"></div>
+
 ### Editing a member: `edit member`
 
 Edits the name of a member in the list of members in LongAh!.
@@ -534,6 +561,8 @@ Example of usage:
 edit member Alice p/Bob
     Member name edited successfully! Alice is renamed to: Bob
 ```
+
+<div style="page-break-after: always;"></div>
 
 ### Editing a transaction: `edit transaction`
 
@@ -561,6 +590,8 @@ et 1 Bob p/Alice a/3
     Lender: Bob
     Borrower 1: Alice Owed amount: $3.00
 ```
+
+<div style="page-break-after: always;"></div>
 
 ### Enabling the user PIN: `pin enable`
 
@@ -601,6 +632,8 @@ pin reset
     PIN saved successfully! You can enter 'pin enable' to enable authentication upon startup.
 ```
 
+<div style="page-break-after: always;"></div>
+
 ### Clearing all transactions `clear`
 
 Clear all previous transactions logged in the group. Members balances will be reset to 0.
@@ -624,6 +657,8 @@ y
     All transaction records have been cleared.
     All transactions have been cleared for this account.
 ```
+
+<div style="page-break-after: always;"></div>
 
 ### Settle a user's debts: `settleup`
 
@@ -661,6 +696,8 @@ settle bob
     bob has no more debts!
 ``` 
 
+<div style="page-break-after: always;"></div>
+
 ### Switching groups: `group`
 
 Switches to the specified group in LongAh!.
@@ -678,6 +715,8 @@ group friends
     Switching groups...
     You are now managing: friends
 ```
+
+<div style="page-break-after: always;"></div>
 
 ### Filter transactions: `filter`
 
@@ -738,6 +777,8 @@ filter 01-01-2024 2359 //filtering transactions matching a specified date & time
   Borrower 1: bob Owed amount: $3.00
 ```
 
+<div style="page-break-after: always;"></div>
+
 ### Views the balances of all members on a chart: `chart`
 
 Shows a chart of the balances of all members in the group.
@@ -763,6 +804,8 @@ They are color-coded to show the balance status of each member.
 A separate tooltip will show the exact balance of each member.
 
 ![viewChart.png](diagrams/viewChart.png)
+
+<div style="page-break-after: always;"></div>
 
 ### Exiting the application: `exit`
 
@@ -793,11 +836,6 @@ the desired operation. For e.g.
 ```
 lsit transactions
   Invalid command. Use 'help' to see the list of commands.
-```
-Or
-```
-filter 23-Nov-2022 11:59
-  Invalid DateTime format. Please format you date and time inputs in the form of DD-MM-YYYY HHmm
 ```
 This could be potentially caused by
 * Misspelled Action keywords (e.g. lsit transactions instead of list transactions)
