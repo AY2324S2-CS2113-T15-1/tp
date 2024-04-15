@@ -520,6 +520,41 @@ The TransactionList class has the following key methods.
 The diagram below illustrates a sample usage scenario of adding a transaction: 
 ![addTransaction.png](diagrams/addTransaction.png)
 
+The following code segment outlines a sample use of `TransactionList`.
+
+```
+import longah.util.MemberList;
+import longah.util.TransactionList;
+import longah.util.DateTime;
+
+// Adding a new transaction
+String input = "Alice p/Bob a/20";
+TransactionList transactions = new TransactionList();
+transactions.addTransaction(input, members);
+
+// Editing a transaction
+String editInput = "1 Alice p/Bob a/30";
+transactions.editTransactionList(editInput, members);
+
+// Deleting a transaction
+transactions.remove(1);
+
+// Finding all transactions where Alice is the lender
+ArrayList<Transaction> aliceTransactions = transactions.findLender("Alice");
+
+// Finding all transactions where Bob is a borrower
+ArrayList<Transaction> bobTransactions = transactions.findBorrower("Bob");
+
+// Finding a transaction based on member name
+Transaction transaction = transactions.findTransactions("Alice", "Bob");
+
+// Filtering transactions based on date and time
+DateTime dateTime = new DateTime("01-01-2022 1200");
+ArrayList<Transaction> filteredTransactions = transactions.filterTransactionsEqualToDateTime(dateTime);
+
+// Deleting a member from all transactions
+transactions.deleteMember("Alice");
+```
 
 <ins>Design Considerations</ins>
 
@@ -578,7 +613,7 @@ storing.
 
 The following UML diagram displays how the dateTime component is handled when the user is adding a dated transaction.
 
-![addDateTimeforDatedTransaction.png](diagrams%2FaddDateTimeforDatedTransaction.png)
+![addDateTimeforDatedTransaction.png](diagrams/addDateTimeforDatedTransaction.png)
 
 Given below is an example usage scenario of how the DateTime class behaves at each step in adding dated transactions:
 
@@ -595,8 +630,11 @@ will output the "Invalid dateTime input" warning through the logger.
 6. If the dateTime component is appended successfully, the Transaction class will proceed to handle other details of the
 transaction input, as per adding a normal transaction.
 
-The following Code Snippet outlines the above usage:
+The following code segment outlines the above usage:
 ```
+import longah.util.DateTime;
+import longah.util.Transaction;
+
 //In pareTransaction() method of the Transaction Class 
 if (splitInput[0].contains("t/")) { //Checks for the special prefix of date & time component while adding parsing user expression
   String[] splitLenderTime = splitInput[0].split("t/", 2);
@@ -608,7 +646,7 @@ if (splitInput[0].contains("t/")) { //Checks for the special prefix of date & ti
 The following UML diagram displays how the dateTime component is handled when printout requests are initiated for dated 
 transactions.
 
-![printingDateTime](diagrams%2FprintingDateTime.png)
+![printingDateTime](diagrams/printingDateTime.png)
 
 Given below is an example usage scenario of how the DateTime class behaves at each step when printouts are required:
 1. A String printout request is sent to the Transaction Class. 
@@ -618,8 +656,11 @@ class.
 printout and returns this result back to Transaction class.
 4. The transaction class appends the returned String representation to the existing printout String.
 
-The following Code Snippet outlines the above usage:
+The following Code Segment outlines the above usage:
 ```
+import longah.util.DateTime;
+import longah.util.Transaction;
+
 //In toString() method of the Transaction Class 
 if (this.haveTime()) { //Checks whether the current transaction has a dateTime component
     time = "Transaction time: " + this.transactionTime + "\n"; //Initiates a toString() call to the DateTime class
@@ -629,7 +670,7 @@ if (this.haveTime()) { //Checks whether the current transaction has a dateTime c
 The following UML diagram displays how the dateTime component is compared with user inputs in time filtering methods 
 (e.g. in *filterTransactionsEqualToDateTime*).
 
-![comparingDateTime](diagrams%2FcomparingDateTime.png)
+![comparingDateTime](diagrams/comparingDateTime.png)
 
 Given below is an example usage scenario of how the DateTime class behaves at each step when comparison is initiated by
 filter methods.
@@ -644,8 +685,12 @@ as well as userDateTime objects of the class.
 5. Depending on the Boolean value determining the result of comparison, the filtering method will then proceed to decide
 if the current transaction is to be added to the printout.
 
-The following Code Snippet outlines the above usage:
+The following Code Segment outlines the above usage:
 ```
+import longah.util.DateTime;
+import longah.util.Transaction;
+import longah.util.TransactionList;
+
 //In filterTransactionsEqualToDateTime() method of the TransactionList Class 
 DateTime dateTimeToCompare = new DateTime(dateTime); //Stores user expression into a DateTime object
 ...
@@ -725,6 +770,7 @@ PIN is correct.
 <ins> Usage Example </ins>
 
 The following diagram illustrates the sequence during PIN authentication.
+
 ![pinhandler longah.png](diagrams/pinhandler%20longah.png)
 
 
@@ -750,7 +796,7 @@ is set to false and saved to the file.
 8. The user relaunches the application, and authentication is no longer required since it has been disabled. 
 The user can proceed with the application and do any actions without entering a PIN.
 
-Code Snippet
+Code Segment
 ```
 // Initialize PINHandler
 PINHandler pinHandler = new PINHandler();
@@ -811,7 +857,7 @@ Given below is an example usage scenario and how the Chart class behaves at each
 1. The user adds a few members to the group and performs transactions among them.
 2. The user enters the 'chart' command to view the current balances of all members.
 
-Code Snippet
+Code Segment
 ```
 // Prepare data
 List<String> members = Arrays.asList("Member1", "Member2", "Member3");
@@ -924,7 +970,7 @@ Busy people with large transaction quantities among friends
 | v1.0    | user           | be able to organise people into groups                                                                           | minimise the occurrence of being affected by typos                                                 |
 | v1.0    | user           | add members to a group                                                                                           | add them to future transactions                                                                    |
 | v1.0    | user           | restart data for a group                                                                                         | reduce clutter of the application                                                                  |
-| v1.0    | user           | be able to organise people into groups                                                                           | minimise the occurence of being affected by typos                                                  |
+| v1.0    | user           | be able to organise people into groups                                                                           | minimise the occurrence of being affected by typos                                                 |
 | v1.0    | user           | add members to a group                                                                                           | add them to future transactions                                                                    |
 | v1.0    | user           | restart data for a group                                                                                         | reduce clutter of the application                                                                  |
 | v1.0    | user           | find transactions related to a certain member                                                                    | better keep track of my pending transactions or payments                                           |
