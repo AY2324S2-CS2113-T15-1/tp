@@ -178,7 +178,7 @@ public class Group {
         for (Subtransaction subtransaction : this.transactionSolution) {
             solution += subtransaction.toString() + "\n";
         }
-        return solution;
+        return solution.trim();
     }
 
     /**
@@ -199,6 +199,6 @@ public class Group {
                 output += subtransaction.toString() + "\n";
             }
         }
-        return output;
+        return output.trim();
     }
 }
