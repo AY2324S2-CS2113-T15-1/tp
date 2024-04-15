@@ -11,7 +11,7 @@
     - [Group and GroupList](#group-and-grouplist)
     - [Member and MemberList](#member-and-memberlist)
     - [Transaction and TransactionList](#transaction-and-transactionlist)
-    - [DateTime](#DateTime)
+    - [DateTime](#datetime)
     - [PIN](#pin)
     - [Chart](#chart)
     - [Exceptions and Logging](#exceptions-and-logging)
@@ -37,7 +37,6 @@ LongAh uses the following tools for development:
 
 1. [JUnit 5](https://junit.org/junit5/) - Used for testing.
 2. [Gradle](https://gradle.org/) - Used for build automation.
-
 
 ## Design & Implementation
 
@@ -703,7 +702,6 @@ Data Representation:
 
 The `Chart` class utilizes the XChart library to represent data in the form of bar charts. It distinguishes positive and negative balances by differentiating them with green and red colors, respectively.
 
-
 <ins>Class Structure</ins>
 
 The `Chart` class consists of the following components:
@@ -746,7 +744,6 @@ hovered over.
 
 Annotation: An annotation is included to suggest a command for managing debts efficiently, ensuring users
 are aware of available features within the application.
-
 
 ### Exceptions and Logging
 
