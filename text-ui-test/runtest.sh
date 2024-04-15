@@ -19,7 +19,7 @@ check_test() {
     local expected_output="$2"
     local actual_output="$3"
     local test_name="$4"
-    local -n error_count_ref="$5"
+    local error_count_ref="$5"
     local failed_tests_ref="$6"
     
     # Run the test and generate actual output
@@ -40,7 +40,7 @@ check_data() {
     local expected_output="$1"
     local actual_output="$2"
     local test_name="$3"
-    local -n error_count_ref="$4"
+    local error_count_ref="$4"
     local failed_tests_ref="$5"
 
     cp "$expected_output.TXT" "$expected_output-UNIX.TXT"

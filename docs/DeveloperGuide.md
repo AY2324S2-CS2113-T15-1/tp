@@ -374,8 +374,6 @@ The `GroupList` class takes the following into consideration.
 * `createGroup` checks if the groupList is empty and automatically prompts the user to create a new group if it is and sets it as the active group.
 * `loadGroupList` is called at the start of the application to ensure that all groups are loaded from storage into the groupList.
 
-<div style="page-break-after: always;"></div>
-
 ### Member and MemberList
 
 <ins>Overview</ins>
@@ -473,6 +471,8 @@ members.clearBalances();
 members.delete("Bob");
 ```
 
+<div style="page-break-after: always;"></div>
+
 <ins>Design Considerations</ins>
 
 The `Member` class takes the following into consideration.
@@ -483,8 +483,6 @@ The `Member` class takes the following into consideration.
 The `MemberList` class takes the following into consideration.
 
 * `updateMembersBalance` clears current balances at the start of invocation. This removes any transactions that are not captured within the `TransactionList` object passed into the method.
-
-<div style="page-break-after: always;"></div>
 
 ### Transaction and TransactionList
 <ins>Transaction Overview</ins>
@@ -712,7 +710,8 @@ import longah.util.Transaction;
 // In toString() method of the Transaction Class
 // Checks whether the current transaction has a dateTime component
 if (this.haveTime()) { 
-    time = "Transaction time: " + this.transactionTime + "\n"; //Initiates a toString() call to the DateTime class
+    // Initiate a toString() call to the DateTime class
+    time = "Transaction time: " + this.transactionTime + "\n"; 
 }
 ```
 
@@ -723,16 +722,10 @@ The following UML diagram displays how the dateTime component is compared with u
 
 Given below is an example usage scenario of how the `DateTime` class behaves at each step when comparison is initiated by
 filter methods.
-1. Upon receiving a filtering request, the `TransactionList` class first initiates the DateTime constructor and attempts 
-to store the user's dateTime Expression into a `DateTime` object.
-2. After the successful creation of the userDateTime object, the filtering method proceeds by looping through all 
-transactions in the current list. 
-3. For every transaction, the `TransactionList` first gets the dateTime object of the transaction by calling the 
-getTransactionTime() method of the `Transaction` class.
-4. A comparison request (in this case .isEqual()) of the `DateTime` class is initiated, comparing the transactionDateTime
-as well as userDateTime objects of the class.
-5. Depending on the Boolean value determining the result of comparison, the filtering method will then proceed to decide
-if the current transaction is to be added to the printout.
+1. Upon receiving a filtering command, the `TransactionList` class initiates the `DateTime` constructor to store the user's dateTime Expression into a `DateTime` object.
+2. For every transaction, the `TransactionList` first gets the dateTime object of the transaction by calling the getTransactionTime() method of the `Transaction` class.
+3. A comparison method (in this case .isEqual()) of the `DateTime` class is initiated, comparing the transactionDateTime as well as userDateTime objects of the class.
+4. Depending on the Boolean value determining the result of comparison, the filtering method will then proceed to decide if the current transaction is to be added to the printout.
 
 <div style="page-break-after: always;"></div>
 
@@ -780,6 +773,8 @@ and authentication status.
 
 Note: PIN is disabled by default and needs to be set upon first startup.
 
+<div style="page-break-after: always;"></div>
+
 <ins>Implementation Details </ins>
 
 *Data Storage:*
@@ -812,13 +807,13 @@ If the file does not exist or the savedPin is empty, it calls the createPin meth
 - *getPinFilePath*: Returns the file path of the PIN file.
 - *createPin*: Prompts the user to create a new 6-digit PIN and hashes it before saving.
 - *authenticate*: Authenticates the user by comparing the entered PIN with the saved PIN.
-- *resetPin*: Resets the PIN for the user by prompting for the current PIN and creating a new PIN if the current
-
-PIN is correct.
+- *resetPin*: Resets the PIN for the user by prompting for the current PIN and creating a new PIN if the current PIN is correct.
 - *enablePin*: Enables authentication upon startup.
 - *disablePin*: Disables authentication upon startup.
 - *getSavedPin*: Returns the saved PIN.
 - *getAuthenticationStatus*: Returns the authentication status.
+
+<div style="page-break-after: always;"></div>
 
 <ins> Usage Example </ins>
 
@@ -826,9 +821,13 @@ The following diagram illustrates the sequence during PIN authentication.
 
 ![pinhandler longah.png](diagrams/pinhandler%20longah.png)
 
+<div style="page-break-after: always;"></div>
+
 This diagram shows the sequence when the user resets their PIN.
 
 ![pinreset.png](diagrams/pinreset.png)
+
+<div style="page-break-after: always;"></div>
 
 Given below is an example usage scenario and how the PIN creation and authentication mechanism behaves at each step:
 
@@ -848,7 +847,7 @@ is set to false and saved to the file.
 8. The user relaunches the application, and authentication is no longer required since it has been disabled. 
 The user can proceed with the application and do any actions without entering a PIN.
 
-Code Segment
+Code Segment:
 ```
 // Initialize PINHandler
 PINHandler pinHandler = new PINHandler();
@@ -861,6 +860,8 @@ PINHandler.authenticate();
 // Authentication is disabled, proceed with application logic
 }
 ```
+
+<div style="page-break-after: always;"></div>
 
 <ins> Design Considerations </ins>
 
@@ -901,6 +902,8 @@ The `Chart` class consists of the following components:
   distinguishes positive and negative balances and adds tooltips for enhanced user interaction. Additionally, it includes
   an annotation recommending a command for managing debts effectively.
 
+<div style="page-break-after: always;"></div>
+
 <ins>Usage Example</ins>
 
 Given below is an example usage scenario and how the Chart class behaves at each step:
@@ -931,6 +934,8 @@ hovered over.
 
 Annotation: An annotation is included to suggest a command for managing debts efficiently, ensuring users
 are aware of available features within the application.
+
+<div style="page-break-after: always;"></div>
 
 ### Exceptions and Logging
 
@@ -969,6 +974,8 @@ The `Logging` class has the following key methods:
 * *logInfo*: Takes a string `message` as an argument. Create a log at the INFO level.
 * *logWarning*: Takes a string `message` as an argument. Create a log at the WARNING level.
 
+<div style="page-break-after: always;"></div>
+
 <ins>Usage Example</ins>
 
 Use of the `LongAhException` class is demonstrated below, including throwing of an exception and printing the desired output message. This example covers the throwing exception due to invalid index.
@@ -1006,6 +1013,8 @@ Busy people with large transaction quantities among friends
 
 - Help users to find the least transactions solution to a large quantity of transactions
 - Allow users to view past expenses of a group
+
+<div style="page-break-after: always;"></div>
 
 ## User Stories
 
