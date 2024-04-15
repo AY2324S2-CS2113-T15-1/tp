@@ -349,15 +349,13 @@ groupList.addGroup(group2);
 groupList.addGroup(group3);
 
 // Getting the active group
-UI.showMessage("Active Group: " + GroupList.getActiveGroup().getGroupName());
+String currGroup = GroupList.getActiveGroup().getGroupName());
 
 // Listing all groups
 String allGroups = groupList.getGroupList();
-UI.showMessage("All Groups:\n" + allGroups);
 
 // Switching to a different active group
 GroupList.switchActiveGroup(groupList.getGroup("Group2"));
-UI.showMessage("Active Group: " + GroupList.getActiveGroup().getGroupName());
 
 // Deleting a group from the list
 groupList.deleteGroup("Group3");
@@ -375,6 +373,8 @@ The `Group` class takes the following into consideration.
 The `GroupList` class takes the following into consideration.
 * `createGroup` checks if the groupList is empty and automatically prompts the user to create a new group if it is and sets it as the active group.
 * `loadGroupList` is called at the start of the application to ensure that all groups are loaded from storage into the groupList.
+
+<div style="page-break-after: always;"></div>
 
 ### Member and MemberList
 
@@ -398,6 +398,8 @@ The `MemberList` class has the following attribute.
 The detailed class diagram for `Member` and `MemberList` can be found below.
 
 ![Member Class Diagram](diagrams/Member.png)
+
+<div style="page-break-after: always;"></div>
 
 <ins>Constructor</ins>
 
@@ -426,6 +428,8 @@ The `MemberList` class has the following key methods.
 * *updateMembersBalance*: Updates the current balance of all members in the group based on a passed in `TransactionList` object.
 * *solveTransactions*: Returns an array list of `Subtransaction` representing the least transactions solution to solving all debts in the group.
 * *deleteMember*: Removes a member from the current array list of members.
+
+<div style="page-break-after: always;"></div>
 
 <ins>Usage Example</ins>
 
@@ -461,7 +465,9 @@ import longah.util.MemberList
 MemberList members = new MemberList();
 members.addMember("Alice");
 members.editMemberName("Alice", "Bob");
-members.updateMembersBalance(transactions); // Assuming we have a pre-defined TransactionList object
+
+// Assuming we have a pre-defined TransactionList object
+members.updateMembersBalance(transactions);
 ArrayList<Subtransaction> solution = members.solveTransactions();
 members.clearBalances();
 members.delete("Bob");
@@ -477,6 +483,8 @@ The `Member` class takes the following into consideration.
 The `MemberList` class takes the following into consideration.
 
 * `updateMembersBalance` clears current balances at the start of invocation. This removes any transactions that are not captured within the `TransactionList` object passed into the method.
+
+<div style="page-break-after: always;"></div>
 
 ### Transaction and TransactionList
 <ins>Transaction Overview</ins>
@@ -498,6 +506,8 @@ The `TransactionList` class has the following attribute.
 
 * *transactions*: An ArrayList of Transaction objects representing the list of transactions in a group.
 
+<div style="page-break-after: always;"></div>
+
 <ins>Implementation Details</ins>
 
 The detailed class diagram for `Transaction` and `TransactionList` can be found below.
@@ -509,6 +519,8 @@ The detailed class diagram for `Transaction` and `TransactionList` can be found 
 The `Transaction` constructor creates a transaction object with the specified lender and transaction time (if applicable). The subtransactions are initialized as an empty ArrayList.
 
 Key arguments of the `Transaction` constructor are a `Member` object `lender`, an ArrayList of `subtransactions`, and optionally a `DateTime` object `transactionTime`.
+
+<div style="page-break-after: always;"></div>
 
 <ins>Methods</ins>
 
@@ -525,7 +537,7 @@ The `TransactionList` class has the following key methods.
 - *clear*: Clears all transactions from the list.
 - *findLender*: Finds all transactions where a specified member is the lender.
 - *findBorrower*: Finds all transactions where a specified member is a borrower.
-- *findTransactions*: Finds a transaction based on member name.
+- *findTransactions*: Finds all transactions where a specified member is involved.
 - *filterTransactionsEqualToDateTime*: Filters transactions based on the specified date and time.
 - *filterTransactionsBeforeDateTime*: Filters transactions before the specified date and time.
 - *filterTransactionsAfterDateTime*: Filters transactions after the specified date and time.
@@ -534,10 +546,15 @@ The `TransactionList` class has the following key methods.
 - *findDebts*: Finds all debts owed by a specified member.
 - *deleteMember*: Deletes a member from all transactions in the list.
 
+<div style="page-break-after: always;"></div>
+
 <ins>Usage Example</ins>
 
-The diagram below illustrates a sample usage scenario of adding a transaction: 
+The diagram below illustrates a sample usage scenario of adding a transaction:
+
 ![addTransaction.png](diagrams/addTransaction.png)
+
+<div style="page-break-after: always;"></div>
 
 The following code segment outlines a few sample usage of `TransactionList`.
 
@@ -569,7 +586,8 @@ Transaction transaction = transactions.findTransactions("Alice", "Bob");
 
 // Filtering transactions based on date and time
 DateTime dateTime = new DateTime("01-01-2022 1200");
-ArrayList<Transaction> filteredTransactions = transactions.filterTransactionsEqualToDateTime(dateTime);
+ArrayList<Transaction> filteredTransactions;
+filteredTransactions = transactions.filterTransactionsEqualToDateTime(dateTime);
 
 // Deleting a member from all transactions
 transactions.deleteMember("Alice");
@@ -585,6 +603,8 @@ The `Transaction` class takes the following into consideration.
 
 The `TransactionList` class takes the following into consideration.
 - Transactions are indexed starting from 1 for user reference and ease of use by other methods such as edit and delete.
+
+<div style="page-break-after: always;"></div>
 
 ### DateTime
 
@@ -630,6 +650,8 @@ after the preset system time). Currently used within the constructor only.
 - *toStorageString*: Formats the dateTime field of the current instance into a String output suitable for loading and 
 storing.
 
+<div style="page-break-after: always;"></div>
+
 <ins>Usage Example</ins>
 
 The following UML diagram displays how the dateTime component is handled when the user is adding a dated transaction.
@@ -651,13 +673,16 @@ will output the "Invalid dateTime input" warning through the logger.
 6. If the `dateTime` component is appended successfully, the `Transaction` class will proceed to handle other details of the
 transaction input, as per adding a normal transaction.
 
+<div style="page-break-after: always;"></div>
+
 The following code segment outlines the above usage:
 ```
 import longah.util.DateTime;
 import longah.util.Transaction;
 
-//In pareTransaction() method of the Transaction Class 
-if (splitInput[0].contains("t/")) { //Checks for the special prefix of date & time component while adding parsing user expression
+// In pareTransaction() method of the Transaction Class
+// Check for the special prefix of date & time component while adding parsing user expression
+if (splitInput[0].contains("t/")) { 
   String[] splitLenderTime = splitInput[0].split("t/", 2);
   ...
   this.transactionTime = new DateTime(splitLenderTime[1]);
@@ -677,13 +702,16 @@ class.
 printout and returns this result back to Transaction class.
 4. The transaction class appends the returned String representation to the existing printout String.
 
+<div style="page-break-after: always;"></div>
+
 The following code segment outlines the above usage:
 ```
 import longah.util.DateTime;
 import longah.util.Transaction;
 
-//In toString() method of the Transaction Class 
-if (this.haveTime()) { //Checks whether the current transaction has a dateTime component
+// In toString() method of the Transaction Class
+// Checks whether the current transaction has a dateTime component
+if (this.haveTime()) { 
     time = "Transaction time: " + this.transactionTime + "\n"; //Initiates a toString() call to the DateTime class
 }
 ```
@@ -706,18 +734,22 @@ as well as userDateTime objects of the class.
 5. Depending on the Boolean value determining the result of comparison, the filtering method will then proceed to decide
 if the current transaction is to be added to the printout.
 
+<div style="page-break-after: always;"></div>
+
 The following code segment outlines the above usage:
 ```
 import longah.util.DateTime;
 import longah.util.Transaction;
 import longah.util.TransactionList;
 
-//In filterTransactionsEqualToDateTime() method of the TransactionList Class 
-DateTime dateTimeToCompare = new DateTime(dateTime); //Stores user expression into a DateTime object
+// In filterTransactionsEqualToDateTime() method of the TransactionList Class 
+// Store user expression into a DateTime object
+DateTime dateTimeToCompare = new DateTime(dateTime); 
 ...
 for (Transaction transaction : this.transactions) {
     ...
-    if (transaction.getTransactionTime().isEqual(dateTimeToCompare)) { //Compares the two DateTime objects using .isEqual() comparison method
+    // Compares the two DateTime objects using .isEqual() comparison method
+    if (transaction.getTransactionTime().isEqual(dateTimeToCompare)) { 
         ...
 }
 ```
