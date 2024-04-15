@@ -5,10 +5,15 @@ participant ":DateTime" as Foo2
 [->      Foo:""filterTransactionsEqualToDateTime(dateTimeExpression)""
 Foo -> Foo2:new DateTime(dateTimeExpression)
 Foo2 --> Foo: DateTime object of user input created
-loop for transaction in transactions
+loop for Transaction in Transactionlist
     Foo -> Foo1: transaction.getTransactionTime()
     Foo1 --> Foo: DateTime object of transaction
     Foo -> Foo2: transactionDateTime.isEqual(userDateTime)
-    Foo2 --> Foo: Boolean determining whether the two dateTimes are equal
+    Foo2 --> Foo: Boolean determining whether the two DateTimes are equal
+    alt two DateTimes are equal
+    ref over Foo1:Generate transaction printout
+    Foo1 --> Foo:Added Transaction to Transactionlist printout
+    end
 end
+Foo -->[      : ""Transactionlist printout""
 @enduml

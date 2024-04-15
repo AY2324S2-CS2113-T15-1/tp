@@ -456,7 +456,7 @@ the datetime elements in dated transactions, parsing user's date & time related 
 according to their stored date & time. Implementation of the class is made possible with the help of the *java.time*
 system class.
 
-<ins> Class Fields </ins>
+<ins> Class Structure </ins>
 
 Storing requirements only occurs for the specific datetime component of the class. Hence, the class field structure is
 as follows:

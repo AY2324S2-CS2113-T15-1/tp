@@ -2,9 +2,11 @@
 participant ":Transaction" as Foo
 participant ":DateTime" as Foo1
 [->      Foo:""toString()""
-alt transaction has dateTime
+alt Transaction has dateTime
     Foo -> Foo1:toString()
     Foo1 --> Foo: String representing dateTime
-    Foo -> Foo: added String dateTime to printout
+    Foo -> Foo: Added String dateTime to printout
 end
+ref over Foo:Adding other transaction details to printout
+Foo -->[      : ""Transaction printout""
 @enduml
