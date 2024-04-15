@@ -50,8 +50,7 @@ Given below are my contributions to the project.
     * Added inheritance diagram for `Command`. [#92](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/92)
     * Updated overall class diagram. [#154](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/154)
     * Added high-level flowchart. [#155](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/155)
-    * Added section on `UI and I/O`. [#155](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/155)
-    * Added section on `Member and MemberList`. [#155](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/155)
+    * Added section on `UI and I/O` and `Member and MemberList`. [#155](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/155)
 
 <div style="page-break-after: always;"></div>
 
