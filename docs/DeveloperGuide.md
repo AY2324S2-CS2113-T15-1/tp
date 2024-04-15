@@ -133,6 +133,7 @@ The `Command` constructor updates the attributes based on the input arguments.
 <ins>Methods</ins>
 
 The abstract `Command` class and its related children classes have the following method:
+
 * *execute*: Effect the command based on the `CommandString` and the `TaskExpression`.
 
 <div style="page-break-after: always;"></div>
