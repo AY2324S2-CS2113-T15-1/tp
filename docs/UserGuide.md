@@ -67,7 +67,7 @@ A quick reference table for all commands is presented below. Certain commands ha
     - [Group Management](#group-management)
     - [Member and Transaction Management](#member-and-transaction-management)
     - [Group Balances \& Expense Tracking](#group-balances--expense-tracking)
-    - [Easily Finding Transactions You Need](#Easily-Finding-Transactions)
+    - [Easily Finding Transactions](#easily-finding-transactions)
     - [Debt Simplification](#debt-simplification)
     - [Security](#security)
     - [Data Storage](#data-storage)
@@ -95,15 +95,15 @@ A quick reference table for all commands is presented below. Certain commands ha
     - [Disabling the user PIN: `pin disable`](#disabling-the-user-pin-pin-disable)
     - [Resetting user PIN: `pin reset`](#resetting-user-pin-pin-reset)
     - [Clearing all transactions `clear`](#clearing-all-transactions-clear)
-    - [Settle a user's debts: `settleup`](#settle-a-users-debts-settleup)
     - [Switching groups: `group`](#switching-groups-group)
-    - [Filter transactions (by transaction time): `filter`](#filter-transactions-filter)
+    - [Settle a user's debts: `settleup`](#settle-a-users-debts-settleup)
+    - [Filter transactions: `filter`](#filter-transactions-filter)
     - [Views the balances of all members on a chart: `chart`](#views-the-balances-of-all-members-on-a-chart-chart)
     - [Exiting the application: `exit`](#exiting-the-application-exit)
   - [FAQ](#faq)
-  - [Common Errors](#Common-Errors)
-    - [Failure to adhere to command format](#Failure-to-adhere-to-command-format)
-    - [Invalid Requests](#Invalid-Requests)
+  - [Common Errors](#common-errors)
+    - [Failure to adhere to command format](#failure-to-adhere-to-command-format)
+    - [Invalid Requests](#invalid-requests)
   - [Known Issues](#known-issues)
   - [Future Improvements](#future-improvements)
 
@@ -721,14 +721,6 @@ Format: `filter a/[TIME] b/[TIME]` OR `filter a/[TIME]` OR `filter b/[TIME]` OR 
 Example of usage:
 ```
 // Assuming 3 transactions on 1st Jan 2022, 2023 and 2024
-
-// Filter transactions between a time period
-filter a/01-02-2022 2359 b/01-02-2023 2359 
-  The following list of transactions is between the time 01-02-2022 2359 and ...
-  2.
-  Lender: alice
-  Transaction time: 01-01-2023 2359
-  Borrower 1: bob Owed amount: $3.00
 
 // Filter transactions after a specified date & time
 filter a/02-01-2023 2359 
