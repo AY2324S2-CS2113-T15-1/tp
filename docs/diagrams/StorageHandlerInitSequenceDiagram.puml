@@ -12,7 +12,6 @@ participant ":StorageHandler"
 ":TransactionList" --> ":Group": Transactions
 ":Group" --> ":LongAh": group
 ":LongAh" -> ":StorageHandler": Members, Transactions, Name
-":StorageHandler" -> ":StorageHandler": Initialise 
 loop until file is fully read
 ":StorageHandler" -> ":StorageHandler": Read Data from Files
 ":StorageHandler" -> ":MemberList": Get Member Data
