@@ -1,5 +1,7 @@
 package longah.handler;
 
+import java.util.regex.Pattern;
+
 import longah.exception.ExceptionMessage;
 import longah.exception.LongAhException;
 
@@ -17,7 +19,7 @@ public class NameHandler {
      */
     public static void checkNameConditions(String name) throws LongAhException {
         // Check if group name is fully alphanumeric
-        if (!name.matches(NAME_REGEX)) {
+        if (!Pattern.matches(NAME_REGEX, name)) {
             throw new LongAhException(ERROR);
         }
         // Check if name exceeds character limit
