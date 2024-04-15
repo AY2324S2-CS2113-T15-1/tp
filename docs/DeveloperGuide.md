@@ -599,7 +599,7 @@ The following diagram illustrates the sequence during PIN authentication.
 
 This diagram shows the sequence when the user resets their PIN.
 
-![pinreset.png](diagrams%2Fpinreset.png)
+![pinreset.png](diagrams/pinreset.png)
 
 Given below is an example usage scenario and how the PIN creation and authentication mechanism behaves at each step:
 
