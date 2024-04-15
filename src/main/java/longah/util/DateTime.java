@@ -32,6 +32,12 @@ public class DateTime {
         }
     }
 
+    /**
+     * Getter method to get the dateTime object associated with the current object instance. Currently used within the
+     * class only.
+     *
+     * @return Returns the dateTime object associated with the current instance.
+     */
     private LocalDateTime getDateTime() {
         return this.dateTime;
     }
