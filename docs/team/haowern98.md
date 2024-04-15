@@ -23,7 +23,7 @@ Given below are my contributions to the project.
    * Justification: Provides a polite and friendly closure to the user interaction, enhancing the overall user experience.
    * Highlights: Implemented the exit() method to display a farewell message when the program exits, creating a positive final interaction with the user.
 
-* **Code Contributed**: [RepoSense Link](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=feathersre&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-02-23&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
+* **Code Contributed**: [RepoSense Link](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=haowern98&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-02-23&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other).
 
 
 * **Project Management**:
