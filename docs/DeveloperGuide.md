@@ -398,29 +398,17 @@ The TransactionList class is responsible for managing a list of transactions in 
 <ins>TransactionList Methods</ins>
 
 - *addTransaction*: Parses user input and adds a new transaction to the list.
-
 - *getTransactionListSize*: Returns the size of the transaction list.
-
 - *remove*: Removes a transaction from the list based on the index.
-
 - *clear*: Clears all transactions from the list.
-
 - *getTransaction*: Returns the list of transactions.
-
 - *listTransactions*: Lists all transactions in the transaction list.
-
 - *findLender*: Finds all transaction where a specified member is the lender.
-
 - *findBorrower*: Finds all transaction where a specified member is a borrower.
-
 - *findTransactions*: Finds a transaction based on member name.
-
 - *editTransactionList*: Edits a transaction in the list based on user input.
-
 - *findDebts*: Finds all debts owed by a specified member.
-
 - *deleteMember*: Deletes a member from all transactions in the list.
-
 - *filterTransactionsEqualToDateTime*: Lists all transactions with dateTime equal to the input String represented dateTime
 - *filterTransactionBeforeDateTime*: Lists all transactions with dateTime before the input String represented dateTime
 - *filterTransactionAfterDateTime*: Lists all transactions with dateTime after the input String represented dateTime
