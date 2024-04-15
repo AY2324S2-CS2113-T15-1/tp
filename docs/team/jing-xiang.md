@@ -1,7 +1,6 @@
-
 # Jing Xiang - Project Portfolio Page
 
-## Project: LongAh!
+## Overview
 
 LongAh! is a CLI-based application designed to help users track debts within friend groups and determine the
 least transaction method of settling these debts. It is optimized for busy people with large transaction quantities
@@ -27,7 +26,7 @@ Given below are my contributions to the project.
   - Justification: This feature enhances the security of the application, ensuring that only authorized users can access the application.
   - Highlights: This feature required a thorough understanding of the existing codebase and the ability to integrate new features seamlessly. It also involved implementing a secure and user-friendly authentication system using hashing algorithms. It also required storage of the PIN in a secure manner.
 
-- **New Feature** Added the `view chart` command to allow users to view a graphical representation of the debts in the application.
+- **New Feature** Added the `chart` command to allow users to view a graphical representation of the debts in the application.
   - What it does: This feature allows users to view a bar chart of the debts in the application, showing the distribution of debts among friends.
   - Justification: This feature enhances the user experience by providing a visual representation of the debts, making it easier for users to understand the data.
   - Highlights: This feature required integrating a third-party library for chart generation and implementing a parser to convert the data into a format suitable for the library.
@@ -38,8 +37,8 @@ Given below are my contributions to the project.
 
 
 - **Project management**:
-  - Managed and conducted releases ```v1.0``` - ```v2.0``` (2 releases) on GitHub
-  - Managed feature increments and frequent bug tracking on GitHub Issues [#78](https://github.com/AY2324S2-CS2113-T15-1/tp/issues/78), [#96](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/96), [#91](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/91), [#117](https://github.com/AY2324S2-CS2113-T15-1/tp/issues/117)
+  - Managed and conducted releases ```v1.0``` - ```v2.1``` (3 releases) on GitHub
+  - Managed feature increments and frequent bug fixing on GitHub Issues [#78](https://github.com/AY2324S2-CS2113-T15-1/tp/issues/78), [#96](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/96), [#91](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/91), [#117](https://github.com/AY2324S2-CS2113-T15-1/tp/issues/117) [#164](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/164)
 
 - **Enhancements to existing features**:
     - Improved the `list` command to display debts in a more user-friendly format.
@@ -48,10 +47,10 @@ Given below are my contributions to the project.
 
 - **Documentation**:
 - User Guide:
-  - Added documentation for the features `pin`, and `view chart`. [#87](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/87)
+  - Added documentation for the features `pin`, and `chart`. [#87](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/87)
 - Developer Guide:
-  - Added implementation details and sequence diagram of the features `pin`, and `view chart`.  [#74](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/74), [#73](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/73)
-  - Added UML diagram [#90](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/90)
+  - Added implementation details and sequence diagram of the features `pin`, and `chart`.  [#74](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/74), [#73](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/73)
+  - Added UML diagram [#90](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/90) [#173](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/173)
 
 - **Community**:
 - PRs reviewed (with non-trivial review comments): examples [#89](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/89), [#80](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/80), [#77](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/77), [#76](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/76), [#43](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/43)
@@ -59,7 +58,4 @@ Given below are my contributions to the project.
 - Contributed to forum posts (examples: [1](https://github.com/nus-cs2113-AY2324S2/forum/issues/14), [2](https://github.com/nus-cs2113-AY2324S2/forum/issues/28)).
 
 - **Tools**:
-  - Integrated the `XChart` library for the `view chart` feature [#86](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/86).
-
-Overall, I have contributed significantly to the project in terms of new features, enhancements, project management, documentation, and community contributions. I have gained valuable experience in software development and project management through this project.
-
+  - Integrated the `XChart` library for the `chart` feature [#86](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/86).
