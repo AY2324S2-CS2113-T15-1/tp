@@ -395,7 +395,7 @@ The `Member` class has the following key methods.
 * *subtractFromBalance*: Subtracts the value of a transaction from a member. Absolute values are used to reduce complexity of balance update method calls for both the loaner and the borrower.
 * *clearBalance*: Resets the current balance of a member to zero. Used then the clear command is invoked.
 
-The MemberList class has the following key methods.
+The `MemberList` class has the following key methods.
 
 * *addMember*: Adds a member object to the current array list of members. This method is overloaded to allow for appending an existing member object or appending a newly created member object.
 * *isMember*: Checks if a member object is already a part of the current array list of members.
@@ -468,13 +468,13 @@ The `TransactionList` class manages a list of transactions in the LongAh applica
 
 <ins>Class Structure</ins>
 
-The Transaction class has the following attributes.
+The `Transaction` class has the following attributes.
 
 * *lender*: A member object representing the lender in the transaction.
 * *transactionTime*: A DateTime object representing the time of the transaction. (optional)
 * *subtransactions*: An ArrayList of Subtransaction objects, representing individual borrowings within the transaction.
 
-The TransactionList class has the following attribute.
+The `TransactionList` class has the following attribute.
 
 * *transactions*: An ArrayList of Transaction objects representing the list of transactions in a group.
 
@@ -489,17 +489,17 @@ The detailed class diagram for `Transaction` and `TransactionList` can be found 
 
 The `Transaction` constructor creates a transaction object with the specified lender and transaction time (if applicable). The subtransactions are initialized as an empty ArrayList.
 
-Key arguments of the Transaction constructor are a `Member` object `lender`, an ArrayList of `subtransactions`, and optionally a `DateTime` object `transactionTime`.
+Key arguments of the `Transaction` constructor are a `Member` object `lender`, an ArrayList of `subtransactions`, and optionally a `DateTime` object `transactionTime`.
 
 <ins>Methods</ins>
 
-The Transaction class has the following key methods.
+The `Transaction class` has the following key methods.
 
 - *parseTransaction*: Parses the user input to extract lender and borrowers, then adds them to the transaction.
 - *editTransaction*: Edits the transaction based on new user input.
 - *deleteMember*: Deletes a member from the transaction and returns true if transaction needs to be removed.
 
-The TransactionList class has the following key methods.
+The `TransactionList` class has the following key methods.
 
 - *addTransaction*: Adds a new transaction to the list based on user input.
 - *remove*: Removes a transaction from the list based on the index.
@@ -520,7 +520,7 @@ The TransactionList class has the following key methods.
 The diagram below illustrates a sample usage scenario of adding a transaction: 
 ![addTransaction.png](diagrams/addTransaction.png)
 
-The following code segment outlines a sample use of `TransactionList`.
+The following code segment outlines a few sample usage of `TransactionList`.
 
 ```
 import longah.util.MemberList;
@@ -562,6 +562,7 @@ The Transaction class takes the following into consideration.
 
 - Separate constructors and `parseTransaction` methods for storage purposes and user input parsing respectively.
 - `toStorageString` method takes in a String `delimiter` for the purpose of splitting the transaction string into its constituent parts for storage.
+- `subtransactions` are used to represent individual borrowings within a transaction.
 
 The TransactionList class takes the following into consideration.
 - Transactions are indexed starting from 1 for user reference and ease of use by other methods such as edit and delete.
