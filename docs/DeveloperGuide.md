@@ -880,6 +880,8 @@ JUnit tests are written in the [`test directory`](../src/test/java/longah/) and 
 
 Files relating to Text UI Testing can be found [here](../text-ui-test/).
 
+Text UI testing has been configured to simulate multiple sessions run by the same user with a total of 10 tests being run. Details of each set of tests can be found in the README in the above directory. Tests can be modified by changing command calls in the `input` subdirectory, but this is not recommended since the differing expected output may cause tests to fail.
+
 When running tests on a Windows system, run the following command from the specificied directory:
 ```
 ./runtest.bat
@@ -888,6 +890,15 @@ When running tests on a Windows system, run the following command from the speci
 When running tests on a UNIX-based system, run the following command from the specified directory:
 ```
 ./runtest.sh
+```
+
+Outcomes of these tests are listed in the below code segment.
+```
+// Successfully passed all tests
+All tests passed!
+
+// Tests failed: Differing output in test group 2 and member data files
+2 tests failed: MEMBER 2 
 ```
 
 ## Future Enhancements
