@@ -29,3 +29,6 @@ Given below are my contributions to the project.
 * **Project Management**:
   * Participated in weekly meetings to breakdown assigned workload to manageable sub-tasks.
 
+
+* **Community**
+  * Gave suggestions and reported bugs for other teams in the class (examples: [1](https://github.com/haowern98/ped/issues/1), [2](https://github.com/haowern98/ped/issues/2), [3](https://github.com/haowern98/ped/issues/3))
