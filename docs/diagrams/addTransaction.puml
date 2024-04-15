@@ -7,7 +7,6 @@ participant ":Command"
 participant ":MemberList"
 participant ":TransactionList"
 participant ":Transaction"
-participant ":UI"
 
 
 ref over "User" , ":Command"
@@ -18,16 +17,17 @@ end ref
 ":MemberList" --> ":Group" : members
 ":Group" -> ":TransactionList" : Get transactions
 ":TransactionList" --> ":Group" : transactions
+":Group" -> ":TransactionList": Add transaction
 alt Valid transaction format
-    ":Group" -> ":TransactionList": Add transaction
     ":TransactionList" -> ":Transaction": Add transaction
-    ":Transaction" -> ":UI": "Transaction added successfully"
-    ":Transaction" -> ":UI": Transaction details
+    ":Transaction" --> ":TransactionList": Transaction added
+    ":TransactionList" --> ":Group": Update transaction list
+    ":Group" --> "User": Transaction details
     ":Group" -> ":Group": Update members balance
     ":Group" -> ":Group": Update transaction solution
-    ":Logger" -> ":Logger": log(Level.INFO, "Transaction solution updated")
 else Invalid transaction format
-    ":Transaction" -> ":UI": "Invalid transaction format"
+    ":TransactionList" -> ":Group": Invalid transaction format
+    ":Group" --> "User" : "Invalid transaction format"
 end
 
 @enduml

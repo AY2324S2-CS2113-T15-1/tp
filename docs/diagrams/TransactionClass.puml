@@ -10,8 +10,6 @@ class Transaction {
     + Constructor(Member, ArrayList<Subtransaction>, MemberList, String)
     + parseTransaction(String, MemberList)
     + parseTransaction(Member, ArrayList<Subtransaction>, MemberList)
-    + addBorrower(String, MemberList, Member)
-    + toStorageString(String)
     + editTransaction(Member, ArrayList<Subtransaction>, MemberList)
     + deleteMember(Member)
 }

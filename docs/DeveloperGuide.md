@@ -227,7 +227,7 @@ The `Group` class has the following attributes:
 * *groupName*: A string representing the name of the group.
 * *transactionSolution*: An array list collection of Subtransaction objects representing the least transactions solution to solving all debts in the group.
 
-The `GroupList` class has the following attributes:
+The `GroupList` class has the following attributes.
 * *activeGroup*: A Group object representing the currently active group.
 * *groupList*: An array list collection of Group objects representing the list of groups stored in the application.
 
@@ -236,7 +236,7 @@ The `GroupList` class has the following attributes:
 
 The detailed class diagram for `Group` and `GroupList` can be found below.
 
-![Group Class Diagram](diagrams/Group Class.png)
+![Group Class Diagram](diagrams/GroupClass.png)
 
 <ins>Constructor</ins>
 
@@ -471,7 +471,7 @@ The Transaction class has the following attributes.
 * *transactionTime*: A DateTime object representing the time of the transaction. (optional)
 * *subtransactions*: An ArrayList of Subtransaction objects, representing individual borrowings within the transaction.
 
-The TransactionList class has the following attributes.
+The TransactionList class has the following attribute.
 
 * *transactions*: An ArrayList of Transaction objects representing the list of transactions in a group.
 
@@ -479,7 +479,7 @@ The TransactionList class has the following attributes.
 
 The detailed class diagram for `Transaction` and `TransactionList` can be found below.
 
-![Transaction Class Diagram](diagrams/Transaction Class.png)
+![Transaction Class Diagram](diagrams/TransactionClass.png)
 
 
 <ins>Constructor</ins>
@@ -493,18 +493,16 @@ Key arguments of the Transaction constructor are a `Member` object `lender`, an 
 The Transaction class has the following key methods.
 
 - *parseTransaction*: Parses the user input to extract lender and borrowers, then adds them to the transaction.
-- *addBorrower*: Adds a borrower to the transaction.
-- *toStorageString*: Converts the transaction to a string format for storage.
 - *editTransaction*: Edits the transaction based on new user input.
 - *deleteMember*: Deletes a member from the transaction and returns true if transaction needs to be removed.
 
 The TransactionList class has the following key methods.
 
 - *addTransaction*: Adds a new transaction to the list based on user input.
-- remove: Removes a transaction from the list based on the index.
+- *remove*: Removes a transaction from the list based on the index.
 - *clear*: Clears all transactions from the list.
-- findLender: Finds all transactions where a specified member is the lender.
-- findBorrower: Finds all transactions where a specified member is a borrower.
+- *findLender*: Finds all transactions where a specified member is the lender.
+- *findBorrower*: Finds all transactions where a specified member is a borrower.
 - *findTransactions*: Finds a transaction based on member name.
 - *filterTransactionsEqualToDateTime*: Filters transactions based on the specified date and time.
 - *filterTransactionsBeforeDateTime*: Filters transactions before the specified date and time.
