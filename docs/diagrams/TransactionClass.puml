@@ -1,0 +1,36 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+class Transaction {
+    - lender : Member
+    - transactionTime : dateTime
+    - subtransactions : ArrayList<Subtransaction>
+    + Constructor(String, memberList)
+    + Constructor(Member, ArrayList<Subtransaction>, MemberList)
+    + Constructor(Member, ArrayList<Subtransaction>, MemberList, String)
+    + parseTransaction(String, MemberList)
+    + parseTransaction(Member, ArrayList<Subtransaction>, MemberList)
+    + editTransaction(Member, ArrayList<Subtransaction>, MemberList)
+    + deleteMember(Member)
+}
+
+class TransactionList {
+    - transactions : ArrayList<Transaction>
+    + addTransaction(Transaction)
+    + addTransaction(String, MemberList)
+    + remove(Transaction)
+    + clear(MemberList)
+    + findLender(Member, MemberList)
+    + findBorrower(Member, MemberList)
+    + findTransactions(Member, MemberList)
+    + filterTransactionsEqualToDateTime(String)
+    + filterTransactionsBeforeDateTime(String)
+    + filterTransactionsAfterDateTime(String)
+    + filterTransactionsBetweenDateTime(String, String)
+    + editTransaction(String, MemberList)
+    + findDebts(String)
+    + deleteMember(String, MemberList)
+}
+
+TransactionList "1" --> "*" Transaction
+@enduml

@@ -25,6 +25,8 @@ Given below are my contributions to the project.
 
 * **Code Contributed**: [RepoSense Link](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=djleong&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-02-23&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
 
+<div style="page-break-after: always;"></div>
+
 * **Documentation**
     * User Guide
         * Initial draft and overall structure of UG for v2.0. [#69](https://github.com/AY2324S2-CS2113-T15-1/tp/pull/69)
