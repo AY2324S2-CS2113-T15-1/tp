@@ -822,33 +822,30 @@ Busy people with large transaction quantities among friends
 
 ## User Stories
 
-| Version | As a ...       | I want to ...                                                                                                    | So that I can ...                                                                                  |
-|---------|----------------|------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
-| v1.0    | user           | to be able to find the least transactions needed to resolve amounts owed by various members of my various groups | -                                                                                                  |
-| v1.0    | user           | add transactions involving multiple people in a group                                                            | keep track of people involved and value of the transaction                                         |
-| v1.0    | user           | edit transactions                                                                                                | fix mistakes made when entering transactions                                                       |
-| v1.0    | user           | delete transactions                                                                                              | clear erroneous transactions which I do not intend to keep                                         |
-| v1.0    | user           | keep a log of my data                                                                                            | retain memory of past transactions in past runs of the platform                                    |
-| v1.0    | user           | have easy access command to clear my pending debts                                                               | -                                                                                                  |
-| v1.0    | user           | be able to organise people into groups                                                                           | minimise the occurence of being affected by typos                                                  |
-| v1.0    | user           | add members to a group                                                                                           | add them to future transactions                                                                    |
-| v1.0    | user           | restart data for a group                                                                                         | reduce clutter of the application                                                                  |
-| v1.0    | user           | find transactions related to a certain member                                                                    | better keep track of my pending transactions or payments                                           |
-| v2.0    | new user       | view help commands                                                                                               | have an easy reference for commands while using the application                                    |
-| v2.0    | user           | enable the use of passwords for my application                                                                   | prevent wrongful access to my records                                                              |
-| v2.0    | user           | disable the password                                                                                             | have an easier time allowing people to view my records                                             |
-| v2.0    | user           | edit my password                                                                                                 | change my password in case it has been compromised                                                 |
-| v2.0    | user           | have my password be encrypted                                                                                    | ensure my password cannot be easily found out                                                      |
-| v2.0    | user           | edit members in my group                                                                                         | change their nicknames which I store within the application                                        |
-| v2.0    | user           | delete current members                                                                                           | keep my groups neat and free of people who are no longer part of them                              |
-| v2.0    | user           | create more groups                                                                                               | use the application for multiple groups of friends without data overlapping                        |
-| v2.0    | forgetful user | time of transactions to be saved                                                                                 | reference when each transaction were made                                                          |
-| v2.0    | user           | search for specific transactions                                                                                 | find out information relating to the transaction in case I need to affect it                       |
-| v2.1    | advanced user  | merge different groups together                                                                                  | combine groups which have large overlaps in members                                                |
-| v2.1    | user           | filter transactions based on transaction time                                                                    | easily reference a transaction made during an interested time period                               |
-| v2.1    | user           | setup expenditure limits                                                                                         | be notified when someone have too large of a debt                                                  |
-| v2.1    | advanced user  | create equal share transactions                                                                                  | add multiple people to a transaction without having to type their associated value to each of them |
-| v2.1    | advanced user  | have command shortcuts                                                                                           | input commands faster                                                                              |
+| Version | As a ...       | I want to ...                                                            | So that I can ...                                                           |
+|---------|----------------|--------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| v1.0    | user           | find the least transactions to resolve amounts owed by people in a group | -                                                                           |
+| v1.0    | user           | add transactions involving multiple people in a group                    | keep track of people involved and value of the transaction                  |
+| v1.0    | user           | edit transactions                                                        | fix mistakes made when entering transactions                                |
+| v1.0    | user           | delete transactions                                                      | clear erroneous transactions which I do not intend to keep                  |
+| v1.0    | user           | keep a log of my data                                                    | retain memory of past transactions in past runs of the platform             |
+| v1.0    | user           | have easy access command to clear my pending debts                       | -                                                                           |
+| v1.0    | user           | be able to organise people into groups                                   | minimise the occurence of being affected by typos                           |
+| v1.0    | user           | add members to a group                                                   | add them to future transactions                                             |
+| v1.0    | user           | restart data for a group                                                 | reduce clutter of the application                                           |
+| v1.0    | user           | find transactions related to a certain member                            | better keep track of my pending transactions or payments                    |
+| v2.0    | new user       | view help commands                                                       | have an easy reference for commands within the application                  |
+| v2.0    | user           | enable the use of passwords for my application                           | prevent wrongful access to my records                                       |
+| v2.0    | user           | disable the password                                                     | have an easier time allowing people to view my records                      |
+| v2.0    | user           | edit my password                                                         | change my password in case it has been compromised                          |
+| v2.0    | user           | have my password be encrypted                                            | ensure my password cannot be easily found out                               |
+| v2.0    | user           | edit members in my group                                                 | change their nicknames which I store within the application                 |
+| v2.0    | user           | delete current members                                                   | keep my groups neat and free of people who are no longer part of them       |
+| v2.0    | user           | create more groups                                                       | use the application for multiple groups of friends without data overlapping |
+| v2.0    | forgetful user | time of transactions to be saved                                         | reference when each transaction were made                                   |
+| v2.0    | user           | search for specific transactions                                         | find information relating to the transaction                                |
+| v2.1    | user           | filter transactions based on transaction time                            | reference a transaction made during an interested time period               |
+| v2.1    | advanced user  | have command shortcuts                                                   | input commands faster                                                       |
 
 ## Non-Functional Requirements
 
@@ -904,8 +901,11 @@ All tests passed!
 ## Future Enhancements
 
 1. Allow methods for undo-ing previous commands.
-2. Add page-scrolling for `list`, `find` and `filter` commands to reduce screen clogging.
-3. Inclusion of anomaly detection algorithms to flag out potentially erroneous transactions.
-4. Adding of further details tagged to each transaction and allow for searching of transactions based on these details.
-5. Create a reminder system to inform users of upcoming events or to warn them to settle payments.
-6. Allow the setting up of recurring transactions such as credit is deducted periodically.
+2. Allow users to set expenditure limits.
+3. Increase the number of group operations available (i.e. edit, merge).
+4. Add functionality for splitting a transaction by percentage share instead of raw value.
+5. Add page-scrolling for `list`, `find` and `filter` commands to reduce screen clogging.
+6. Inclusion of anomaly detection algorithms to flag out potentially erroneous transactions.
+7. Adding of further details tagged to each transaction and allow for searching of transactions based on these details.
+8. Create a reminder system to inform users of upcoming events or to warn them to settle payments.
+9. Allow the setting up of recurring transactions such as credit is deducted periodically.
