@@ -69,12 +69,12 @@ The UI and I/O functionalities act as the interface between the user and the app
 
 <ins>Class Structure</ins>
 
-The UI class has the following static attributes:
+The `UI` class has the following static attributes:
 
 * *SEPARATOR*: A constant string representing a straight line to be printed to the console.
 * *scanner*: A `Scanner` object used for reading from `System.in` I/O.
 
-The InputHandler class itself does not have any attributes.
+The `InputHandler` class itself does not have any attributes.
 
 <ins>Methods</ins>
 
@@ -242,11 +242,11 @@ The detailed class diagram for `Group` and `GroupList` can be found below.
 
 <ins>Constructor</ins>
 
-The Group constructor creates a group object with the given group name and initializes a new member list, transaction list, storage handler. The latter is used to ensure that data across groups are kept discrete.
+The `Group` constructor creates a group object with the given group name and initializes a new member list, transaction list, storage handler. The latter is used to ensure that data across groups are kept discrete.
 
 Key arguments of the Group constructor is a string `groupName`.
 
-The GroupList constructor initializes an empty array list of groups for newly created groups to be added and stored to.
+The `GroupList` constructor initializes an empty array list of groups for newly created groups to be added and stored to.
 
 <ins>Methods</ins>
 
@@ -345,11 +345,11 @@ groupList.saveGroupList();
 
 <ins>Design Considerations</ins>
 
-The Group class takes the following into consideration.
+The `Group` class takes the following into consideration.
 * The class ensures that group names are alphanumeric and does not allow for special characters including blank space.
 * `settleUp` minimizes the number of transactions needed to settle the debt of a member by creating a single transaction with all lender(s) as borrower(s) based on the transaction solution of the group.
 
-The GroupList class takes the following into consideration.
+The `GroupList` class takes the following into consideration.
 * `createGroup` checks if the groupList is empty and automatically prompts the user to create a new group if it is and sets it as the active group.
 * `loadGroupList` is called at the start of the application to ensure that all groups are loaded from storage into the groupList.
 
@@ -706,7 +706,7 @@ for (Transaction transaction : this.transactions) {
 <ins> Design Considerations </ins>
 
 To reduce the coupling of time-related operations with other classes as much as possible, the following precautions was
-put in-placed during the development of the DateTime class.
+put in-placed during the development of the `DateTime` class.
 
 - Isolation of `dateTime` checks: The validity of all dateTime inputs of LongAh is only checked and handled within the
 constructor of the `DateTime` class.
@@ -959,36 +959,30 @@ Busy people with large transaction quantities among friends
 
 ## User Stories
 
-| Version | As a ...       | I want to ...                                                                                                    | So that I can ...                                                                                  |
-|---------|----------------|------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
-| v1.0    | user           | to be able to find the least transactions needed to resolve amounts owed by various members of my various groups | -                                                                                                  |
-| v1.0    | user           | add transactions involving multiple people in a group                                                            | keep track of people involved and value of the transaction                                         |
-| v1.0    | user           | edit transactions                                                                                                | fix mistakes made when entering transactions                                                       |
-| v1.0    | user           | delete transactions                                                                                              | clear erroneous transactions which I do not intend to keep                                         |
-| v1.0    | user           | keep a log of my data                                                                                            | retain memory of past transactions in past runs of the platform                                    |
-| v1.0    | user           | have easy access command to clear my pending debts                                                               | -                                                                                                  |
-| v1.0    | user           | be able to organise people into groups                                                                           | minimise the occurrence of being affected by typos                                                 |
-| v1.0    | user           | add members to a group                                                                                           | add them to future transactions                                                                    |
-| v1.0    | user           | restart data for a group                                                                                         | reduce clutter of the application                                                                  |
-| v1.0    | user           | be able to organise people into groups                                                                           | minimise the occurrence of being affected by typos                                                 |
-| v1.0    | user           | add members to a group                                                                                           | add them to future transactions                                                                    |
-| v1.0    | user           | restart data for a group                                                                                         | reduce clutter of the application                                                                  |
-| v1.0    | user           | find transactions related to a certain member                                                                    | better keep track of my pending transactions or payments                                           |
-| v2.0    | new user       | view help commands                                                                                               | have an easy reference for commands while using the application                                    |
-| v2.0    | user           | enable the use of passwords for my application                                                                   | prevent wrongful access to my records                                                              |
-| v2.0    | user           | disable the password                                                                                             | have an easier time allowing people to view my records                                             |
-| v2.0    | user           | edit my password                                                                                                 | change my password in case it has been compromised                                                 |
-| v2.0    | user           | have my password be encrypted                                                                                    | ensure my password cannot be easily found out                                                      |
-| v2.0    | user           | edit members in my group                                                                                         | change their nicknames which I store within the application                                        |
-| v2.0    | user           | delete current members                                                                                           | keep my groups neat and free of people who are no longer part of them                              |
-| v2.0    | user           | create more groups                                                                                               | use the application for multiple groups of friends without data overlapping                        |
-| v2.0    | forgetful user | time of transactions to be saved                                                                                 | reference when each transaction were made                                                          |
-| v2.0    | user           | search for specific transactions                                                                                 | find out information relating to the transaction in case I need to affect it                       |
-| v2.1    | advanced user  | merge different groups together                                                                                  | combine groups which have large overlaps in members                                                |
-| v2.1    | user           | filter transactions based on transaction time                                                                    | easily reference a transaction made during an interested time period                               |
-| v2.1    | user           | setup expenditure limits                                                                                         | be notified when someone have too large of a debt                                                  |
-| v2.1    | advanced user  | create equal share transactions                                                                                  | add multiple people to a transaction without having to type their associated value to each of them |
-| v2.1    | advanced user  | have command shortcuts                                                                                           | input commands faster                                                                              |
+| Version | As a ...       | I want to ...                                                            | So that I can ...                                                           |
+| ------- | -------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| v1.0    | user           | find the least transactions to resolve amounts owed by people in a group | -                                                                           |
+| v1.0    | user           | add transactions involving multiple people in a group                    | keep track of people involved and value of the transaction                  |
+| v1.0    | user           | edit transactions                                                        | fix mistakes made when entering transactions                                |
+| v1.0    | user           | delete transactions                                                      | clear erroneous transactions which I do not intend to keep                  |
+| v1.0    | user           | keep a log of my data                                                    | retain memory of past transactions in past runs of the platform             |
+| v1.0    | user           | have easy access command to clear my pending debts                       | -                                                                           |
+| v1.0    | user           | be able to organise people into groups                                   | minimise the occurence of being affected by typos                           |
+| v1.0    | user           | add members to a group                                                   | add them to future transactions                                             |
+| v1.0    | user           | restart data for a group                                                 | reduce clutter of the application                                           |
+| v1.0    | user           | find transactions related to a certain member                            | better keep track of my pending transactions or payments                    |
+| v2.0    | new user       | view help commands                                                       | have an easy reference for commands within the application                  |
+| v2.0    | user           | enable the use of passwords for my application                           | prevent wrongful access to my records                                       |
+| v2.0    | user           | disable the password                                                     | have an easier time allowing people to view my records                      |
+| v2.0    | user           | edit my password                                                         | change my password in case it has been compromised                          |
+| v2.0    | user           | have my password be encrypted                                            | ensure my password cannot be easily found out                               |
+| v2.0    | user           | edit members in my group                                                 | change their nicknames which I store within the application                 |
+| v2.0    | user           | delete current members                                                   | keep my groups neat and free of people who are no longer part of them       |
+| v2.0    | user           | create more groups                                                       | use the application for multiple groups of friends without data overlapping |
+| v2.0    | forgetful user | time of transactions to be saved                                         | reference when each transaction were made                                   |
+| v2.0    | user           | search for specific transactions                                         | find information relating to the transaction                                |
+| v2.1    | user           | filter transactions based on transaction time                            | reference a transaction made during an interested time period               |
+| v2.1    | advanced user  | have command shortcuts                                                   | input commands faster                                                       |
 
 ## Non-Functional Requirements
 
