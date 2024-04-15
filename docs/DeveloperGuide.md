@@ -233,7 +233,6 @@ The `GroupList` class has the following static fields.
 * *activeGroup*: A Group object representing the currently active group.
 * *groupList*: An array list collection of Group objects representing the list of groups stored in the application.
 
-
 <ins>Implementation Details</ins>
 
 The detailed class diagram for `Group` and `GroupList` can be found below.
@@ -353,7 +352,6 @@ The `GroupList` class takes the following into consideration.
 * `createGroup` checks if the groupList is empty and automatically prompts the user to create a new group if it is and sets it as the active group.
 * `loadGroupList` is called at the start of the application to ensure that all groups are loaded from storage into the groupList.
 
-
 ### Member and MemberList
 
 <ins>Overview</ins>
@@ -456,7 +454,6 @@ The `MemberList` class takes the following into consideration.
 
 * `updateMembersBalance` clears current balances at the start of invocation. This removes any transactions that are not captured within the `TransactionList` object passed into the method.
 
-
 ### Transaction and TransactionList
 <ins>Transaction Overview</ins>
 
@@ -482,7 +479,6 @@ The `TransactionList` class has the following attribute.
 The detailed class diagram for `Transaction` and `TransactionList` can be found below.
 
 ![Transaction Class Diagram](diagrams/TransactionClass.png)
-
 
 <ins>Constructor</ins>
 
@@ -565,7 +561,6 @@ The `Transaction` class takes the following into consideration.
 
 The `TransactionList` class takes the following into consideration.
 - Transactions are indexed starting from 1 for user reference and ease of use by other methods such as edit and delete.
-
 
 ### DateTime
 
@@ -774,7 +769,6 @@ PIN is correct.
 The following diagram illustrates the sequence during PIN authentication.
 
 ![pinhandler longah.png](diagrams/pinhandler%20longah.png)
-
 
 This diagram shows the sequence when the user resets their PIN.
 
@@ -1037,6 +1031,8 @@ All tests passed!
 ```
 
 ## Future Enhancements
+
+The following are features we intend to include in future iterations of this application.
 
 1. Allow methods for undo-ing previous commands.
 2. Allow users to set expenditure limits.
