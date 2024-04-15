@@ -100,7 +100,7 @@ public class MemberTest {
      * Tests the addToBalance method of the Member class with invalid added balance.
      */
     @Test
-    public void addToBalance_invalidAdd_exceptionThrown() {
+    public void addToBalance_negativeValue_exceptionThrown() {
         try {
             Member member = new Member("Bob");
             member.addToBalance(-20.0);
@@ -130,7 +130,7 @@ public class MemberTest {
      * Tests the subtractFromBalance method of the Member class with invalid subtracted balance.
      */
     @Test
-    public void subtractFromBalance_invalidSubtract_exceptionThrown() {
+    public void subtractFromBalance_negativeValue_exceptionThrown() {
         try {
             Member member = new Member("Alice");
             member.subtractFromBalance(-20.0);

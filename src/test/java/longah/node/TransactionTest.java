@@ -56,6 +56,9 @@ public class TransactionTest {
         }
     }
 
+    /**
+     * Tests the unsuccessful creation of a transaction due to overflow
+     */
     @Test
     public void transactionConstructor_overflowAmount_exceptionThrown() {
         try {
@@ -68,6 +71,63 @@ public class TransactionTest {
             fail();
         } catch (LongAhException e) {
             String expectedString = ExceptionMessage.BALANCE_OVERFLOW.getMessage();
+            assertEquals(expectedString, e.getMessage());
+            StorageHandler.deleteDir(new File("./data/testGroup"));
+        }
+    }
+
+    /**
+     * Tests the unsuccessful creation of a transaction with invalid arguments.
+     */
+    @Test
+    public void transactionConstructor_invalidArguments_exceptionThrown() {
+        try {
+            MemberList memberList = new MemberList();
+            memberList.addMember("Alice");
+            memberList.addMember("Bob");
+            new Transaction("Alice p/Bob a/c", memberList);
+            fail();
+        } catch (LongAhException e) {
+            String expectedString = ExceptionMessage.INVALID_TRANSACTION_VALUE.getMessage();
+            assertEquals(expectedString, e.getMessage());
+        }
+    }
+
+    /**
+     * Tests the unsuccessful creation of a transaction with an incorrect decimal format.
+     */
+    @Test
+    public void transactionConstructor_incorrectDecimalFormat_exceptionThrown() {
+        try {
+            Group group = new Group("testGroup");
+            MemberList memberList = group.getMemberList();
+            TransactionList transactionList = group.getTransactionList();
+            memberList.addMember("Alice");
+            memberList.addMember("Bob");
+            transactionList.addTransaction("Alice p/Bob a/1.1.1", memberList, group);
+            fail();
+        } catch (LongAhException e) {
+            String expectedString = ExceptionMessage.INVALID_TRANSACTION_VALUE.getMessage();
+            assertEquals(expectedString, e.getMessage());
+            StorageHandler.deleteDir(new File("./data/testGroup"));
+        }
+    }
+
+    /**
+     * Tests the unsuccessful creation of a transaction with an incorrect decimal point count.
+     */
+    @Test
+    public void transactionConstructor_incorrectDecimalPoint_exceptionThrown() {
+        try {
+            Group group = new Group("testGroup");
+            MemberList memberList = group.getMemberList();
+            TransactionList transactionList = group.getTransactionList();
+            memberList.addMember("Alice");
+            memberList.addMember("Bob");
+            transactionList.addTransaction("Alice p/Bob a/1.1111", memberList, group);
+            fail();
+        } catch (LongAhException e) {
+            String expectedString = ExceptionMessage.INVALID_TRANSACTION_VALUE.getMessage();
             assertEquals(expectedString, e.getMessage());
             StorageHandler.deleteDir(new File("./data/testGroup"));
         }
