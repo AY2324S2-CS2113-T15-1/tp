@@ -133,6 +133,7 @@ The `Command` constructor updates the attributes based on the input arguments.
 <ins>Methods</ins>
 
 The abstract `Command` class and its related children classes have the following method:
+
 * *execute*: Effect the command based on the `CommandString` and the `TaskExpression`.
 
 <div style="page-break-after: always;"></div>
@@ -1059,11 +1060,11 @@ View the [User Guide](UserGuide.md) for the full list of UI commands and their r
 
 ### JUnit Testing
 
-JUnit tests are written in the [`test directory`](../src/test/java/longah/) and serve to test key methods part of the application.
+JUnit tests are written in the subdirectory `test` and serve to test key methods part of the application.
 
 ### Text UI Testing
 
-Files relating to Text UI Testing can be found [here](../text-ui-test/).
+Files relating to Text UI Testing can be found in the directory `text-ui-test`.
 
 Text UI testing has been configured to simulate multiple sessions run by the same user with a total of 10 tests being run. Details of each set of tests can be found in the README in the above directory. Tests can be modified by changing command calls in the `input` subdirectory, but this is not recommended since the differing expected output may cause tests to fail.
 
