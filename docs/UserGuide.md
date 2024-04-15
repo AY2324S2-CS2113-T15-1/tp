@@ -13,7 +13,7 @@ among friends.
 3. Copy the JAR file to the folder you want to use as the home folder for your LongAh! application.
 4. Open a command terminal, navigate to the folder containing the JAR file and run the command:
 ```
-java -jar tp.jar
+java -jar CS2113-T15-1.LongAh.jar
 ```
 5. Upon starting the application, you will be prompted to enter your PIN. The user PIN is required to access the application.
 The app will prompt you to create your own PIN if it is your first time using the application.
@@ -306,8 +306,6 @@ lm
     bob: -$5.0
 ```
 
-<div style="page-break-after: always;"></div>
-
 ### Listing all transactions: `list transactions`
 
 Shows a list of all transactions in LongAh!.
@@ -353,8 +351,6 @@ ld
     bob owes charlie $2.0
     bob owes alice $2.0
 ```
-
-<div style="page-break-after: always;"></div>
 
 ### Listing all groups: `list groups`
 
@@ -418,7 +414,6 @@ Format: `find lender [MEMBER]` OR `findl` OR `fl`
 Example of usage:
 ```
 // Continuing from above example
-
 find lender Alice
 findl Alice
 fl Alice
@@ -427,8 +422,6 @@ fl Alice
     Lender: Alice
     Borrower 1: Bob Owed amount: $5.00
 ```
-
-<div style="page-break-after: always;"></div>
 
 ### Find Borrower `find borrower`
 
@@ -495,8 +488,6 @@ dm Alice
     Deleted member: Alice
 ```
 
-<div style="page-break-after: always;"></div>
-
 ### Deleting a transaction: `delete transaction`
 
 Deletes a transaction from the list of transactions in the group.
@@ -533,7 +524,6 @@ Format: `delete group [GROUP_NAME]` OR `deleteg` OR `dg`
 Example of usage:
 ```
 // assume that the group 'Tiktok' already exits
-
 add group friends
 delete group friends
 deleteg friends
@@ -543,8 +533,6 @@ dg friends
 
 Deleted group: friends
 ```
-
-<div style="page-break-after: always;"></div>
 
 ### Editing a member: `edit member`
 
@@ -629,7 +617,7 @@ Example of usage:
 pin reset
     Enter your current PIN: 654321
     Create your 6-digit PIN: 123456
-    PIN saved successfully! You can enter 'pin enable' to enable authentication upon startup.
+    PIN saved successfully! You can enter 'pin enable' to enable ...
 ```
 
 <div style="page-break-after: always;"></div>
@@ -656,6 +644,24 @@ clear
 y
     All transaction records have been cleared.
     All transactions have been cleared for this account.
+```
+
+### Switching groups: `group`
+
+Switches to the specified group in LongAh!.
+
+Format: `group [GROUP_NAME]`
+* The `GROUP_NAME` should be an existing group that has been added to LongAh!.
+
+Example of usage:
+```
+// assume that the user is currently managing group 'Tiktok'
+add group friends
+    Added group: friends
+    
+group friends
+    Switching groups...
+    You are now managing: friends
 ```
 
 <div style="page-break-after: always;"></div>
@@ -698,78 +704,50 @@ settle bob
 
 <div style="page-break-after: always;"></div>
 
-### Switching groups: `group`
-
-Switches to the specified group in LongAh!.
-
-Format: `group [GROUP_NAME]`
-* The `GROUP_NAME` should be an existing group that has been added to LongAh!.
-
-Example of usage:
-```
-// assume that the user is currently managing group 'Tiktok'
-add group friends
-    Added group: friends
-    
-group friends
-    Switching groups...
-    You are now managing: friends
-```
-
-<div style="page-break-after: always;"></div>
-
 ### Filter transactions: `filter`
 
 Filters transactions based on the date & time of dated transactions.
 
 Format: `filter a/[TIME] b/[TIME]` OR `filter a/[TIME]` OR `filter b/[TIME]` OR `filter [TIME]`
 
-* The `TIME` should be in the format of `DD-MM-YYYY HHMM`.
-* The `a/` prefix is used to specify the earlier time bound of the search. It should be before the `b/` prefix at all times.
-* The `b/` prefix is used to specify the later time bound of the search.
-* The `filter a/[TIME] b/[TIME]` command applies for searching transactions occurring between a specified time period.
-* The `filter a/[TIME]` command applies for searching transactions after a specified date & time.
-* The `filter b/[TIME]` command applies for searching transactions before a specified date & time.
-* The `filter [TIME]` command applies for searching transactions matching a specified date & time.
+* `TIME` should be in the format of `DD-MM-YYYY HHMM`.
+* `a/` prefix specifies the earlier time bound of the search. It should be before the `b/` prefix.
+* `b/` prefix specifies the later time bound of the search.
+* `filter a/[TIME] b/[TIME]` for searching transactions occurring between a specified time period.
+* `filter a/[TIME]` for searching transactions after a specified datetime.
+* `filter b/[TIME]` for searching transactions before a specified datetime.
+* `filter [TIME]` for searching transactions matching a specified datetime.
 
 Example of usage:
 ```
-add member alice
-add member bob
-add transaction alice t/01-01-2022 2359 p/bob a/3
-add transaction alice t/01-01-2023 2359 p/bob a/3
-add transaction alice t/01-01-2024 2359 p/bob a/3
+// Assuming 3 transactions on 1st Jan 2022, 2023 and 2024
 
-filter a/01-02-2022 2359 b/01-02-2023 2359 //filtering transactions between a time period
-  The following list of transactions is between the time 01-02-2022 2359 and 01-02-2023 2359.
+// Filter transactions between a time period
+filter a/01-02-2022 2359 b/01-02-2023 2359 
+  The following list of transactions is between the time 01-02-2022 2359 and ...
   2.
   Lender: alice
   Transaction time: 01-01-2023 2359
   Borrower 1: bob Owed amount: $3.00
 
-filter a/01-01-2020 2359 //filtering transactions after a specified date & time
+// Filter transactions after a specified date & time
+filter a/02-01-2023 2359 
   The following list of transactions is after the time 01-01-2020 2359.
-  1.
-  Lender: alice
-  Transaction time: 01-01-2022 2359
-  Borrower 1: bob Owed amount: $3.00
-  2.
-  Lender: alice
-  Transaction time: 01-01-2023 2359
-  Borrower 1: bob Owed amount: $3.00
-  3.
+  3 .
   Lender: alice
   Transaction time: 01-01-2024 2359
   Borrower 1: bob Owed amount: $3.00
 
-filter b/31-12-2022 2359 //filtering transcations before a specified date & time
+// Filter transcations before a specified date & time
+filter b/31-12-2022 2359 
   The following list of transactions is before the time 31-12-2022 2359.
   1.
   Lender: alice
   Transaction time: 01-01-2022 2359
   Borrower 1: bob Owed amount: $3.00
 
-filter 01-01-2024 2359 //filtering transactions matching a specified date & time
+// Filter transactions matching a specified date & time
+filter 01-01-2024 2359 
   The following list of transactions matches with the time 01-01-2024 2359.
   3.
   Lender: alice
@@ -787,9 +765,7 @@ Format: `chart`
 
 Example of usage:
 ```
-add member alice
-add member bob
-add member charlie
+// Assume members are in the list
 add transaction alice p/bob a/100
 add transaction charlie p/alice a/6 p/bob a/1
 
@@ -799,9 +775,7 @@ chart
 
 A separate window will pop up displaying the balances of all members in the group in the form of a category chart.
 
-They are color-coded to show the balance status of each member.
-
-A separate tooltip will show the exact balance of each member.
+They are color-coded to show the balance status of each member. A separate tooltip will show the exact balance of each member.
 
 ![viewChart.png](diagrams/viewChart.png)
 
@@ -819,8 +793,6 @@ exit
 close
     Goodbye! Hope to see you again soon!
 ```
-
-<div style="page-break-after: always;"></div>
 
 ## FAQ
 
@@ -842,6 +814,8 @@ This could be potentially caused by
 * Absence of required user parameters
 * Absence of important formatting prefixes (e.g. t/)
 * User parameters does not follow intended standards (e.g. Wrong formatting of date & time input)
+
+<div style="page-break-after: always;"></div>
 
 ### Invalid Requests
 As LongAh! is designed to specifically target transactions taking place in real-life, illogical requests going against 
