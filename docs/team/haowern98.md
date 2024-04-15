@@ -17,3 +17,8 @@ Given below are my contributions to the project.
    * What it does: Enhances the command prompt display to include a line after each command input.
    * Justification: Improves readability and user interaction by clearly separating each command input and output.
    * Highlights: Modified the showCommandPrompt() method to display a prompt with a clear indication of where the user can input commands, enhancing the overall user experience.
+     
+* **New Feature**: Exit Message Display
+   * What it does: Displays a farewell message upon program exit.
+   * Justification: Provides a polite and friendly closure to the user interaction, enhancing the overall user experience.
+   * Highlights: Implemented the exit() method to display a farewell message when the program exits, creating a positive final interaction with the user.
