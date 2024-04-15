@@ -1,0 +1,29 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class "{abstract}\nCommand" {
+    -commandString: String
+    -taskExpression: String
+    +execute(Group)
+}
+
+class Group
+
+together {
+    class AddCommand
+    class EditCommand
+    class ListCommand
+    class DeleteCommand
+    class FindCommand
+}
+
+AddCommand -up-|> "{abstract}\nCommand"
+EditCommand-up-|> "{abstract}\nCommand"
+ListCommand -up-|> "{abstract}\nCommand"
+DeleteCommand -up-|> "{abstract}\nCommand"
+FindCommand -up-|> "{abstract}\nCommand"
+
+"{abstract}\nCommand" -> Group
+
+@enduml

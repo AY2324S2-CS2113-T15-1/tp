@@ -3,6 +3,7 @@ package longah.util;
 import java.util.ArrayList;
 
 import longah.handler.UI;
+import longah.node.Group;
 import longah.node.Member;
 import longah.node.Transaction;
 import longah.exception.LongAhException;
@@ -34,6 +35,28 @@ public class TransactionList {
              throws LongAhException {
         Transaction toAddTransaction = new Transaction(expression, memberList);
         this.transactions.add(toAddTransaction);
+        UI.showMessage("Transaction added successfully!");
+        UI.showMessage(toAddTransaction.toString());
+    }
+
+    /**
+     * Adds a transaction to the list with the specified expression and member list.
+     *
+     * @param expression The expression of the transaction to add.
+     * @param memberList The member list of the transaction to add.
+     * @param group The group of the transaction to add.
+     * @throws LongAhException If the expression is invalid.
+     */
+    public void addTransaction(String expression, MemberList memberList, Group group)
+            throws LongAhException {
+        Transaction toAddTransaction = new Transaction(expression, memberList);
+        this.transactions.add(toAddTransaction);
+        try {
+            group.updateTransactionSolution();
+        } catch (LongAhException e) {
+            this.transactions.remove(toAddTransaction);
+            throw e;
+        }
         UI.showMessage("Transaction added successfully!");
         UI.showMessage(toAddTransaction.toString());
     }

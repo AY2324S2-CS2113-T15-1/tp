@@ -36,14 +36,15 @@ public class StorageHandlerTest {
     public void storageHandlerConstructor_fileCreationSuccess() {
         try {
             File f = new File("./data/test_grp1");
+            File g;
             deleteDir(f);
             MemberList members = new MemberList();
             TransactionList transactions = new TransactionList();
             new StorageHandler(members, transactions, "test_grp1");
-            f = new File("./data/test_grp1/members.txt");
-            assertTrue(f.exists());
-            f = new File("./data/test_grp1/transactions.txt");
-            assertTrue(f.exists());
+            g = new File("./data/test_grp1/members.txt");
+            assertTrue(g.exists());
+            g = new File("./data/test_grp1/transactions.txt");
+            assertTrue(g.exists());
             // Delete test folders after completion
             deleteDir(f);
         } catch (Exception e) {
@@ -98,6 +99,7 @@ public class StorageHandlerTest {
             boolean isMessage = LongAhException.isMessage(e, ExceptionMessage.STORAGE_FILE_CORRUPTED);
             assertTrue(isMessage);
             // Delete test folders after completion
+            f = new File("./data/test_grp3");
             deleteDir(f);
         }
     }
@@ -108,13 +110,14 @@ public class StorageHandlerTest {
     @Test
     public void loadMembersData_invalidTransactionData_exceptionThrown() {
         File f = new File("./data/test_grp4");
+        File g;
         try {
             deleteDir(f);
             MemberList members1 = new MemberList();
             TransactionList transactions1 = new TransactionList();
             new StorageHandler(members1, transactions1, "test_grp4");
-            f = new File("./data/test_grp4/transactions.txt");
-            FileWriter fw = new FileWriter(f);
+            g = new File("./data/test_grp4/transactions.txt");
+            FileWriter fw = new FileWriter(g);
             fw.write("LOREM IPSUM");
             fw.close();
             MemberList members2 = new MemberList();
@@ -125,6 +128,7 @@ public class StorageHandlerTest {
             boolean isMessage = LongAhException.isMessage(e, ExceptionMessage.INVALID_STORAGE_CONTENT);
             assertTrue(isMessage);
             // Delete test folders after completion
+            f = new File("./data/test_grp4");
             deleteDir(f);
         } catch (Exception e) {
             // Filewriter error

@@ -10,6 +10,8 @@ public enum ExceptionMessage {
     INVALID_MEMBER_NAME ("Invalid member name.", ExceptionType.INFO),
     MEMBER_NOT_FOUND ("Member not found.", ExceptionType.INFO),
     NO_MEMBERS_FOUND ("Member list is empty.", ExceptionType.INFO),
+    CHAR_LIMIT_EXCEEDED ("Character limit exceeded.", ExceptionType.WARNING),
+    BALANCE_OVERFLOW ("Balance overflow. Transaction not processed.", ExceptionType.WARNING),
 
     // Group and Group List Exceptions
     INVALID_GROUP_NAME ("Invalid group name.", ExceptionType.INFO),

@@ -11,6 +11,7 @@ at p/Charlie p/Dane a/1.555
 at p/Charlie p/Dane a/-1
 at p/Charlie p/Dane a/0
 at Esther p/Esther a/1
+at Esther p/Dane a/1e309
 at Charlie t/2001-01-01 1800 p/Dane a/1 p/Esther a/2
 at Charlie t/01-01-2099 1800 p/Dane a/1 p/Esther a/2
 at Charlie t/01-01-2000 2500 p/Dane a/1 p/Esther a/2

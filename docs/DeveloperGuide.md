@@ -184,10 +184,6 @@ Data loading methods are merged in the *loadAllData* method while data saving me
 
 <ins>Usage Example</ins>
 
-The following diagram is a sequence diagram of the initialisation of `StorageHandler`. Here, it reads data from the 2 data storage files and creates `Member` and `Transaction` objects in the associated utility list objects.
-
-![StorageHandler Init Sequence Diagram](diagrams/StorageHandlerInitSequenceDiagram.png)
-
 The following code segment outlines the use of `StorageHandler`.
 
 ```
@@ -516,8 +512,13 @@ PIN is correct.
 
 <ins> Usage Example </ins>
 
+The following diagram illustrates the sequence during PIN authentication.
+
 ![pinhandler longah.png](diagrams%2Fpinhandler%20longah.png)
 
+This diagram shows the sequence when the user resets their PIN.
+
+![pinreset.png](diagrams%2Fpinreset.png)
 
 Given below is an example usage scenario and how the PIN creation and authentication mechanism behaves at each step:
 
@@ -527,19 +528,21 @@ authentication enabled status from the file. If no PIN exists, it prompts the us
 2. The user creates a new 6-digit PIN using the createPin method. The entered PIN is hashed using SHA-256 before 
 saving it to the file.
 
-3. The user closes the application and relaunches it. The PINHandler loads the saved PIN and authentication 
+3. The user enables authentication upon startup using the 'pin enable' command. The authenticationEnabled flag is set to True and saved to the file.
+
+4. The user closes the application and relaunches it. The PINHandler loads the saved PIN and authentication 
 enabled status from the file again.
 
-4. The user attempts to log in by entering their PIN. The authenticate method hashes the entered PIN and 
-compares it with the saved hashed PIN. If they match, the user is successfully authenticated.
+5. The user attempts to log in by entering their PIN. The authenticate method hashes the entered PIN and 
+compares it with the saved hashed PIN. If they match, the user is successfully authenticated. Otherwise, the user is denied access.
 
-5. The user decides to reset their PIN by entering their current PIN and creating a new one using the resetPin 
+6. The user decides to reset their PIN by entering their current PIN and creating a new one using the resetPin 
 method.
 
-6. The user disables authentication upon startup using the 'pin disable' command. The authenticationEnabled flag 
+7. The user disables authentication upon startup using the 'pin disable' command. The authenticationEnabled flag 
 is set to false and saved to the file.
 
-7. The user relaunches the application, and authentication is no longer required since it has been disabled. 
+8. The user relaunches the application, and authentication is no longer required since it has been disabled. 
 The user can proceed with the application and do any actions without entering a PIN.
 
 Code Snippet
@@ -747,7 +750,7 @@ Busy people with large transaction quantities among friends
 * Transaction - Payment made by ONE Lender on behalf of MULTIPLE Borrower, represented as a list of Subtransaction.
 * Subtransaction - Subset of Transaction, consists of ONE Lender and ONE Borrower.
 * Group - Discrete units each containing their respective lists of Member and Transaction.
-* Separator - "|" has been used to denote separator within this document but within the Storage related classes, the ASCII Unit Separator as denoted by ASCII 31 is used instead. This is defined within `StorageHandler`.
+* Separator - "\|" has been used to denote separator within this document but within the Storage related classes, the ASCII Unit Separator as denoted by ASCII 31 is used instead. This is defined within `StorageHandler`.
 
 ## Instructions for Testing
 

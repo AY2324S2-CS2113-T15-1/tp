@@ -25,34 +25,35 @@ The app will prompt you to create your own PIN if it is your first time using th
 
 A quick reference table for all commands is presented below. Certain commands have shortcuts which can be used in place of the provided long form commands as well.
 
-| Task                   | Command Expression                                                                                    | Command Shortcut |
-| ---------------------- |-------------------------------------------------------------------------------------------------------|------------------|
-| Help menu              | `help`                                                                                                | `?`              |
-| Add member             | `add member [name]`                                                                                   | `addm` or `am`   |
-| Add transaction        | `add transaction [lender] p/[borrower1] a/[amount] p/[borrower2] a/[amount] ...`                      | `addt` or `at`   |
-| Add dated transaction  | `add transaction lender t/[DD-MM-YYYY HHMM] p/[borrower1] a/[amount] p/[borrower2] a/[amount] ...`    | `addt` or `at`   |
-| Add group              | `add group [name]`                                                                                    | `addg` or `ag`   |
-| List members           | `list members`                                                                                        | `listm` or `lm`  |
-| List transactions      | `list transactions`                                                                                   | `listt` or `lt`  |
-| List debts             | `list debts`                                                                                          | `listd` or `ld`  |
-| List groups            | `list groups`                                                                                         | `listg` or `lg`  |
-| Find transactions      | `find transactions [member]`                                                                          | `findt` or `ft`  |
-| Find lender            | `find lender [member]`                                                                                | `findl` or `fl`  |
-| Find borrower          | `find borrower [member]`                                                                              | `findb` or `fb`  |
-| Find debts             | `find debts [member]`                                                                                 | `findd` or `fd`  |
-| Delete member          | `delete member [member]`                                                                              | `deletem` or `dm`|
-| Delete transaction     | `delete transaction [transaction_index]`                                                              | `deletet` or `dt`|
-| Delete group           | `delete group [name]`                                                                                 | `deleteg` or `dg`|
-| Edit member            | `edit member [old_name] p/[new_name]`                                                                 | `editm` or `em`  |
-| Edit transaction       | `edit transaction [transaction_index] [lender] p/[borrower1] a/[amount] p/[borrower2] a/[amount] ...` | `editt` or `et`  |
-| Enable PIN             | `pin enable`                                                                                          | N/A              |
-| Disable PIN            | `pin disable`                                                                                         | N/A              |
-| Reset PIN              | `pin reset`                                                                                           | N/A              |
-| Clear all transactions | `clear`                                                                                               | N/A              |
-| Settle up debts        | `settle [member]` OR `settleup [member]`                                                              | N/A              |
-| Switch groups          | `group [group_name]`                                                                                  | N/A              |
-| View chart             | `chart`                                                                                               | N/A              |
-| Exit                   | `exit`                                                                                                | N/A              |
+| Task                   | Command Expression                                                                                    | Command Shortcut  |
+|------------------------|-------------------------------------------------------------------------------------------------------|-------------------|
+| Help menu              | `help`                                                                                                | `?`               |
+| Add member             | `add member [name]`                                                                                   | `addm` or `am`    |
+| Add transaction        | `add transaction [lender] p/[borrower1] a/[amount] p/[borrower2] a/[amount] ...`                      | `addt` or `at`    |
+| Add dated transaction  | `add transaction lender t/[DD-MM-YYYY HHMM] p/[borrower1] a/[amount] p/[borrower2] a/[amount] ...`    | `addt` or `at`    |
+| Add group              | `add group [name]`                                                                                    | `addg` or `ag`    |
+| List members           | `list members`                                                                                        | `listm` or `lm`   |
+| List transactions      | `list transactions`                                                                                   | `listt` or `lt`   |
+| List debts             | `list debts`                                                                                          | `listd` or `ld`   |
+| List groups            | `list groups`                                                                                         | `listg` or `lg`   |
+| Find transactions      | `find transactions [member]`                                                                          | `findt` or `ft`   |
+| Find lender            | `find lender [member]`                                                                                | `findl` or `fl`   |
+| Find borrower          | `find borrower [member]`                                                                              | `findb` or `fb`   |
+| Find debts             | `find debts [member]`                                                                                 | `findd` or `fd`   |
+| Delete member          | `delete member [member]`                                                                              | `deletem` or `dm` |
+| Delete transaction     | `delete transaction [transaction_index]`                                                              | `deletet` or `dt` |
+| Delete group           | `delete group [name]`                                                                                 | `deleteg` or `dg` |
+| Edit member            | `edit member [old_name] p/[new_name]`                                                                 | `editm` or `em`   |
+| Edit transaction       | `edit transaction [transaction_index] [lender] p/[borrower1] a/[amount] p/[borrower2] a/[amount] ...` | `editt` or `et`   |
+| Enable PIN             | `pin enable`                                                                                          | N/A               |
+| Disable PIN            | `pin disable`                                                                                         | N/A               |
+| Reset PIN              | `pin reset`                                                                                           | N/A               |
+| Clear all transactions | `clear`                                                                                               | N/A               |
+| Settle up debts        | `settleup [member]`                                                                                   | `settle`          |
+| Switch groups          | `group [group_name]`                                                                                  | N/A               |
+| Filter transactions    | `filter time a/[TIME] b/[TIME]`                                                                       | N/A               |
+| View chart             | `chart`                                                                                               | N/A               |
+| Exit                   | `exit`                                                                                                | N/A               |
 
 ## Table of Contents
 - [LongAh! User Guide](#longah-user-guide)
@@ -73,7 +74,6 @@ A quick reference table for all commands is presented below. Certain commands ha
     - [Viewing help: `help`](#viewing-help-help)
     - [Adding a member: `add member`](#adding-a-member-add-member)
     - [Adding a transaction: `add transaction`](#adding-a-transaction-add-transaction)
-    - [Adding a dated transaction: `add transaction`](#adding-a-dated-transaction-add-transaction)
     - [Adding a new group `add group`](#adding-a-new-group-add-group)
     - [Listing all members: `list members`](#listing-all-members-list-members)
     - [Listing all transactions: `list transactions`](#listing-all-transactions-list-transactions)
@@ -92,9 +92,10 @@ A quick reference table for all commands is presented below. Certain commands ha
     - [Disabling the user PIN: `pin disable`](#disabling-the-user-pin-pin-disable)
     - [Resetting user PIN: `pin reset`](#resetting-user-pin-pin-reset)
     - [Clearing all transactions `clear`](#clearing-all-transactions-clear)
-    - [Settle a user's debts: `settle` OR `settleup`](#settle-a-users-debts-settle-or-settleup)
+    - [Settle a user's debts: `settleup`](#settle-a-users-debts-settleup)
     - [Switching groups: `group`](#switching-groups-group)
-    - [Views the balances of all members in the form of a chart: `chart`](#views-the-balances-of-all-members-in-the-form-of-a-chart-chart)
+    - [Filter transactions: `filter`](#filter-transactions-filter)
+    - [Views the balances of all members on a chart: `chart`](#views-the-balances-of-all-members-on-a-chart-chart)
     - [Exiting the application: `exit`](#exiting-the-application-exit)
   - [FAQ](#faq)
   - [Known Issues](#known-issues)
@@ -157,7 +158,7 @@ If all is well, LongAh will save the files in the following data structure durin
 └─tp.jar
 ```
 
-Note: It it not recommended to edit any data files manually. Corrupt lines of data will be ignored and overwritten over the course of the use of the application.
+Note: It is not recommended to edit any data files manually. Corrupt lines of data will be ignored and overwritten over the course of the use of the application.
 
 ### Data Editing
 
@@ -188,6 +189,14 @@ Format: `help` OR `?`
 Example of usage:
 ```
 help
+?
+    Here are the full list of commands available:
+
+    ADD commands: 
+    ____________________________________________________________
+    1. `add member [NAME]` - Add a new member to the group.
+    ...
+    ...
 ```
 
 ### Adding a member: `add member`
@@ -198,21 +207,26 @@ Format: `add member [NAME]` OR `addm` OR `am`
 
 * Name of new member should not be a duplicate of an existing member.
 * The entered name should only contain alphanumeric characters, no spaces or special characters are allowed.
-  * We suggest using pascal case for names with spaces or special characters, i.e. Tan Xiao Hong, Alicia = `TanXiaoHongAlicia`.
+* We suggest using pascal case for names with spaces or special characters, i.e. Tan Xiao Hong, Alicia = `TanXiaoHongAlicia`.
+* The name of the member is case-sensitive. i.e. 'Alice' and 'alice' are not considered the same member.
+* Names are limited to 50 characters.
 
 Example of usage:
 ```
 add member Alice
 addm Bob
 am Charlie
+    Added member: Charlie
 ```
 
 ### Adding a transaction: `add transaction`
 
 Adds a new transaction to the list of transactions in LongAh!.
 
-Format: `add transaction [LENDER] p/[BORROWER1] a/[AMOUNT] p/[BORROWER2] a/[AMOUNT] ...` OR `addt` OR `at`
+Format: `add transaction [LENDER] t/[DATE IN DD-MM-YYYY HHMM] p/[BORROWER1] a/[AMOUNT] p/[BORROWER2] a/[AMOUNT] ...` OR `addt` OR `at`
 * The transaction supports 1 or more borrower(s), each with custom borrowed amounts.
+* `t/` is the prefix for the transaction time, and should be followed by the transaction lender and before the name of the first borrower.
+* The transaction time is optional and can be omitted.
 * `p/` is the prefix for the borrower's name, and should be followed by the name of the borrower.
 * `a/` is the prefix for the amount borrowed, and should be followed by the amount borrowed by that borrower from the lender.
 * The `LENDER` and `BORROWER(s)` should be an existing member.
@@ -223,43 +237,42 @@ Example of usage:
 add transaction Alice p/Bob a/10
 addt Bob p/Alice a/5
 at Alice p/Bob a/7
+
 // Multiple Borrowers
-add transaction Alice p/Bob a/10 p/Charlie a/20
-```
+add transaction Alice p/Bob a/10 p/Charlie a/5
 
-### Adding a dated transaction: `add transaction`
-
-Adds a new dated transaction to the list of transactions in LongAh!.
-
-Format: `add transaction [LENDER] t/[DATE IN dd-MM-YYYY HHmm] p/[BORROWER1] a/[AMOUNT] p/[BORROWER2] a/[AMOUNT] ...`
-
-* The behavior for the lender and borrower portion of dated transactions is the same as normal transactions.
-* `t/` is the prefix for the transaction time, and should be followed by the transaction lender and before the name of the first borrower.
-
-Example of usage: 
-```
+// Dated Transaction
 add transaction Alice t/11-11-2000 2359 p/Bob a/10
+    Transaction added successfully!
+    Lender: alice
+    Transaction time: 11-11-2000 2359
+    Borrower 1: bob Owed amount: $10.00
 ```
 
 ### Adding a new group `add group`
 
-Adds a new group to LongAh! for you to manage expenses and debts separately.
+Adds a new group to LongAh! for you to manage expenses and debts separately for different groups of people.
 
 Format: `add group [GROUP_NAME]` OR `addg` OR `ag`
 
 * The Application will automatically prompt you to create a new group if this is your first time using LongAh!.
 * The Application will not automatically switch to the new group after adding. You can switch to the new group using the `group` command.
 * The entered group name should not be a duplicate of an existing group.
-* The entered group name should only contain alphanumeric characters, no spaces are allowed.
+* The entered group name should only contain alphanumeric characters, and no spaces are allowed.
+* The name of the group is case-sensitive. i.e. 'Tiktok' and 'tiktok' are not considered the same group.
+* Group names are limited to 50 characters.
 
 Example of usage:
 ```
 add group Tiktok
+addg Tiktok
+ag Tiktok
+    Added group: Tiktok
 ```
 
 ### Listing all members: `list members`
 
-Shows a list of all current members in LongAh! along with their current balances.
+Shows a list of all current members in the group along with their current balances.
 
 Format: `list members` OR `listm` OR `lm`
 
@@ -274,6 +287,8 @@ add member bob
 add transaction alice p/bob a/5
 
 list members
+listm
+lm
     alice: $5.0
     bob: -$5.0
 ```
@@ -293,6 +308,8 @@ add member bob
 add transaction alice p/bob a/5
 
 list transactions
+listt
+lt
     1.
     Lender: alice
     Borrower 1: bob Owed amount: 5.00
@@ -313,9 +330,11 @@ add transaction alice p/bob a/3 p/charlie a/4
 add transaction charlie p/alice a/5 p/bob a/1
 
 list debts
+listd
+ld
     Best Way to Solve Debts:
-    bob owes alice $2.0
     bob owes charlie $2.0
+    bob owes alice $2.0
 ```
 
 ### Listing all groups: `list groups`
@@ -327,10 +346,13 @@ Format: `list groups` OR `listg` OR `lg`
 Example of usage:
 ```
 // assume that the group 'Tiktok' already exists
+
 add group Friends
 add group Family
 
 list groups
+listg
+lg
     1. Tiktok
     2. Friends
     3. Family
@@ -351,14 +373,16 @@ add transaction Alice p/Bob a/5
 add transaction Bob p/Alice a/3
 
 find transactions Alice
-Alice is a part of the following list of transaction(s).
-1.
-Lender: Alice
-Borrower 1: Bob Owed amount: $5.00
-
-2.
-Lender: Bob
-Borrower 1: Alice Owed amount: $3.00
+findt Alice
+ft Alice
+    Alice is a part of the following list of transaction(s).
+    1.
+    Lender: Alice
+    Borrower 1: Bob Owed amount: $5.00
+    
+    2.
+    Lender: Bob
+    Borrower 1: Alice Owed amount: $3.00
 ```
 
 ### Find Lender `find lender`
@@ -371,11 +395,14 @@ Format: `find lender [MEMBER]` OR `findl` OR `fl`
 Example of usage:
 ```
 // Continuing from above example
+
 find lender Alice
-Alice is a lender in the following list of transaction(s).
-1.
-Lender: Alice
-Borrower 1: Bob Owed amount: $5.00
+findl Alice
+fl Alice
+    Alice is a lender in the following list of transaction(s).
+    1.
+    Lender: Alice
+    Borrower 1: Bob Owed amount: $5.00
 ```
 
 ### Find Borrower `find borrower`
@@ -388,11 +415,14 @@ Format: `find borrower [MEMBER]` OR `findb` OR `fb`
 Example of usage:
 ```
 // Continuing from above example
+
 find borrower Alice
-Alice is a borrower in the following list of transaction(s).
-1.
-Lender: Bob
-Borrower 1: Alice Owed amount: $3.00
+findb Alice
+fb Alice
+    Alice is a borrower in the following list of transaction(s).
+    1.
+    Lender: Bob
+    Borrower 1: Alice Owed amount: $3.00
 ```
 
 ### Find Debts `find debts`
@@ -409,18 +439,19 @@ add member Charlie
 add transaction Alice p/Charlie a/3
 
 find debts Alice
-Bob owes Alice $2.0
-Charlie owes Alice $3.0
+    Bob owes Alice $2.0
+    Charlie owes Alice $3.0
 
 add transaction Charlie p/Alice a/10
 
 findd Alice
-Alice owes Charlie $5.0
+fd Alice
+    Alice owes Charlie $5.0
 ```
 
 ### Deleting a member: `delete member`
 
-Deletes a member from the list of members in LongAh!.
+Deletes a member from the list of members in the group.
 
 Format: `delete member [MEMBER]` OR `deletem` OR `dm`
 * The `MEMBER` should be an existing member.
@@ -430,11 +461,14 @@ Format: `delete member [MEMBER]` OR `deletem` OR `dm`
 Example of usage:
 ```
 delete member Alice
+deletem Alice
+dm Alice
+    Deleted member: Alice
 ```
 
 ### Deleting a transaction: `delete transaction`
 
-Deletes a transaction from the list of transactions in LongAh!.
+Deletes a transaction from the list of transactions in the group.
 
 Format: `delete transaction [TRANSACTION_INDEX]` OR `deletet` OR `dt`
 * The `TRANSACTION_INDEX` should be an existing transaction number.
@@ -445,6 +479,12 @@ the transaction that you want to delete.
 Example of usage: 
 ```
 delete transaction 3
+deletet 3
+dt 3
+    Transaction #3 removed successfully.
+    Lender: Alice
+    Transaction time: 11-11-2000 2359
+    Borrower 1: Bob Owed amount: $10.00
 ```
 
 ### Deleting a group `delete group`
@@ -460,10 +500,15 @@ Format: `delete group [GROUP_NAME]` OR `deleteg` OR `dg`
 Example of usage:
 ```
 // assume that the group 'Tiktok' already exits
+
 add group friends
 delete group friends
-list groups
+deleteg friends
+dg friends
+    Remaining groups:
     1. Tiktok
+
+Deleted group: friends
 ```
 
 ### Editing a member: `edit member`
@@ -471,13 +516,15 @@ list groups
 Edits the name of a member in the list of members in LongAh!.
 
 Format: `edit member [OLD_NAME] p/[NEW_NAME]` OR `editm` OR `em`
+* `p/` is the prefix for the new name of the member.
 * The `OLD_NAME` should be an existing member.
 * The `NEW_NAME` should not be a duplicate of an existing member.
-* All transactions involving the member will be updated.
+* All transactions involving the member will be updated to reflect the new name.
 
 Example of usage:
 ```
-edit member Alice Bob
+edit member Alice p/Bob
+    Member name edited successfully! Alice is renamed to: Bob
 ```
 
 ### Editing a transaction: `edit transaction`
@@ -487,7 +534,7 @@ Edits the details of a transaction in the list of transactions in LongAh!.
 Format: `edit transaction [TRANSACTION_INDEX] [LENDER] p/[BORROWER1] a/[AMOUNT] p/[BORROWER2] a/[AMOUNT] ...` OR `editt` OR `et`
 * The `TRANSACTION_INDEX` should be an existing transaction number.
 * The `LENDER` and `BORROWER(s)` should be an existing member.
-* Transaction date and time can similarly be editted or added through the same format as per [add dated transaction](#adding-a-dated-transaction-add-transaction)
+* Transaction date and time can similarly be edited or added through the same format as per [add transaction](#adding-a-transaction-add-transaction)
 * Allows for edits to the lender and the borrowers involved in the transaction, as well as the amount.
 * The transaction number can be found by using the `list transactions` command and taking the corresponding index.
 * All debts involving the transaction will be recalculated.
@@ -499,8 +546,12 @@ add member Bob
 add member Charlie
 add transaction Alice p/Bob a/1
 
-edit transaction 1 Charlie p/Bob a/3 p/Alice a/5
-editt 1 Bob 19-02-2024 1400 p/Charlie a/3
+edit transaction 1 Bob p/Alice a/3
+editt 1 Bob p/Alice a/3
+et 1 Bob p/Alice a/3
+    Transaction #1 edited successfully.
+    Lender: Bob
+    Borrower 1: Alice Owed amount: $3.00
 ```
 
 ### Enabling the user PIN: `pin enable`
@@ -512,6 +563,7 @@ Format: `pin enable`
 Example of usage: 
 ```
 pin enable
+    Authentication enabled upon startup.
 ```
 
 ### Disabling the user PIN: `pin disable`
@@ -523,6 +575,7 @@ Format: `pin disable`
 Example of usage:
 ```
 pin disable
+    Authentication disabled upon startup.
 ```
 
 ### Resetting user PIN: `pin reset`
@@ -535,11 +588,17 @@ Format: `pin reset`
 Example of usage:
 ```
 pin reset
+    Enter your current PIN: 654321
+    Create your 6-digit PIN: 123456
+    PIN saved successfully! You can enter 'pin enable' to enable authentication upon startup.
 ```
 
 ### Clearing all transactions `clear`
 
-Clear all previous transactions logged in LongAh!. Members balances will be reset to 0.
+Clear all previous transactions logged in the group. Members balances will be reset to 0.
+
+* The application will prompt you to confirm the action before clearing all transactions.
+* This action cannot be undone.
 
 Format: `clear`
 
@@ -548,18 +607,17 @@ Example of usage:
 add member Alice
 add member Bob
 add transaction Bob p/Alice a/3
-
-list transactions
-1.
-Lender: Bob
-Borrower 1: Alice Owed amount: 3.00
-
 clear
-list transactions
-No transactions found.
+    Are you sure you want to clear all transactions? (Y/N)
+    This action cannot be undone. All transaction data will be lost.
+    Enter 'N' or any other key to cancel.
+    
+y
+    All transaction records have been cleared.
+    All transactions have been cleared for this account.
 ```
 
-### Settle a user's debts: `settle` OR `settleup`
+### Settle a user's debts: `settleup`
 
 Settles all debts of the specified member with all other members. A transaction will be created to settle the debts and reset
 the debt balance of the specified member to 0, while updating the balance(s) of all relevant lender(s).
@@ -582,14 +640,17 @@ list debts
     bob owes charlie $3.0
 
 settleup bob
+settle bob
     bob has repaid alice $1.0
+    Transaction added successfully!
     bob has repaid charlie $3.0
-    bob has no more debts!
+    
+    Transaction added successfully!
+    Lender: bob
+    Borrower 1: alice Owed amount: $1.00
+    Borrower 2: charlie Owed amount: $3.00
 
-list members
-    alice: $0.0
-    bob: $0.0
-    charlie: $0.0
+    bob has no more debts!
 ``` 
 
 ### Switching groups: `group`
@@ -603,11 +664,28 @@ Example of usage:
 ```
 // assume that the user is currently managing group 'Tiktok'
 add group friends
+    Added group: friends
+    
 group friends
-    Switching to group: friends
+    Switching groups...
+    You are now managing: friends
 ```
 
-### Views the balances of all members in the form of a chart: `chart`
+### Filter transactions: `filter`
+
+Filters transactions based on the time of the transaction.
+
+Format: `filter time a/[TIME] b/[TIME]` OR `filter time a/[TIME]` OR `filter time b/[TIME]` OR `filter time`
+* The `TIME` should be in the format `dd-MM-yyyy HHmm`.
+* The `a/` prefix is used to filter transactions that occurred after the specified time.
+* The `b/` prefix is used to filter transactions that occurred before the specified time.
+
+Example of usage:
+```
+
+```
+
+### Views the balances of all members on a chart: `chart`
 
 Shows a chart of the balances of all members in the group.
 
@@ -631,17 +709,19 @@ They are color-coded to show the balance status of each member.
 
 A separate tooltip will show the exact balance of each member.
 
-![viewChart.png](diagrams%2FviewChart.png)
+![viewChart.png](diagrams/viewChart.png)
 
 ### Exiting the application: `exit`
 
 Exits the application.
 
-Format: `exit`
+Format: `exit` or `close`
 
 Example of usage:
 ```
 exit
+close
+    Goodbye! Hope to see you again soon!
 ```
 
 <div style="page-break-after: always;"></div>

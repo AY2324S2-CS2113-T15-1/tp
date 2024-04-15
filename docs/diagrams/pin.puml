@@ -1,0 +1,16 @@
+@startuml
+actor User
+participant ":PINHandler" as PINHandler
+
+User -> PINHandler: start up
+loop until valid PIN entered
+    PINHandler --> User: Enter your PIN
+    User -> PINHandler: [enters PIN]
+    PINHandler -> PINHandler: Compare entered PIN
+    alt PIN is correct
+        PINHandler --> User: Login successful!
+    else PIN is incorrect
+        PINHandler --> User: Invalid PIN. Please try again.
+    end
+end
+@enduml

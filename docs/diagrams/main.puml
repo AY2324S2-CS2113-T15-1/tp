@@ -1,0 +1,30 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class LongAh
+class PINHandler
+class "{abstract}\nCommand"
+class GroupList
+class Group
+class MemberList
+class Member
+class TransactionList
+class Transaction
+class Subtransaction
+class StorageHandler
+
+LongAh "1" -> "1" PINHandler
+LongAh -> "{abstract}\nCommand"
+LongAh "1" -d-> "1" GroupList
+"{abstract}\nCommand" -[dashed]-> Group
+GroupList "1" -> "*" Group
+Group "1" -d-> "1" StorageHandler
+Group "1" -d-> "1" MemberList
+Group "1" -d-> "1" TransactionList
+MemberList "1" -d-> "*" Member
+TransactionList "1" -d-> "*" Transaction
+Transaction "1" -d-> "*" Subtransaction
+Group "1" -> "*" Subtransaction
+
+@enduml

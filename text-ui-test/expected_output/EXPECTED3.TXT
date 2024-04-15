@@ -129,10 +129,9 @@ Lender: Dane
 Transaction time: 01-01-2000 1800
 Borrower 1: Charlie Owed amount: $1.00
 ____________________________________________________________
-Enter command: Transaction added successfully!
-Dane has repaid Esther $3.85
-Transaction added successfully!
+Enter command: Dane has repaid Esther $3.85
 Dane has repaid Charlie $2.55
+
 Transaction added successfully!
 Lender: Dane
 Borrower 1: Esther Owed amount: $3.85
