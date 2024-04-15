@@ -27,6 +27,8 @@
     - [Text UI Testing](#text-ui-testing)
   - [Future Enhancements](#future-enhancements)
 
+<div style="page-break-after: always;"></div>
+
 ## Acknowledgements
 
 LongAh uses the following libraries:
@@ -44,9 +46,13 @@ The UML diagram below provides an overview of the classes and their interactions
 
 ![Main UML](diagrams/main.png)
 
+<div style="page-break-after: always;"></div>
+
 The high-level overview of the application is provided in the flowchart below as well.
 
 ![Flowchart](diagrams/Flowchart.png)
+
+<div style="page-break-after: always;"></div>
 
 Design and Implementation has been broken down into the subsequent sections, each tagged for ease of reference:
 
@@ -105,6 +111,8 @@ The following diagram is an inheritance diagram for `Command` and its children c
 
 ![Command Inheritance Diagram](diagrams/CommandInheritance.png)
 
+<div style="page-break-after: always;"></div>
+
 The following diagram is a sequence diagram for execution of `Command`.
 
 ![Command Execution Sequence Diagram](diagrams/CommandExecutionSequenceDiagram.png)
@@ -124,6 +132,8 @@ The `Command` constructor updates the attributes based on the input arguments.
 
 The abstract `Command` class and its related children classes have the following method:
 * *execute*: Effect the command based on the `CommandString` and the `TaskExpression`.
+
+<div style="page-break-after: always;"></div>
 
 ### Storage
 
@@ -151,6 +161,8 @@ LENDER NAME | TRANSACTION TIME(if applicable) | BORROWER1 NAME | AMOUNT1 | BORRO
 
 ![Sample Transactions File](diagrams/TransactionsFileSample.png)
 
+<div style="page-break-after: always;"></div>
+
 The following diagram is a sequence diagram of the initialisation of `StorageHandler`. Here, it reads data from the 2 data storage files and creates `Member` and `Transaction` objects in the associated utility list objects.
 
 ![StorageHandler Init Sequence Diagram](diagrams/StorageHandlerInitSequenceDiagram.png)
@@ -167,6 +179,8 @@ The `StorageHandler` has the following attributes:
 * *members*: A MemberList object representing the list of Members in the group.
 * *transactions*: A TransactionList object representing the list of Transactions in the group.
 * *scanners*: A size 2 array of Scanners to be used for loading data from the data storage files. The first Scanner in the array is used for reading from `members.txt` while the second is used for reading from `transactions.txt`.
+
+<div style="page-break-after: always;"></div>
 
 <ins>Constructor</ins>
 
@@ -207,6 +221,8 @@ Assume functions modifying members and transactions are called following that.
 storage.saveAllData();
 ```
 
+<div style="page-break-after: always;"></div>
+
 <ins>Design Considerations</ins>
 
 * Update upon change, not upon exit - This allows for data to be saved even if the application exits ungracefully.
@@ -233,6 +249,8 @@ The `GroupList` class has the following static fields.
 * *activeGroup*: A Group object representing the currently active group.
 * *groupList*: An array list collection of Group objects representing the list of groups stored in the application.
 
+<div style="page-break-after: always;"></div>
+
 <ins>Implementation Details</ins>
 
 The detailed class diagram for `Group` and `GroupList` can be found below.
@@ -246,6 +264,8 @@ The `Group` constructor creates a group object with the given group name and ini
 Key arguments of the Group constructor is a string `groupName`.
 
 The `GroupList` constructor initializes an empty array list of groups for newly created groups to be added and stored to.
+
+<div style="page-break-after: always;"></div>
 
 <ins>Methods</ins>
 
