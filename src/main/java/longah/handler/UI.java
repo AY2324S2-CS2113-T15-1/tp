@@ -95,4 +95,10 @@ public class UI {
         showMessage(SEPARATOR);
     }
 
+    /**
+     * Prints an empty line.
+     */
+    public static void printEmptyLine() {
+        showMessage("");
+    }
 }

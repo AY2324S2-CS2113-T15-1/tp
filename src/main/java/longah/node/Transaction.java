@@ -195,7 +195,7 @@ public class Transaction {
      * @param memberName String representation of member name to check
      * @return a boolean value determining whether the input name is the owner of the transaction
      */
-    public boolean isLender(String memberName) {
+    public boolean checkIsLender(String memberName) {
         return lender.isName(memberName);
     }
 
@@ -221,7 +221,7 @@ public class Transaction {
      * @return a boolean value determining whether the input name is involved in the transaction
      */
     public boolean isInvolved(String memberName) {
-        return isLender(memberName) || checkIsBorrower(memberName);
+        return checkIsLender(memberName) || checkIsBorrower(memberName);
     }
 
     /**
@@ -283,8 +283,8 @@ public class Transaction {
     /**
      * Edits the specified transaction based on user input.
      *
-     * @param expression   The user input for editing the transaction.
-     * @param memberList   The list of members in the group.
+     * @param expression The user input for editing the transaction.
+     * @param memberList The list of members in the group.
      * @throws LongAhException If the transaction index is invalid or if the edit input is in an invalid format.
      */
     public void editTransaction(String expression, MemberList memberList) throws LongAhException {

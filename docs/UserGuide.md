@@ -51,7 +51,7 @@ A quick reference table for all commands is presented below. Certain commands ha
 | Clear all transactions | `clear`                                                                                               | N/A               |
 | Settle up debts        | `settleup [member]`                                                                                   | `settle`          |
 | Switch groups          | `group [group_name]`                                                                                  | N/A               |
-| Filter transactions    | `filter time a/[TIME] b/[TIME]`                                                                       | N/A               |
+| Filter transactions    | `filter a/[TIME] b/[TIME]`                                                                            | N/A               |
 | View chart             | `chart`                                                                                               | N/A               |
 | Exit                   | `exit`                                                                                                | N/A               |
 
@@ -65,6 +65,7 @@ A quick reference table for all commands is presented below. Certain commands ha
     - [Group Management](#group-management)
     - [Member and Transaction Management](#member-and-transaction-management)
     - [Group Balances \& Expense Tracking](#group-balances--expense-tracking)
+    - [Easily Finding Transactions You Need](#Easily-Finding-Transactions)
     - [Debt Simplification](#debt-simplification)
     - [Security](#security)
     - [Data Storage](#data-storage)
@@ -94,10 +95,13 @@ A quick reference table for all commands is presented below. Certain commands ha
     - [Clearing all transactions `clear`](#clearing-all-transactions-clear)
     - [Settle a user's debts: `settleup`](#settle-a-users-debts-settleup)
     - [Switching groups: `group`](#switching-groups-group)
-    - [Filter transactions: `filter`](#filter-transactions-filter)
+    - [Filter transactions (by transaction time): `filter`](#filter-transactions-filter)
     - [Views the balances of all members on a chart: `chart`](#views-the-balances-of-all-members-on-a-chart-chart)
     - [Exiting the application: `exit`](#exiting-the-application-exit)
   - [FAQ](#faq)
+  - [Common Errors](#Common-Errors)
+    - [Failure to adhere to command format](#Failure-to-adhere-to-command-format)
+    - [Invalid Requests](#Invalid-Requests)
   - [Known Issues](#known-issues)
   - [Future Improvements](#future-improvements)
 
@@ -118,6 +122,10 @@ Within each group, LongAh! provides comprehensive member and transaction managem
 ### Group Balances & Expense Tracking
 
 Tracking group balances and expenses has never been easier with LongAh! Users can log transactions between members, facilitating transparent and equitable expense distribution. LongAh! also offers intuitive visualizations, allowing users to quickly assess group financial dynamics at a glance.
+
+### Easily Finding Transactions
+
+Apart from neatly organising users' pending transactions, LongAh! offers a variety of ways for users to conveniently locate the transactions they are interested in by simply providing the related details. As of now, LongAh! has embedded support towards user searches based on both member names and transaction time, effectively lowering the cost of navigating through the transaction list when entries increase. 
 
 ### Debt Simplification
 
@@ -673,16 +681,61 @@ group friends
 
 ### Filter transactions: `filter`
 
-Filters transactions based on the time of the transaction.
+Filters transactions based on the date & time of dated transactions.
 
-Format: `filter time a/[TIME] b/[TIME]` OR `filter time a/[TIME]` OR `filter time b/[TIME]` OR `filter time`
-* The `TIME` should be in the format `dd-MM-yyyy HHmm`.
-* The `a/` prefix is used to filter transactions that occurred after the specified time.
-* The `b/` prefix is used to filter transactions that occurred before the specified time.
+Format: `filter a/[TIME] b/[TIME]` OR `filter a/[TIME]` OR `filter b/[TIME]` OR `filter [TIME]`
+
+* The `TIME` should be in the format of `DD-MM-YYYY HHMM`.
+* The `a/` prefix is used to specify the earlier time bound of the search. It should be before the `b/` prefix at all times.
+* The `b/` prefix is used to specify the later time bound of the search.
+* The `filter a/[TIME] b/[TIME]` command applies for searching transactions occurring between a specified time period.
+* The `filter a/[TIME]` command applies for searching transactions after a specified date & time.
+* The `filter b/[TIME]` command applies for searching transactions before a specified date & time.
+* The `filter [TIME]` command applies for searching transactions matching a specified date & time.
 
 Example of usage:
 ```
+add member alice
+add member bob
+add transaction alice t/01-01-2022 2359 p/bob a/3
+add transaction alice t/01-01-2023 2359 p/bob a/3
+add transaction alice t/01-01-2024 2359 p/bob a/3
 
+filter a/01-02-2022 2359 b/01-02-2023 2359 //filtering transactions between a time period
+  The following list of transactions is between the time 01-02-2022 2359 and 01-02-2023 2359.
+  2.
+  Lender: alice
+  Transaction time: 01-01-2023 2359
+  Borrower 1: bob Owed amount: $3.00
+
+filter a/01-01-2020 2359 //filtering transactions after a specified date & time
+  The following list of transactions is after the time 01-01-2020 2359.
+  1.
+  Lender: alice
+  Transaction time: 01-01-2022 2359
+  Borrower 1: bob Owed amount: $3.00
+  2.
+  Lender: alice
+  Transaction time: 01-01-2023 2359
+  Borrower 1: bob Owed amount: $3.00
+  3.
+  Lender: alice
+  Transaction time: 01-01-2024 2359
+  Borrower 1: bob Owed amount: $3.00
+
+filter b/31-12-2022 2359 //filtering transcations before a specified date & time
+  The following list of transactions is before the time 31-12-2022 2359.
+  1.
+  Lender: alice
+  Transaction time: 01-01-2022 2359
+  Borrower 1: bob Owed amount: $3.00
+
+filter 01-01-2024 2359 //filtering transactions matching a specified date & time
+  The following list of transactions matches with the time 01-01-2024 2359.
+  3.
+  Lender: alice
+  Transaction time: 01-01-2024 2359
+  Borrower 1: bob Owed amount: $3.00
 ```
 
 ### Views the balances of all members on a chart: `chart`
@@ -731,6 +784,42 @@ close
 **Q**: How do I transfer my data to another computer? 
 
 **A**: Install LongAh! on the other computer and replace the empty members, pin, and transaction TXT files it creates with the files containing your data.
+
+## Common Errors
+
+### Failure to adhere to command format
+Error messages will be output by LongAh! in the event if the user input does not match the corresponding formatting for 
+the desired operation. For e.g.
+```
+lsit transactions
+  Invalid command. Use 'help' to see the list of commands.
+```
+Or
+```
+filter 23-Nov-2022 11:59
+  Invalid DateTime format. Please format you date and time inputs in the form of DD-MM-YYYY HHmm
+```
+This could be potentially caused by
+* Misspelled Action keywords (e.g. lsit transactions instead of list transactions)
+* Absence of required user parameters
+* Absence of important formatting prefixes (e.g. t/)
+* User parameters does not follow intended standards (e.g. Wrong formatting of date & time input)
+
+### Invalid Requests
+As LongAh! is designed to specifically target transactions taking place in real-life, illogical requests going against 
+real-life/system standards may also trigger error messages. For e.g.,
+```
+add transaction alice t/20-07-2077 2359 p/bob a/200
+  Invalid DateTime input. Dates of the future are not allowed.
+```
+Or
+```
+add transaction alice p/bob a/200.0005
+  Invalid transaction value.
+```
+This could be potentially caused by
+* Invalid parameters (e.g. Dates of the future, Transaction Values more than 2 decimal places)
+* Illogical parameters (e.g. A member being both a lender and a borrower within a transaction)
 
 ## Known Issues
 

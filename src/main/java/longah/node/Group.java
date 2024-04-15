@@ -6,14 +6,13 @@ import longah.util.MemberList;
 import longah.util.Subtransaction;
 import longah.util.TransactionList;
 import longah.handler.Logging;
+import longah.handler.NameHandler;
 import longah.handler.StorageHandler;
 import longah.handler.UI;
 import longah.exception.LongAhException;
 import longah.exception.ExceptionMessage;
 
 public class Group {
-    private static final int MAX_NAME_LENGTH = 50;
-
     private MemberList members;
     private TransactionList transactions;
     private StorageHandler storage;
@@ -27,15 +26,7 @@ public class Group {
      * @throws LongAhException If the group name is invalid
      */
     public Group(String groupName) throws LongAhException {
-        // Check if group name is fully alphanumeric
-        if (!groupName.matches("[A-Za-z0-9]+")) {
-            throw new LongAhException(ExceptionMessage.INVALID_GROUP_NAME);
-        }
-        // Check if name exceeds character limit
-        if (groupName.length() > MAX_NAME_LENGTH) {
-            throw new LongAhException(ExceptionMessage.CHAR_LIMIT_EXCEEDED);
-        }
-        
+        NameHandler.checkGroupNameValidity(groupName);
         this.groupName = groupName;
         this.members = new MemberList();
         this.transactions = new TransactionList();
@@ -45,7 +36,7 @@ public class Group {
 
     /**
      * Sets the name of the group.
-     * 
+     *
      * @param groupName The name of the group
      */
     public void setGroupName(String groupName) {
@@ -54,7 +45,7 @@ public class Group {
 
     /**
      * Returns the name of the group.
-     * 
+     *
      * @return The name of the group
      */
     public String getGroupName() {
@@ -63,7 +54,7 @@ public class Group {
 
     /**
      * Sets the member list of the group.
-     * 
+     *
      * @param members The member list to be set
      */
     public void setMemberList(MemberList members) {
@@ -72,7 +63,7 @@ public class Group {
 
     /**
      * Returns the member list of the group.
-     * 
+     *
      * @return The member list of the group
      */
     public MemberList getMemberList() {
@@ -81,7 +72,7 @@ public class Group {
 
     /**
      * Sets the transaction list of the group.
-     * 
+     *
      * @param transactions The transaction list to be set
      */
     public void setTransactionList(TransactionList transactions) {
@@ -90,7 +81,7 @@ public class Group {
 
     /**
      * Returns the transaction list of the group.
-     * 
+     *
      * @return The transaction list of the group
      */
     public TransactionList getTransactionList() {
@@ -99,7 +90,7 @@ public class Group {
 
     /**
      * Update the transaction solution of the group based on the debts and credits of the members.
-     * 
+     *
      * @throws LongAhException If the transaction solution cannot be updated
      */
     public void updateTransactionSolution() throws LongAhException {
@@ -129,7 +120,7 @@ public class Group {
                 UI.showMessage(borrowerName + " has repaid " + lender.getName() + " $" + amountRepaid);
             }
         }
-        UI.showMessage("");
+        UI.printEmptyLine();
         this.transactions.addTransaction(transactionExpression, this.members);
         updateTransactionSolution();
         assert this.members.getMember(borrowerName).getBalance() == 0 : "Borrower should have no more debts.";
@@ -138,7 +129,7 @@ public class Group {
 
     /**
      * Saves the member data into the storage file.
-     * 
+     *
      * @throws LongAhException If the data file is not written
      */
     public void saveMembersData() throws LongAhException {
@@ -147,7 +138,7 @@ public class Group {
 
     /**
      * Saves the transaction data into the storage file.
-     * 
+     *
      * @throws LongAhException If the data file is not written
      */
     public void saveTransactionsData() throws LongAhException {
@@ -156,7 +147,7 @@ public class Group {
 
     /**
      * Saves the data from the member list and transaction list into storage file.
-     * 
+     *
      * @throws LongAhException If the data file is not written
      */
     public void saveAllData() throws LongAhException {
@@ -164,9 +155,9 @@ public class Group {
     }
 
     /**
-     * Returns the solution to the debts in the group.
-     * 
-     * @return The solution to the debts in the group
+     * Returns a string representation of the solution to all debts in the group.
+     *
+     * @return The solution to all debts in the group
      * @throws LongAhException If there are no debts to be solved
      */
     public String listDebts() throws LongAhException {
@@ -178,13 +169,13 @@ public class Group {
         for (Subtransaction subtransaction : this.transactionSolution) {
             solution += subtransaction.toString() + "\n";
         }
-        return solution;
+        return solution.trim();
     }
 
     /**
-     * Returns the list of members in the group.
-     * 
-     * @return The list of members in the group
+     * Returns the solution to the debt of the specified member in the group.
+     *
+     * @return The solution to the debt of the specified member
      * @throws LongAhException If there are no members in the group
      */
     public String listIndivDebt(String name) throws LongAhException {
@@ -199,6 +190,6 @@ public class Group {
                 output += subtransaction.toString() + "\n";
             }
         }
-        return output;
+        return output.trim();
     }
 }

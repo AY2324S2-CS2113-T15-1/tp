@@ -11,6 +11,7 @@
     - [Group and GroupList](#group-and-grouplist)
     - [Member and MemberList](#member-and-memberlist)
     - [Transaction and TransactionList](#transaction-and-transactionlist)
+    - [DateTime](#datetime)
     - [PIN](#pin)
     - [Chart](#chart)
     - [Exceptions and Logging](#exceptions-and-logging)
@@ -37,7 +38,6 @@ LongAh uses the following tools for development:
 1. [JUnit 5](https://junit.org/junit5/) - Used for testing.
 2. [Gradle](https://gradle.org/) - Used for build automation.
 
-
 ## Design & Implementation
 
 The UML diagram below provides an overview of the classes and their interactions within the LongAh application.
@@ -56,6 +56,7 @@ Design and Implementation has been broken down into the subsequent sections, eac
 * [Group and GroupList](#group-and-grouplist)
 * [Member and MemberList](#member-and-memberlist)
 * [Transaction and TransactionList](#transaction-and-transactionlist)
+* [DateTime](#DateTime)
 * [PIN](#pin)
 * [Chart](#chart)
 * [Exceptions and Logging](#exceptions-and-logging)
@@ -80,11 +81,11 @@ The InputHandler class itself does not have any attributes.
 The `UI` class has the following key methods:
 
 * *getUserInput*: Reads the user input from the console and returns it as a String.
-* *showMessage*: Displays the provided message to the user. This is overloaded to take either a String or a String and a boolean. The latter is used to define whether a newline should be printed at the end of the String. Newline is printed by default. 
+* *showMessage*: Displays the provided message to the user. This is overloaded to take either a String or a String and a boolean. The latter is used to define whether a newline should be printed at the end of the String. Newline is printed by default.
 
 The `InputHandler` class has the following key method:
 
-* *paseInput*: Parses the user input and returns the corresponding `Command` object.
+* *parseInput*: Parses the user input and returns the corresponding `Command` object.
 
 <ins>Design Considerations</ins>
 
@@ -100,7 +101,7 @@ The `Command` class has been subdivided into further packages for similar comman
 
 <ins>Implementation Details</ins>
 
-The following diagram is a inheritance diagram for `Command` and its children classes. This has been heavily simplified and only shows the key commands.
+The following diagram is an inheritance diagram for `Command` and its children classes. This has been heavily simplified and only shows the key commands.
 
 ![Command Inheritance Diagram](diagrams/CommandInheritance.png)
 
@@ -143,7 +144,7 @@ NAME | BALANCE
 ![Sample Members File](diagrams/MembersFileSample.png)
 
 * `transactions.txt`
-  
+
 ```
 LENDER NAME | TRANSACTION TIME(if applicable) | BORROWER1 NAME | AMOUNT1 | BORROWER2 NAME...
 ```
@@ -156,7 +157,7 @@ The following diagram is a sequence diagram of the initialisation of `StorageHan
 
 <ins>Class Structure</ins>
 
-The StorageHandler has the following attributes:
+The `StorageHandler` has the following attributes:
 
 * *storageFolderPath*: A string containing the path to the storage directory specific to the group.
 * *storageMembersFilePath*: A string containing the path to the `members.txt` directory associated with the group.
@@ -171,7 +172,7 @@ The StorageHandler has the following attributes:
 
 The `StorageHandler` constructor creates the relevant data storage directories if they do not current exist while initializing the attributes of the object.
 
-Key arguments for the constructor are a `MemberList` object, a `TransactionList` object and a string `groupName`. The first two are used to represent the list of `Member` objects and the list of `Transaction` objects associated with the group for reference when loading or saving data. The last represents the directory to be written to to ensure that data across groups are kept discrete.
+Key arguments for the constructor are a `MemberList` object, a `TransactionList` object and a string `groupName`. The first two are used to represent the list of `Member` objects and the list of `Transaction` objects associated with the group for reference when loading or saving data. The last represents the directory to be written to ensure that data across groups are kept discrete.
 
 <ins>Methods</ins>
 
@@ -179,7 +180,7 @@ Key arguments for the constructor are a `MemberList` object, a `TransactionList`
 * *loadTransactionsData*: Reads data from `transactionsFile` and unpacks it, checking if each member exists in `MemberList` before inserting `Transaction` objects into `TransactionList`.
 * *saveMembersData*: Writes packaged data from each `Member` and saves it as a record in `membersFile`.
 * *saveTransactionsData*: Writes packaged data from each `Transaction` and saves it as a record in `transactionsFile`.
-  
+
 Data loading methods are merged in the *loadAllData* method while data saving methods are merged in the *saveAllData* method.
 
 <ins>Usage Example</ins>
@@ -215,17 +216,143 @@ storage.saveAllData();
 
 <ins>Overview</ins>
 
-<ins>Implementation Details</ins>
+The `Group` class is used to represent a group of people who have transactions among themselves. The `GroupList` class is used to represent a list of groups
+stored in the application.
 
 <ins>Class Structure</ins>
 
+The `Group` class has the following attributes.
+* *memberList*: A MemberList object representing the list of Members in the group.
+* *transactionList*: A TransactionList object representing the list of Transactions in the group.
+* *storage*: A StorageHandler object representing the storage handler for the group.
+* *groupName*: A string representing the name of the group.
+* *transactionSolution*: An array list collection of Subtransaction objects representing the least transactions solution to solving all debts in the group.
+
+The `GroupList` class has the following static fields.
+* *GROUP_LIST_FILE_PATH*: The path to the file where the group list is stored.
+* *activeGroup*: A Group object representing the currently active group.
+* *groupList*: An array list collection of Group objects representing the list of groups stored in the application.
+
+
+<ins>Implementation Details</ins>
+
+The detailed class diagram for `Group` and `GroupList` can be found below.
+
+![Group Class Diagram](diagrams/GroupClass.png)
+
 <ins>Constructor</ins>
+
+The Group constructor creates a group object with the given group name and initializes a new member list, transaction list, storage handler. The latter is used to ensure that data across groups are kept discrete.
+
+Key arguments of the Group constructor is a string `groupName`.
+
+The GroupList constructor initializes an empty array list of groups for newly created groups to be added and stored to.
 
 <ins>Methods</ins>
 
+The `Group` class has the following key methods.
+* *updateTransactionSolution*: Updates the current transaction solution of the group based on the current list of transactions.
+* *settleUp*: Settles the debt of the specified member by creating a transaction with the lender(s) based on the transaction solution of the group.
+* *saveAllData*: Saves the current member and transaction data of the group to the storage handler.
+* *listDebts*: Returns a string representation of the current transaction solution to all debts in the group.
+* *listIndivDebt*: Returns a string representation of the current transaction solution to the debt of a specified member in the group.
+
+The `GroupList` class has the following key methods.
+* *switchActiveGroup*: Switches the active group to the group with the specified name. This method is used when the user wants to switch to manage a different group.
+* *createGroup*: Prompts user to enter a new group name and creates a new group with the specified name. Automatically sets it as the active group.
+* *loadGroupList*: Loads the list of groups stored in the application from the storage handler.
+* *addGroup*: Adds a group to the group list. This method is used when a new group is created.
+* *deleteGroup*: Deletes a group from the group list based on the specified group name. The member and transaction files associated with the group are also deleted from storage.
+* *saveGroupList*: Saves the list of groups stored in the groupList to the storage handler.
+
 <ins>Usage Example</ins>
 
+The following code segment outlines a sample use of `Group`.
+
+```
+import longah.util.TransactionList;
+import longah.handler.UI;
+import longah.exception.LongAhException;
+import longah.node.Group;
+
+// Creating a new group
+Group myGroup = new Group("MyGroup");
+
+// Adding members to the group
+myGroup.getMemberList().addMember("Alice");
+myGroup.getMemberList().addMember("Bob");
+myGroup.getMemberList().addMember("Charlie");
+
+// Adding transactions to the group
+TransactionList transactions = new TransactionList();
+transactions.addTransaction("Alice p/Bob a/20", myGroup.getMemberList());
+transactions.addTransaction("Charlie p/Alice a/15", myGroup.getMemberList());
+transactions.addTransaction("Bob p/Charlie a/10", myGroup.getMemberList());
+
+// Setting the transactions for the group
+myGroup.setTransactionList(transactions);
+
+// Updating transaction solutions for the group
+myGroup.updateTransactionSolution();
+
+// Listing debts in the group
+String debts = myGroup.listDebts();
+UI.showMessage("Debts in the group:\n" + debts);
+
+// Settling up debts for a specific member
+myGroup.settleUp("Alice");
+
+// Saving all data related to the group
+myGroup.saveAllData();
+```
+
+The following code segment outlines a sample use of `GroupList`.
+
+```
+import longah.exception.LongAhException;
+import longah.handler.UI;
+import longah.node.GroupList;
+
+// Creating a new GroupList instance
+GroupList groupList = new GroupList();
+
+// Creating a new group and adding it to the group list
+groupList.createGroup();
+
+// Init and add more groups to the list
+Group group2 = new Group("Group1");
+Group group3 = new Group("Group2");
+groupList.addGroup(group2);
+groupList.addGroup(group3);
+
+// Getting the active group
+UI.showMessage("Active Group: " + GroupList.getActiveGroup().getGroupName());
+
+// Listing all groups
+String allGroups = groupList.getGroupList();
+UI.showMessage("All Groups:\n" + allGroups);
+
+// Switching to a different active group
+GroupList.switchActiveGroup(groupList.getGroup("Group2"));
+UI.showMessage("Active Group: " + GroupList.getActiveGroup().getGroupName());
+
+// Deleting a group from the list
+groupList.deleteGroup("Group3");
+
+// Saving the updated group list
+groupList.saveGroupList();
+```
+
 <ins>Design Considerations</ins>
+
+The Group class takes the following into consideration.
+* The class ensures that group names are alphanumeric and does not allow for special characters including blank space.
+* `settleUp` minimizes the number of transactions needed to settle the debt of a member by creating a single transaction with all lender(s) as borrower(s) based on the transaction solution of the group.
+
+The GroupList class takes the following into consideration.
+* `createGroup` checks if the groupList is empty and automatically prompts the user to create a new group if it is and sets it as the active group.
+* `loadGroupList` is called at the start of the application to ensure that all groups are loaded from storage into the groupList.
+
 
 ### Member and MemberList
 
@@ -267,9 +394,9 @@ The `Member` class has the following key methods.
 * *subtractFromBalance*: Subtracts the value of a transaction from a member. Absolute values are used to reduce complexity of balance update method calls for both the loaner and the borrower.
 * *clearBalance*: Resets the current balance of a member to zero. Used then the clear command is invoked.
 
-The MemberList class has the following key methods.
+The `MemberList` class has the following key methods.
 
-* *addMember*: Adds a member object to the current array list of members. This method is overloaded to allow for appending an exisiting member object or appending a newly created member object.
+* *addMember*: Adds a member object to the current array list of members. This method is overloaded to allow for appending an existing member object or appending a newly created member object.
 * *isMember*: Checks if a member object is already a part of the current array list of members.
 * *getMember*: Returns the member object representation given the name of a member.
 * *editMemberName*: Updates the name of an existing member based on their current name.
@@ -323,130 +450,273 @@ members.delete("Bob");
 The `Member` class takes the following into consideration.
 
 * The class ensures that member names are alphanumeric and does not allow for special characters including blank space.
-* This method is used in conjunction with a `TransactionList` obejct as part of a `Group`.
+* This method is used in conjunction with a `TransactionList` object as part of a `Group`.
 
 The `MemberList` class takes the following into consideration.
 
-* `updateMembersBalance` clears current balances at the start of invokation. This removes any transactions that are not captured within the `TransactionList` object passed into the method.
+* `updateMembersBalance` clears current balances at the start of invocation. This removes any transactions that are not captured within the `TransactionList` object passed into the method.
+
 
 ### Transaction and TransactionList
 <ins>Transaction Overview</ins>
 
-The Transaction class is responsible for representing a single transaction in the LongAh application between 2 members.
+The `Transaction` class is responsible for representing a single transaction in the LongAh application between 2 members.
 It contains information about the lender, borrowers, and the amount involved in the transaction.
 
+The `TransactionList` class manages a list of transactions in the LongAh application, providing methods to add, delete, and retrieve transactions from the list.
 
-<ins>Class Fields</ins>
-* lender: Represents the member who lent the money.
-* transaction time (optional): Represents the time at which the transaction took place.
-* subtransactions: An ArrayList of Subtransaction objects, representing individual borrowings within the transaction.
+<ins>Class Structure</ins>
 
-<ins>Transaction Constructor</ins>
+The `Transaction` class has the following attributes.
 
-`Transaction(String userInput, MemberList members)`
-* Parses the given user input and creates a new Transaction object with the specified lender, borrowers, and amount.
-* Called whenever a new transaction is added to the transaction list.
+* *lender*: A member object representing the lender in the transaction.
+* *transactionTime*: A DateTime object representing the time of the transaction. (optional)
+* *subtransactions*: An ArrayList of Subtransaction objects, representing individual borrowings within the transaction.
 
-`Transaction(Member lender, ArrayList<Subtransaction> subtransactions,
-MemberList members)`
-* Constructs a transaction instance using specified lender, subtransactions, member list.
-* This constructor is used for storage methods only.
+The `TransactionList` class has the following attribute.
 
-`Transaction(Member lender, ArrayList<Subtransaction> subtransactions,
-MemberList members, String transactionTime)`
-* Constructs a transaction instance using specified lender, subtransactions, member list and transaction time.
-* This constructor is used for storage methods only on entries with transaction time.
+* *transactions*: An ArrayList of Transaction objects representing the list of transactions in a group.
 
-<ins>Transaction Methods</ins>
+<ins>Implementation Details</ins>
+
+The detailed class diagram for `Transaction` and `TransactionList` can be found below.
+
+![Transaction Class Diagram](diagrams/TransactionClass.png)
+
+
+<ins>Constructor</ins>
+
+The `Transaction` constructor creates a transaction object with the specified lender and transaction time (if applicable). The subtransactions are initialized as an empty ArrayList.
+
+Key arguments of the `Transaction` constructor are a `Member` object `lender`, an ArrayList of `subtransactions`, and optionally a `DateTime` object `transactionTime`.
+
+<ins>Methods</ins>
+
+The `Transaction class` has the following key methods.
 
 - *parseTransaction*: Parses the user input to extract lender and borrowers, then adds them to the transaction.
-
-- *addBorrower*: Adds a borrower to the transaction.
-
-- *getLender*: Returns the lender of the transaction.
-
-- *isLender*: Checks if a given member is the lender of the transaction.
-
-- *isborrower*: Checks if a given member is a borrower in the transaction.
-
-- *isInvolved*: Checks if a given member is involved in the transaction.
-
-- *toStorageString*: Converts the transaction to a string format for storage.
-
-- *getSubtransactions*: Returns the list of subtransactions in the transaction.
-
 - *editTransaction*: Edits the transaction based on new user input.
-
 - *deleteMember*: Deletes a member from the transaction and returns true if transaction needs to be removed.
 
-- *haveTime*: Checks if a given transaction has a corresponding time component.
+The `TransactionList` class has the following key methods.
 
-
-<ins>TransactionList Overview</ins>
-
-The TransactionList class is responsible for managing a list of transactions in the LongAh application. It provides methods to add, delete, and retrieve transactions from the list.
-
-<ins>Class Fields</ins>
-
-- *transactions*: An ArrayList of Transaction objects representing the list of transactions in LongAh!.
-
-<ins>TransactionList Methods</ins>
-
-- *addTransaction*: Parses user input and adds a new transaction to the list.
-
-- *getTransactionListSize*: Returns the size of the transaction list.
-
+- *addTransaction*: Adds a new transaction to the list based on user input.
 - *remove*: Removes a transaction from the list based on the index.
-
 - *clear*: Clears all transactions from the list.
-
-- *getTransaction*: Returns the list of transactions.
-
-- *listTransactions*: Lists all transactions in the transaction list.
-
-- *findLender*: Finds all transaction where a specified member is the lender.
-
-- *findBorrower*: Finds all transaction where a specified member is a borrower.
-
+- *findLender*: Finds all transactions where a specified member is the lender.
+- *findBorrower*: Finds all transactions where a specified member is a borrower.
 - *findTransactions*: Finds a transaction based on member name.
-
+- *filterTransactionsEqualToDateTime*: Filters transactions based on the specified date and time.
+- *filterTransactionsBeforeDateTime*: Filters transactions before the specified date and time.
+- *filterTransactionsAfterDateTime*: Filters transactions after the specified date and time.
+- *filterTransactionsBetweenDateTime*: Filters transactions between the specified start and end date and time.
 - *editTransactionList*: Edits a transaction in the list based on user input.
-
 - *findDebts*: Finds all debts owed by a specified member.
-
 - *deleteMember*: Deletes a member from all transactions in the list.
 
 <ins>Usage Example</ins>
 
-Adding a new transaction:
-![addTransaction.png](diagrams%2FaddTransaction.png)
+The diagram below illustrates a sample usage scenario of adding a transaction: 
+![addTransaction.png](diagrams/addTransaction.png)
 
-Given below is an example usage scenario and how the Transaction class behaves at each step:
+The following code segment outlines a few sample usage of `TransactionList`.
 
-
-1. The user enters a new transaction using the 'add transaction' command with the lender, borrower(s), amount(s) and time specified.
-2. The TransactionList class takes in the user input and creates a new Transaction object with the specified details for the specified memberList.
-3. The Transaction class parses the user input to extract the lender and borrower(s) and adds them to the transaction.
-4. The Transaction object is added to the TransactionList, which stores the list of transactions.
-5. The Logger class logs the new transaction for information tracking, and logs a warning if an invalid transaction format is entered.
-6. The Group class then updates the best transaction settlement solution and member balances based on the new transaction.
-7. The StorageHandler class saves the updated data to the relevant files for future reference.
-
-Code Snippet
 ```
-MemberList members = group.getMemberList();
-TransactionList transactions = group.getTransactionList();
-transactions.addTransaction(taskExpression, members);
-group.updateTransactionSolution();
-group.saveAllData();
+import longah.util.MemberList;
+import longah.util.TransactionList;
+import longah.util.DateTime;
+
+// Adding a new transaction
+String input = "Alice p/Bob a/20";
+TransactionList transactions = new TransactionList();
+transactions.addTransaction(input, members);
+
+// Editing a transaction
+String editInput = "1 Alice p/Bob a/30";
+transactions.editTransactionList(editInput, members);
+
+// Deleting a transaction
+transactions.remove(1);
+
+// Finding all transactions where Alice is the lender
+ArrayList<Transaction> aliceTransactions = transactions.findLender("Alice");
+
+// Finding all transactions where Bob is a borrower
+ArrayList<Transaction> bobTransactions = transactions.findBorrower("Bob");
+
+// Finding a transaction based on member name
+Transaction transaction = transactions.findTransactions("Alice", "Bob");
+
+// Filtering transactions based on date and time
+DateTime dateTime = new DateTime("01-01-2022 1200");
+ArrayList<Transaction> filteredTransactions = transactions.filterTransactionsEqualToDateTime(dateTime);
+
+// Deleting a member from all transactions
+transactions.deleteMember("Alice");
 ```
-<ins>Conclusion</ins>
 
-The Transaction class provides functionality for managing transactions between
-facilitates the lending of money and ensures data integrity by validating input and managing member interactions.
+<ins>Design Considerations</ins>
 
-The TransactionList class provides essential functionalities for managing a list of transactions.
-Its methods facilitate the addition, removal, editing, and retrieval of transactions, ensuring efficient management of transactions within a group.
+The `Transaction` class takes the following into consideration.
+
+- Separate constructors and `parseTransaction` methods for storage purposes and user input parsing respectively.
+- `toStorageString` method takes in a String `delimiter` for the purpose of splitting the transaction string into its constituent parts for storage.
+- `subtransactions` are used to represent individual borrowings within a transaction.
+
+The `TransactionList` class takes the following into consideration.
+- Transactions are indexed starting from 1 for user reference and ease of use by other methods such as edit and delete.
+
+
+### DateTime
+
+<ins> Overview </ins>
+
+The `DateTime` class handles all operations in LongAh involving the tracking of time. This includes storing and printing
+the datetime elements in dated transactions, parsing user's date & time related inputs as well as filtering transactions
+according to their stored date & time. Implementation of the class is made possible with the help of the *java.time*
+system class.
+
+<ins> Class Structure </ins>
+
+Storing requirements only occurs for the specific datetime component of the class. Hence, the class field structure is
+as follows:
+
+- *dateTime*: A dateTime object from *java.time* representing date & time associated with the current 
+instance.
+
+<ins> Constructor </ins>
+
+The `DateTime` constructor takes in a string representation of date & time in the `DD-MM-YYYY HHMM` form and parse it into
+a LocalDateTime instance from *java.time* and stores it under the *dateTime* field.
+
+Invalid string date & time inputs to the constructor will trigger exceptions. The exceptions and triggering conditions
+are as follows:
+
+- `INVALID_TIME_FORMAT`: String input representing date & time is not in the `DD-MM-YYYY HHMM` format.
+- `INVALID_TIME_INPUT`: String input is representing a future date & time. This is not permitted in the LongAh system
+  considering real-life practicability.
+
+<ins> Methods </ins>
+
+The `DateTime` class has the following key methods:
+
+- *isBefore*: Determines whether an input DateTime object has a dateTime field that is before that of the current
+instance.
+- *isAfter*: Determines whether an input DateTime object has a dateTime field that is after that of the current
+instance.
+- *isEqual*: Determines whether an input DateTime object has a dateTime field that is equal to that of the current 
+instance.
+- *isFuture*: Determines whether the dateTime field of the current instance represent a future date & time (e.g. is 
+after the preset system time). Currently used within the constructor only.
+- *toStorageString*: Formats the dateTime field of the current instance into a String output suitable for loading and 
+storing.
+
+<ins>Usage Example</ins>
+
+The following UML diagram displays how the dateTime component is handled when the user is adding a dated transaction.
+
+![addDateTimeforDatedTransaction.png](diagrams/addDateTimeforDatedTransaction.png)
+
+Given below is an example usage scenario of how the `DateTime` class behaves at each step in adding dated transactions:
+
+1. Following steps 1-3 of the scenario of adding a new transaction, the `Transaction` class now identifies a potential 
+presence of a dateTime component in the userExpression through the specified prefix.
+2. It initiates the constructor method of the `DateTime` class and attempts to create a new object to store the user input 
+date & time. Validation of the dateTimeExpression will occur in the DateTime class at this stage.
+3. If the dateTimeExpression from the user is valid, the corresponding `DateTime` object will be returned to the
+Transaction class as a result and stored as the dateTime of the transaction.
+4. If the dateTimeExpression from the user is in the wrong format, exception occurs and the DateTime class will output 
+the "Invalid dateTime format" warning through the logger.
+5. If the dateTimeExpression from the user is an unrealistic future date & time, exception occurs and the `DateTime` class
+will output the "Invalid dateTime input" warning through the logger.
+6. If the `dateTime` component is appended successfully, the `Transaction` class will proceed to handle other details of the
+transaction input, as per adding a normal transaction.
+
+The following code segment outlines the above usage:
+```
+import longah.util.DateTime;
+import longah.util.Transaction;
+
+//In pareTransaction() method of the Transaction Class 
+if (splitInput[0].contains("t/")) { //Checks for the special prefix of date & time component while adding parsing user expression
+  String[] splitLenderTime = splitInput[0].split("t/", 2);
+  ...
+  this.transactionTime = new DateTime(splitLenderTime[1]);
+}
+```
+
+The following UML diagram displays how the dateTime component is handled when printout requests are initiated for dated 
+transactions.
+
+![printingDateTime](diagrams/printingDateTime.png)
+
+Given below is an example usage scenario of how the `DateTime` class behaves at each step when printouts are required:
+1. A String printout request is sent to the `Transaction` Class. 
+2. If the transaction has a dateTime component, proceed with sending a String printout request further to the DateTime
+class.
+3. The `DateTime` class formats the dateTime object of the current transaction into a String representation suitable for
+printout and returns this result back to Transaction class.
+4. The transaction class appends the returned String representation to the existing printout String.
+
+The following code segment outlines the above usage:
+```
+import longah.util.DateTime;
+import longah.util.Transaction;
+
+//In toString() method of the Transaction Class 
+if (this.haveTime()) { //Checks whether the current transaction has a dateTime component
+    time = "Transaction time: " + this.transactionTime + "\n"; //Initiates a toString() call to the DateTime class
+}
+```
+
+The following UML diagram displays how the dateTime component is compared with user inputs in time filtering methods 
+(e.g. in *filterTransactionsEqualToDateTime*).
+
+![comparingDateTime](diagrams/comparingDateTime.png)
+
+Given below is an example usage scenario of how the `DateTime` class behaves at each step when comparison is initiated by
+filter methods.
+1. Upon receiving a filtering request, the `TransactionList` class first initiates the DateTime constructor and attempts 
+to store the user's dateTime Expression into a `DateTime` object.
+2. After the successful creation of the userDateTime object, the filtering method proceeds by looping through all 
+transactions in the current list. 
+3. For every transaction, the `TransactionList` first gets the dateTime object of the transaction by calling the 
+getTransactionTime() method of the `Transaction` class.
+4. A comparison request (in this case .isEqual()) of the `DateTime` class is initiated, comparing the transactionDateTime
+as well as userDateTime objects of the class.
+5. Depending on the Boolean value determining the result of comparison, the filtering method will then proceed to decide
+if the current transaction is to be added to the printout.
+
+The following code segment outlines the above usage:
+```
+import longah.util.DateTime;
+import longah.util.Transaction;
+import longah.util.TransactionList;
+
+//In filterTransactionsEqualToDateTime() method of the TransactionList Class 
+DateTime dateTimeToCompare = new DateTime(dateTime); //Stores user expression into a DateTime object
+...
+for (Transaction transaction : this.transactions) {
+    ...
+    if (transaction.getTransactionTime().isEqual(dateTimeToCompare)) { //Compares the two DateTime objects using .isEqual() comparison method
+        ...
+}
+```
+
+<ins> Design Considerations </ins>
+
+To reduce the coupling of time-related operations with other classes as much as possible, the following precautions was
+put in-placed during the development of the DateTime class.
+
+- Isolation of `dateTime` checks: The validity of all dateTime inputs of LongAh is only checked and handled within the
+constructor of the `DateTime` class.
+- Isolation of comparison methods: `dateTime` fields are only accessed and compared through defined methods of the 
+DateTime class.
+- Isolation of printouts: All `dateTime` fields are formatted and output only through the toString() method.
+
+The above methods effectively contains all time handling under the single `DateTime` class. This allows developer to 
+change the input and output structure of time-related behaviors(e.g. formatting of time in printouts) easily without 
+compromising compatibility with other parts of the LongAh system.
 
 ### PIN
 
@@ -473,7 +743,6 @@ The file format is as follows:
 
 The `PINHandler` class has the following static fields:
 
-
 - *PIN_FILE_PATH*: The path to the file where the PIN and authentication status are saved.
 - *savedPin*: The hashed PIN saved in the file.
 - *authenticationEnabled*: A boolean flag indicating whether authentication is enabled.
@@ -493,6 +762,7 @@ If the file does not exist or the savedPin is empty, it calls the createPin meth
 - *createPin*: Prompts the user to create a new 6-digit PIN and hashes it before saving.
 - *authenticate*: Authenticates the user by comparing the entered PIN with the saved PIN.
 - *resetPin*: Resets the PIN for the user by prompting for the current PIN and creating a new PIN if the current
+
 PIN is correct.
 - *enablePin*: Enables authentication upon startup.
 - *disablePin*: Disables authentication upon startup.
@@ -503,11 +773,12 @@ PIN is correct.
 
 The following diagram illustrates the sequence during PIN authentication.
 
-![pinhandler longah.png](diagrams%2Fpinhandler%20longah.png)
+![pinhandler longah.png](diagrams/pinhandler%20longah.png)
+
 
 This diagram shows the sequence when the user resets their PIN.
 
-![pinreset.png](diagrams%2Fpinreset.png)
+![pinreset.png](diagrams/pinreset.png)
 
 Given below is an example usage scenario and how the PIN creation and authentication mechanism behaves at each step:
 
@@ -527,7 +798,7 @@ is set to false and saved to the file.
 8. The user relaunches the application, and authentication is no longer required since it has been disabled. 
 The user can proceed with the application and do any actions without entering a PIN.
 
-Code Snippet
+Code Segment
 ```
 // Initialize PINHandler
 PINHandler pinHandler = new PINHandler();
@@ -564,10 +835,9 @@ It provides a convenient way to visualize data, particularly for member balances
 
 <ins>Implementation Details</ins>
 
-Data Representation: 
+Data Representation:
 
 The `Chart` class utilizes the XChart library to represent data in the form of bar charts. It distinguishes positive and negative balances by differentiating them with green and red colors, respectively.
-
 
 <ins>Class Structure</ins>
 
@@ -577,9 +847,9 @@ The `Chart` class consists of the following components:
 
 <ins>Methods</ins>
 
-- *viewBalancesBarChart*(List<String> members, List<Double> balances): Generates a bar chart displaying member balances. It 
-distinguishes positive and negative balances and adds tooltips for enhanced user interaction. Additionally, it includes 
-an annotation recommending a command for managing debts effectively.
+- *viewBalancesBarChart*(List<String> members, List<Double> balances): Generates a bar chart displaying member balances. It
+  distinguishes positive and negative balances and adds tooltips for enhanced user interaction. Additionally, it includes
+  an annotation recommending a command for managing debts effectively.
 
 <ins>Usage Example</ins>
 
@@ -588,7 +858,7 @@ Given below is an example usage scenario and how the Chart class behaves at each
 1. The user adds a few members to the group and performs transactions among them.
 2. The user enters the 'chart' command to view the current balances of all members.
 
-Code Snippet
+Code Segment
 ```
 // Prepare data
 List<String> members = Arrays.asList("Member1", "Member2", "Member3");
@@ -611,7 +881,6 @@ hovered over.
 
 Annotation: An annotation is included to suggest a command for managing debts efficiently, ensuring users
 are aware of available features within the application.
-
 
 ### Exceptions and Logging
 
@@ -690,35 +959,40 @@ Busy people with large transaction quantities among friends
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|user|to be able to find the least transactions needed to resolve amounts owed by various members of my various groups|-|
-|v1.0|user|add transactions involving multiple people in a group|keep track of people involved and value of the transaction|
-|v1.0|user|edit transactions|fix mistakes made when entering transactions|
-|v1.0|user|delete transactions|clear erroneous transactions which I do not intend to keep|
-|v1.0|user|keep a log of my data|retain memory of past transactions in past runs of the platform|
-|v1.0|user|have easy access command to clear my pending debts|-|
-|v1.0|user|be able to organise people into groups|minimise the occurence of being affected by typos|
-|v1.0|user|add members to a group|add them to future transactions|
-|v1.0|user|restart data for a group|reduce clutter of the application|
-|v2.0|new user|view help commands|have an easy reference for commands while using the application|
-|v2.0|user|enable the use of passwords for my application|prevent wrongful access to my records|
-|v2.0|user|disable the password|have an easier time allowing people to view my records|
-|v2.0|user|edit my password|change my password in case it has been compromised|
-|v2.0|user|have my password be encrypted|ensure my password cannot be easily found out|
-|v2.0|user|edit members in my group|change their nicknames which I store within the application|
-|v2.0|user|delete current members|keep my groups neat and free of people who are no longer part of them|
-|v2.0|user|create more groups|use the application for multiple groups of friends without data overlapping|
-|v2.0|forgetful user|time of transactions to be saved|reference when each transaction were made|
-|v2.0|user|search for specific transactions|find out information relating to the transaction in case I need to affect it|
-|v2.1|advanced user|merge different groups together|combine groups which have large overlaps in members|
-|v2.1|user|setup expenditure limits|be notified when someone have too large of a debt|
-|v2.1|advanced user|create equal share transactions|add multiple people to a transaction without having to type their associated value to each of them|
-|v2.1|advanced user|have command shortcuts|input commands faster|
+| Version | As a ...       | I want to ...                                                                                                    | So that I can ...                                                                                  |
+|---------|----------------|------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| v1.0    | user           | to be able to find the least transactions needed to resolve amounts owed by various members of my various groups | -                                                                                                  |
+| v1.0    | user           | add transactions involving multiple people in a group                                                            | keep track of people involved and value of the transaction                                         |
+| v1.0    | user           | edit transactions                                                                                                | fix mistakes made when entering transactions                                                       |
+| v1.0    | user           | delete transactions                                                                                              | clear erroneous transactions which I do not intend to keep                                         |
+| v1.0    | user           | keep a log of my data                                                                                            | retain memory of past transactions in past runs of the platform                                    |
+| v1.0    | user           | have easy access command to clear my pending debts                                                               | -                                                                                                  |
+| v1.0    | user           | be able to organise people into groups                                                                           | minimise the occurrence of being affected by typos                                                 |
+| v1.0    | user           | add members to a group                                                                                           | add them to future transactions                                                                    |
+| v1.0    | user           | restart data for a group                                                                                         | reduce clutter of the application                                                                  |
+| v1.0    | user           | be able to organise people into groups                                                                           | minimise the occurrence of being affected by typos                                                 |
+| v1.0    | user           | add members to a group                                                                                           | add them to future transactions                                                                    |
+| v1.0    | user           | restart data for a group                                                                                         | reduce clutter of the application                                                                  |
+| v1.0    | user           | find transactions related to a certain member                                                                    | better keep track of my pending transactions or payments                                           |
+| v2.0    | new user       | view help commands                                                                                               | have an easy reference for commands while using the application                                    |
+| v2.0    | user           | enable the use of passwords for my application                                                                   | prevent wrongful access to my records                                                              |
+| v2.0    | user           | disable the password                                                                                             | have an easier time allowing people to view my records                                             |
+| v2.0    | user           | edit my password                                                                                                 | change my password in case it has been compromised                                                 |
+| v2.0    | user           | have my password be encrypted                                                                                    | ensure my password cannot be easily found out                                                      |
+| v2.0    | user           | edit members in my group                                                                                         | change their nicknames which I store within the application                                        |
+| v2.0    | user           | delete current members                                                                                           | keep my groups neat and free of people who are no longer part of them                              |
+| v2.0    | user           | create more groups                                                                                               | use the application for multiple groups of friends without data overlapping                        |
+| v2.0    | forgetful user | time of transactions to be saved                                                                                 | reference when each transaction were made                                                          |
+| v2.0    | user           | search for specific transactions                                                                                 | find out information relating to the transaction in case I need to affect it                       |
+| v2.1    | advanced user  | merge different groups together                                                                                  | combine groups which have large overlaps in members                                                |
+| v2.1    | user           | filter transactions based on transaction time                                                                    | easily reference a transaction made during an interested time period                               |
+| v2.1    | user           | setup expenditure limits                                                                                         | be notified when someone have too large of a debt                                                  |
+| v2.1    | advanced user  | create equal share transactions                                                                                  | add multiple people to a transaction without having to type their associated value to each of them |
+| v2.1    | advanced user  | have command shortcuts                                                                                           | input commands faster                                                                              |
 
 ## Non-Functional Requirements
 
-* Technical Requirements: Any mainstream OS, i.e. Windows, MacOS or Linux, with Java 11 installed. Instructions for downloading Java 11 can be found [here](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html).
+* Technical Requirements: Any mainstream OS, i.e. Windows, macOS or Linux, with Java 11 installed. Instructions for downloading Java 11 can be found [here](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html).
 * Project Scope Constraints: The application should only be used for tracking. It is not meant to be involved in any form of monetary transaction.
 * Project Scope Constraints: Data storage is only to be performed locally.
 * Quality Requirements: The application should be able to be used effectively by a novice with little experience with CLIs.
@@ -746,7 +1020,10 @@ JUnit tests are written in the [`test directory`](../src/test/java/longah/) and 
 
 Files relating to Text UI Testing can be found [here](../text-ui-test/).
 
-When running tests on a Windows system, run the following command from the specificied directory:
+Text UI testing has been configured to simulate multiple sessions run by the same user with a total of 10 tests being run. Details of each set of tests can be found in the README in the above directory. Tests can be modified by changing command calls in the `input` subdirectory, but this is not recommended since the differing expected output may cause tests to fail.
+
+When running tests on a Windows system, run the following command from the specified directory:
+
 ```
 ./runtest.bat
 ```
@@ -756,11 +1033,23 @@ When running tests on a UNIX-based system, run the following command from the sp
 ./runtest.sh
 ```
 
+Outcomes of these tests are listed in the below code segment.
+```
+// Successfully passed all tests
+All tests passed!
+
+// Tests failed: Differing output in test group 2 and member data files
+2 tests failed: MEMBER 2 
+```
+
 ## Future Enhancements
 
 1. Allow methods for undo-ing previous commands.
-2. Add page-scrolling for `list`, `find` and `filter` commands to reduce screen clogging.
-3. Inclusion of anomaly detection algorithms to flag out potentially erroneous transactions.
-4. Adding of further details tagged to each transaction and allow for searching of transactions based on these details.
-5. Create a reminder system to inform users of upcoming events or to warn them to settle payments.
-6. Allow the setting up of recurring transactions such as credit is deducted periodically.
+2. Allow users to set expenditure limits.
+3. Increase the number of group operations available (i.e. edit, merge).
+4. Add functionality for splitting a transaction by percentage share instead of raw value.
+5. Add page-scrolling for `list`, `find` and `filter` commands to reduce screen clogging.
+6. Inclusion of anomaly detection algorithms to flag out potentially erroneous transactions.
+7. Adding of further details tagged to each transaction and allow for searching of transactions based on these details.
+8. Create a reminder system to inform users of upcoming events or to warn them to settle payments.
+9. Allow the setting up of recurring transactions such as credit is deducted periodically.

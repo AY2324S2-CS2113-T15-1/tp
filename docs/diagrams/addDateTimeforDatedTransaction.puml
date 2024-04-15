@@ -1,0 +1,27 @@
+@startuml
+participant ":TransactionList" as Foo1
+participant ":Transaction" as Foo2
+participant ":DateTime" as Foo3
+participant ":LongAhException" as Foo4
+[->      Foo1 : ""addTransaction(taskExpression, members)""
+Foo1 -> Foo1:addTransaction(expression,memberList)
+Foo1 -> Foo2: new Transaction(expression, memberList)
+Foo2 -> Foo2:parseTransaction(expression, memberList)
+alt expression contains dateTimeExpression
+    Foo2 -> Foo3:new DateTime(dateTimeExpression)
+    alt dateTimeExpression is valid
+        Foo3 --> Foo2: DateTime object created
+        Foo2 -> Foo2: Transaction DateTime added
+        ref over Foo2: Adding other transaction details
+        Foo2 --> Foo1: Transaction object created
+        Foo1 --> Foo1: Transaction added
+        Foo1 -->[      :
+    else dateTimeExpression is not in format
+        Foo3 -> Foo4:LongAhException(invalid dateTime format)
+        ref over Foo4: Handling Invalid DateTime Format
+   else dateTimeExpression is of future
+        Foo3 -> Foo4: LongAhException(invalid  dateTime input)
+        ref over Foo4: Handling Invalid DateTime Input
+   end
+end
+@enduml
