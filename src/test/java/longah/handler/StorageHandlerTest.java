@@ -15,21 +15,6 @@ import java.io.FileWriter;
 
 public class StorageHandlerTest {
     /**
-     * Helper method to remove a directory and its contents.
-     * 
-     * @param dir The file to be removed
-     */
-    public void deleteDir(File dir) {
-        File[] contents = dir.listFiles();
-        if (contents != null) {
-            for (File file : contents) {
-                deleteDir(file);
-            }
-        }
-        dir.delete();
-    }
-
-    /**
      * Tests the successful file creation when the StorageHandler is constructed.
      */
     @Test
@@ -37,7 +22,7 @@ public class StorageHandlerTest {
         try {
             File f = new File("./data/test_grp1");
             File g;
-            deleteDir(f);
+            StorageHandler.deleteDir(f);
             MemberList members = new MemberList();
             TransactionList transactions = new TransactionList();
             new StorageHandler(members, transactions, "test_grp1");
@@ -46,7 +31,7 @@ public class StorageHandlerTest {
             g = new File("./data/test_grp1/transactions.txt");
             assertTrue(g.exists());
             // Delete test folders after completion
-            deleteDir(f);
+            StorageHandler.deleteDir(f);
         } catch (Exception e) {
             fail();
         }
@@ -59,7 +44,7 @@ public class StorageHandlerTest {
     public void loadMembersData_dataLoaded_success() {
         try {
             File f = new File("./data/test_grp2");
-            deleteDir(f);
+            StorageHandler.deleteDir(f);
             MemberList members1 = new MemberList();
             TransactionList transactions1 = new TransactionList();
             StorageHandler storage1 = new StorageHandler(members1, transactions1, "test_grp2");
@@ -72,7 +57,7 @@ public class StorageHandlerTest {
             String expected = "Alice: $10.00\nBob: -$10.00";
             assertEquals(expected, members2.listMembers());
             // Delete test folders after completion
-            deleteDir(f);
+            StorageHandler.deleteDir(f);
         } catch (Exception e) {
             fail();
         }
@@ -85,7 +70,7 @@ public class StorageHandlerTest {
     public void loadMembersData_invalidMembersData_exceptionThrown() {
         File f = new File("./data/test_grp3");
         try {
-            deleteDir(f);
+            StorageHandler.deleteDir(f);
             MemberList members1 = new MemberList();
             TransactionList transactions1 = new TransactionList();
             StorageHandler storage1 = new StorageHandler(members1, transactions1, "test_grp3");
@@ -100,7 +85,7 @@ public class StorageHandlerTest {
             assertTrue(isMessage);
             // Delete test folders after completion
             f = new File("./data/test_grp3");
-            deleteDir(f);
+            StorageHandler.deleteDir(f);
         }
     }
 
@@ -112,7 +97,7 @@ public class StorageHandlerTest {
         File f = new File("./data/test_grp4");
         File g;
         try {
-            deleteDir(f);
+            StorageHandler.deleteDir(f);
             MemberList members1 = new MemberList();
             TransactionList transactions1 = new TransactionList();
             new StorageHandler(members1, transactions1, "test_grp4");
@@ -129,7 +114,7 @@ public class StorageHandlerTest {
             assertTrue(isMessage);
             // Delete test folders after completion
             f = new File("./data/test_grp4");
-            deleteDir(f);
+            StorageHandler.deleteDir(f);
         } catch (Exception e) {
             // Filewriter error
             fail();

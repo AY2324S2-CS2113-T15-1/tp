@@ -8,25 +8,11 @@ import java.io.File;
 import org.junit.jupiter.api.Test;
 
 import longah.exception.ExceptionMessage;
+import longah.handler.StorageHandler;
 import longah.util.MemberList;
 import longah.util.TransactionList;
 
 public class GroupTest {
-    /**
-     * Helper method to remove a directory and its contents.
-     * 
-     * @param dir The file to be removed
-     */
-    public void deleteDir(File dir) {
-        File[] contents = dir.listFiles();
-        if (contents != null) {
-            for (File file : contents) {
-                deleteDir(file);
-            }
-        }
-        dir.delete();
-    }
-
     /**
      * Tests the successful file creation when the StorageHandler is constructed.
      */
@@ -36,7 +22,7 @@ public class GroupTest {
             Group group = new Group("TestGroup1");
             assertEquals("TestGroup1", group.getGroupName());
             File f = new File("./data/TestGroup1");
-            deleteDir(f);
+            StorageHandler.deleteDir(f);
         } catch (Exception e) {
             fail();
         }
@@ -84,7 +70,7 @@ public class GroupTest {
             group.settleUp("Bob");
             assertEquals("Alice: $0.00\nBob: $0.00", members.listMembers());
             File f = new File("./data/TestGroup1");
-            deleteDir(f);
+            StorageHandler.deleteDir(f);
         } catch (Exception e) {
             fail();
         }
@@ -105,7 +91,7 @@ public class GroupTest {
             transactions.addTransaction(expression, members, group);
             assertEquals("Best Way to Solve Debts:\nBob owes Alice $10.00", group.listDebts());
             File f = new File("./data/TestGroup1");
-            deleteDir(f);
+            StorageHandler.deleteDir(f);
         } catch (Exception e) {
             fail();
         }
@@ -140,7 +126,7 @@ public class GroupTest {
             transactions.addTransaction(expression, members, group);
             assertEquals("Bob owes Alice $10.00", group.listIndivDebt("Alice"));
             File f = new File("./data/TestGroup1");
-            deleteDir(f);
+            StorageHandler.deleteDir(f);
         } catch (Exception e) {
             fail();
         }
